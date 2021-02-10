@@ -1,0 +1,24 @@
+<!-- <section>
+	<div class="cs-bg">bg image</div>
+	<h1>Title</h1>
+</section>
+<section>
+	<img class="hero-img" src="">
+	<div>
+		<h2>intro header</h2>
+		<p>intro caption</p>
+	</div>
+</section> -->
+
+<swiper #thisSwiper [config]="config" style="height: 400px; width: 400px;">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide" *ngFor="let content of contents; let i = index">
+			{{ content.name }}
+		</div>
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+	<!-- Add Arrows -->
+	<div class="swiper-button-next"></div>
+	<div class="swiper-button-prev"></div>
+  </swiper>
