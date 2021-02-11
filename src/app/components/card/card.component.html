@@ -1,3 +1,4 @@
-<div (mouseenter)="pauseAnimation()" (mouseleave)="restartAnimation()" class="card" [class]="cardType" *ngFor="let card of cards; let i = index">
+<div (click)="jumpToCard($event, i)" class="card" [class]="cardType" *ngFor="let card of cards; let i = index">
     <div class="text">{{ card.name }}</div>
 </div>  
+<div click-stop-propagation class="exit-card" (click)="restartAnimation($event, i)"></div>

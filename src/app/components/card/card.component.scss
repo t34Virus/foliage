@@ -1,13 +1,31 @@
+@import '~compass-mixins/lib/compass/css3';
+$rainbow_segments: 20;
+
 .card {
     position: absolute;
-
+    &.disable {
+        pointer-events: none;
+    }
     &.default {
-        transform-origin: 1.5vw 17vw;
-        height: 10%;
-        width: 10%;
-        background-color: red;
-        &:hover {
-            // transform: scale(2) !important;
+        transform-origin: 1.5vw 100%;
+        height: 25%;
+        width: 100%/ $rainbow_segments;
+        background-color: transparent;
+        @for $i from 1 through $rainbow_segments {
+            &:nth-of-type(#{$i}) {
+              border: adjust-hue(red, ($i/$rainbow_segments)*360) 1px solid; 
+            }
+        }
+        &.scaleUp {
+            transition: all 0.5s ease-in-out 0.05s;
+            transform: scale(2) translateY(25%) translateX(-48%) !important;
+            width: 50%;
+            height: 50%;
+            z-index: 1;
+            background-color: white;
+            .text {
+                color: black;
+            }
         }
     }
     &.stick {
@@ -22,5 +40,16 @@
     }
     .text {
         font-size: 100%;
+        width: 100%;
+        color: white;
     }
+}
+.exit-card {
+    height: 3vw;
+    width: 3vw;
+    top: 0;
+    right: 0;
+    background-color: red;
+    position: absolute;
+    z-index: 1;
 }
