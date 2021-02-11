@@ -13,12 +13,15 @@ export class CardComponent implements OnInit {
   @Input() cards: ContentSetup[] = []
   @Input() cardType: string;
   private cardAnimation;
+  private jumpingSquares;
 
   constructor() { }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
+    this.jumpingSquares = document.querySelectorAll<HTMLElement>(".card.default")
     this.cardLayout(this.cardType);
+
   }
   cardLayout(cardType: string): void {
     switch(cardType) {
@@ -33,14 +36,25 @@ export class CardComponent implements OnInit {
         break;
     }
   }
-  pauseAnimation(): void {
+  jumpToCard(event, index): void {
     this.cardAnimation.pause()
+    this.scaleUpCard(event, index);    
+  }
+  scaleUpCard(event, index: number): void {
+    this.jumpingSquares.forEach((jumpingSquare, i) => {
+      if (i != index) {
+        jumpingSquare.classList.add('disable')
+      }
+    })
+    this.jumpingSquares[index].classList.add('scaleUp')
   }
   restartAnimation(): void {
     this.cardAnimation.restart()
+    this.jumpingSquares.forEach((jumpingSquare) => {
+        jumpingSquare.classList.remove('disable', 'scaleUp')
+    })
   }
   makeCircle(cards: ContentSetup[]): void {
-    console.log('default',cards);
     let interval: number = 360/(this.cards.length);
     let delay:number = 5000 / (this.cards.length*2);
     this.cardAnimation = anime.timeline({
@@ -51,11 +65,9 @@ export class CardComponent implements OnInit {
     });
     var translateY = -5;
     var translateX = 0.25;
-    var jumpingSquares = document.querySelectorAll<HTMLElement>(".card.default")
     
     let i:number = 0;
-    jumpingSquares.forEach(jumpingSquare => {
-      console.log(jumpingSquare);
+    this.jumpingSquares.forEach(jumpingSquare => {
       var rotate = interval * i;
       jumpingSquare.style.transform = 'rotate(' + rotate + 'deg) translateY(' + translateY + 'vw) translateX(' + translateX + 'vw)';
       // this.arrOfPositions.push(rotate);
