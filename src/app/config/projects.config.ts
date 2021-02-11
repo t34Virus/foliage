@@ -1,4 +1,4 @@
-import { ContentSetup } from '../model/content.model';
+import { ContentSetup } from '../model/contents.model';
 
 export const PROJECTS: ContentSetup[] = [
     {
@@ -290,7 +290,7 @@ export const PROJECTS: ContentSetup[] = [
         active: true
       },
       {
-        name: "Nissan: Reveals 2021",
+        name: "Nissan: Post Reveals 2021",
         thumb: "starfox.png",
         poster: "starfox.jpg",
         demo: "img|starfox.jpg",
