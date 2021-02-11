@@ -2,9 +2,13 @@
     position: absolute;
 
     &.default {
+        transform-origin: 1.5vw 17vw;
         height: 10%;
         width: 10%;
         background-color: red;
+        &:hover {
+            // transform: scale(2) !important;
+        }
     }
     &.stick {
         height: 20%;
