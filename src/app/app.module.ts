@@ -11,6 +11,7 @@ import { LandingPageComponent } from './components/pages/landing-page/landing-pa
 import { AppRoutingModule } from './app-routing.module';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
 import { CardComponent } from './components/card/card.component';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CardComponent } from './components/card/card.component';
     WorkPageComponent,
     LandingPageComponent,
     AboutPageComponent,
-    CardComponent
+    CardComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
