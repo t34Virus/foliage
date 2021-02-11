@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Pipe, PipeTransform } from '@angular/core';
 import { ContentSetup } from 'src/app/model/contents.model';
+import { DomSanitizer } from '@angular/platform-browser';
 import anime from 'animejs';
 import { gsap } from "gsap";
 
@@ -9,20 +10,23 @@ import { gsap } from "gsap";
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+
+  export class CardComponent implements OnInit {
+  @ViewChild('exitCard') exitCard: ElementRef;
   @Input() cards: ContentSetup[] = []
   @Input() cardType: string;
+  public mediaSrc: Array<string>;
   private cardAnimation;
   private jumpingSquares;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     this.jumpingSquares = document.querySelectorAll<HTMLElement>(".card.default")
     this.cardLayout(this.cardType);
-
   }
+
   cardLayout(cardType: string): void {
     switch(cardType) {
       case 'default':
@@ -41,6 +45,7 @@ export class CardComponent implements OnInit {
     this.scaleUpCard(event, index);    
   }
   scaleUpCard(event, index: number): void {
+    this.exitCard.nativeElement.classList.add('show');
     this.jumpingSquares.forEach((jumpingSquare, i) => {
       if (i != index) {
         jumpingSquare.classList.add('disable')
@@ -49,6 +54,7 @@ export class CardComponent implements OnInit {
     this.jumpingSquares[index].classList.add('scaleUp')
   }
   restartAnimation(): void {
+    this.exitCard.nativeElement.classList.remove('show');
     this.cardAnimation.restart()
     this.jumpingSquares.forEach((jumpingSquare) => {
         jumpingSquare.classList.remove('disable', 'scaleUp')

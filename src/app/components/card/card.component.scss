@@ -16,6 +16,9 @@ $rainbow_segments: 20;
               border: adjust-hue(red, ($i/$rainbow_segments)*360) 1px solid; 
             }
         }
+        iframe {
+            display: none;
+        }
         &.scaleUp {
             transition: all 0.5s ease-in-out 0.05s;
             transform: scale(2) translateY(25%) translateX(-48%) !important;
@@ -25,6 +28,9 @@ $rainbow_segments: 20;
             background-color: white;
             .text {
                 color: black;
+            }
+            iframe {
+                display: unset;
             }
         }
     }
@@ -51,5 +57,12 @@ $rainbow_segments: 20;
     right: 0;
     background-color: red;
     position: absolute;
-    z-index: 1;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.15s ease-in-out;
+    &.show {
+        transition-delay: 0;
+        opacity: 1;
+        z-index: 1;
+    }
 }
