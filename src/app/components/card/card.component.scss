@@ -11,6 +11,8 @@ $rainbow_segments: 20;
         height: 25%;
         width: 100%/ $rainbow_segments;
         background-color: transparent;
+        top: 25%;
+        left: 50%;
         @for $i from 1 through $rainbow_segments {
             &:nth-of-type(#{$i}) {
               border: adjust-hue(red, ($i/$rainbow_segments)*360) 1px solid; 
@@ -21,10 +23,12 @@ $rainbow_segments: 20;
         }
         &.scaleUp {
             transition: all 0.5s ease-in-out 0.05s;
-            transform: scale(2) translateY(25%) translateX(-48%) !important;
+            transform: scale(2)!important;
             width: 50%;
             height: 50%;
             z-index: 1;
+            top: 50%;
+            left: 0;
             background-color: white;
             .text {
                 color: black;
