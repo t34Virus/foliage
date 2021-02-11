@@ -77,6 +77,10 @@ import { gsap } from "gsap";
       var rotate = interval * i;
       jumpingSquare.style.transform = 'rotate(' + rotate + 'deg) translateY(' + translateY + 'vw) translateX(' + translateX + 'vw)';
       // this.arrOfPositions.push(rotate);
+      let titles = document.querySelectorAll<HTMLElement>(".text")
+      titles[i].style.transform = 'rotate(' + (-rotate) + 'deg)';
+
+      
       this.cardAnimation.add({
         begin: function() {
           anime({
