@@ -9,10 +9,18 @@ import { ContentSetup } from 'src/app/model/contents.model';
 })
 export class LandingPageComponent implements OnInit {
   public projects: ContentSetup[];
+  public cardTypeArray: Array<string> = [
+    'default',
+    'stick',
+    'fan'
+  ]
+  public cardType: string;
   constructor() { }
 
   ngOnInit(): void {
     this.getActiveProjects();
+    // this.cardType = this.cardTypeArray[this.getRandomInt(this.cardTypeArray.length)];
+    this.cardType = this.cardTypeArray[0]
   }
   getActiveProjects(): void {
     let tempArr: ContentSetup[] = [];
@@ -22,5 +30,8 @@ export class LandingPageComponent implements OnInit {
       }
     })
     this.projects = tempArr.reverse();
+  }
+  getRandomInt(max): number {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 }
