@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { SliderComponent } from './components/slider/slider.component'
 
 import { BreakpointClassesDirective } from './directives/breakpoint-classes.directive';
+import { WorkPageComponent } from './components/pages/work-page/work-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SliderComponent,
-    BreakpointClassesDirective
+    BreakpointClassesDirective,
+    WorkPageComponent
   ],
   imports: [
     BrowserModule,
