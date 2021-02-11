@@ -1,0 +1,12 @@
+<swiper #thisSwiper [config]="config" style="height: 100%; width: 100%">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide" *ngFor="let content of contents; let i = index">
+			{{ content.name }}
+		</div>
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+	<!-- Add Arrows -->
+	<div class="swiper-button-next"></div>
+	<div class="swiper-button-prev"></div>
+  </swiper>
