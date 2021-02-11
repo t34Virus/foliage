@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
+// import { CommonModule } from '@angular/common';
 import { SwiperOptions } from 'swiper';
 import { ContentSetup } from 'src/app/model/contents.model';
 import { SwiperComponent } from 'ngx-useful-swiper';

@@ -7,17 +7,21 @@ import { SliderComponent } from './components/slider/slider.component'
 
 import { BreakpointClassesDirective } from './directives/breakpoint-classes.directive';
 import { WorkPageComponent } from './components/pages/work-page/work-page.component';
+import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     SliderComponent,
     BreakpointClassesDirective,
-    WorkPageComponent
+    WorkPageComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
-    NgxUsefulSwiperModule
+    NgxUsefulSwiperModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
