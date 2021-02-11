@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'work', component: WorkPageComponent },
   { path: 'about', component: AboutPageComponent }
-
 ]
 
 @NgModule({
