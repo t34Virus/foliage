@@ -20,7 +20,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
     this.getActiveProjects();
     // this.cardType = this.cardTypeArray[this.getRandomInt(this.cardTypeArray.length)];
-    this.cardType = this.cardTypeArray[2]
+    this.cardType = this.cardTypeArray[0]
   }
   getActiveProjects(): void {
     let tempArr: ContentSetup[] = [];
