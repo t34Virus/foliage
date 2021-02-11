@@ -1,0 +1,22 @@
+.card {
+    position: absolute;
+
+    &.default {
+        height: 10%;
+        width: 10%;
+        background-color: red;
+    }
+    &.stick {
+        height: 20%;
+        width: 20%;
+        background-color: green;
+    }
+    &.fan {
+        height: 40%;
+        width: 20%;
+        background-color: blue;
+    }
+    .text {
+        font-size: 100%;
+    }
+}

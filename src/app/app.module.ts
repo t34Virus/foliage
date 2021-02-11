@@ -10,6 +10,7 @@ import { WorkPageComponent } from './components/pages/work-page/work-page.compon
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AboutPageComponent } from './components/pages/about-page/about-page.com
     BreakpointClassesDirective,
     WorkPageComponent,
     LandingPageComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
