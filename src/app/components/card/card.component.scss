@@ -7,10 +7,13 @@ $rainbow_segments: 20;
         pointer-events: none;
     }
     &.default {
-        transform-origin: 1.5vw 100%;
-        height: 25%;
+        transform-origin: 50% 160%;
+        height: 20%;
         width: 100%/ $rainbow_segments;
         background-color: transparent;
+        transition: background-color 0.15s ease-in-out, top 0.15s ease-in-out;
+        top: 15%;
+        left: 50%;
         @for $i from 1 through $rainbow_segments {
             &:nth-of-type(#{$i}) {
               border: adjust-hue(red, ($i/$rainbow_segments)*360) 1px solid; 
@@ -19,18 +22,69 @@ $rainbow_segments: 20;
         iframe {
             display: none;
         }
+        .text {
+            z-index: 2;
+            background-color: black;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+            span {
+                transform: scale(1);
+                transition: transform 0.25s ease-in-out;
+            }
+        }
+        .video-container {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+            display: flex;
+            justify-content: center;
+            video {
+                width: auto;
+                height: 100%;
+            }
+        }
+        &:hover {
+            background-color: grey;
+            z-index: 1;
+            .text {
+                span {
+                    transform: scale(2);
+                }
+            }
+            .video-container {
+                opacity: 1;
+            }
+        }
         &.scaleUp {
             transition: all 0.5s ease-in-out 0.05s;
-            transform: scale(2) translateY(25%) translateX(-48%) !important;
+            transform: scale(2)!important;
+            transform-origin: 0 100%;
             width: 50%;
             height: 50%;
             z-index: 1;
-            background-color: white;
+            top: 50%;
+            left: 0;
+            background-color: black;
+            border: none;
             .text {
-                color: black;
+                opacity: 1;
+                transform: scale(1) !important;
+                span {
+                    color: white;
+                    transform: scale(1);
+                }
             }
             iframe {
                 display: unset;
+            }
+            .video-container {
+                opacity: 1;
+                video {
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
     }
@@ -45,9 +99,12 @@ $rainbow_segments: 20;
         background-color: blue;
     }
     .text {
-        font-size: 100%;
-        width: 100%;
-        color: white;
+        span {
+            position: absolute;
+            font-size: 100%;
+            width: 100%;
+            color: white;
+        }
     }
 }
 .exit-card {
@@ -64,5 +121,26 @@ $rainbow_segments: 20;
         transition-delay: 0;
         opacity: 1;
         z-index: 1;
+    }
+}
+.center-text {
+    position: absolute;
+    left: 35%;
+    top: 27%;
+    border-radius: 100%;
+    overflow: hidden;
+    height: 42%;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    
+    color: white;
+    text-align: center;
+    font-size: 150%;
+    &.show {
+        opacity: 1;
     }
 }
