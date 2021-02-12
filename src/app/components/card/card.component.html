@@ -1,4 +1,5 @@
-<div (click)="jumpToCard($event, i)" class="card" [class]="cardType" *ngFor="let card of cards; let i = index" >
+
+<div (click)="jumpToCard($event, i)" (mouseenter)="cardAnimation.pause()" (mouseleave)="cardAnimation.play()" class="card" [class]="cardType" *ngFor="let card of cards; let i = index">
     <!-- <iframe *ngIf="card.embed.split('|')[0] == 'vid'" width="100%" height="100%" [src]="card.embed.split('|')[1] | safe" frameborder="0" allow="autoplay; fullscreen;"></iframe> -->
     <div class="text">
         <span [innerHTML]="card.name.replace(':','<br>')"></span>
@@ -8,3 +9,6 @@
     </div>
 </div>  
 <div #exitCard class="exit-card" (click)="restartAnimation()"></div>
+<div class="center-video">
+    <video #centerVideo autoplay loop ></video>
+</div>
