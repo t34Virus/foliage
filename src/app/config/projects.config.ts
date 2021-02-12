@@ -18,7 +18,7 @@ export const PROJECTS: ContentSetup[] = [
         thumb: "journey.png",
         poster: "baxter_journey.JPG",
         demo: "",
-        embed: "vid|https://www.youtube.com/embed/JNWT3IW7ce4",
+        embed: "vid|https://player.vimeo.com/video/511260901",
         copy: "Interactive experience and sales tool following four patient journeys.",
         platform: "iPad, mural",
         url: "",
@@ -30,7 +30,7 @@ export const PROJECTS: ContentSetup[] = [
         thumb: "inhance.png",
         poster: "inhance.png",
         demo: "",
-        embed: "vid|https://www.youtube.com/embed/Xz0yaVOkyDk",
+        embed: "vid|https://player.vimeo.com/video/511260825",
         copy: "Offical website for Inhance Digital Marketing Agency",
         platform: "responsive",
         url: "https://www.inhance.com/",
@@ -38,7 +38,7 @@ export const PROJECTS: ContentSetup[] = [
         active: true
       },
       {
-        name: "Cummins:2.0",
+        name: "Cummins:2.0 Engine Interactive",
         thumb: "2.0.png",
         poster: "2.0.JPG",
         demo: "vid|http://inhancemetrics.com/videos/2.0.mp4",
@@ -50,11 +50,11 @@ export const PROJECTS: ContentSetup[] = [
         active: true
       },
       {
-        name: "Cummins:Components",
+        name: "Cummins:ConExpo",
         thumb: "con_expo.png",
         poster: "cummins17FEB02.png",
         demo: "vid|http://inhancemetrics.com/videos/",
-        embed: "vid|https://www.youtube.com/embed/16QksgwCvEs",
+        embed: "vid|https://player.vimeo.com/video/511260939",
         copy: "Interactive experience and product information tool for Cummins' Off-Highway Engine Components.",
         platform: "mural, surfacePro",
         url: "http://inhancemetrics.com:3006/conexpo",
@@ -170,7 +170,7 @@ export const PROJECTS: ContentSetup[] = [
         active: false
       },
       {
-        name: "TEDx Honolulu:Paradigm Shift | Scheduler",
+        name: "TEDx Honolulu:Paradigm Shift:Scheduler",
         thumb: "tedxfront.png",
         poster: "tedxfront.jpg",
         demo: "img|tedxfront.jpg",
@@ -182,7 +182,7 @@ export const PROJECTS: ContentSetup[] = [
         active: true
       },
       {
-        name: "TEDx Honolulu:Paradigm Shift | CMS",
+        name: "TEDx Honolulu:Paradigm Shift:CMS",
         thumb: "tedx.png",
         poster: "tedx.jpg",
         demo: "img|tedx.jpg",
@@ -227,7 +227,7 @@ export const PROJECTS: ContentSetup[] = [
         platform: "desktop",
         url: "",
         tech: [0,10,17,18,19,27,32,33,34],
-        active: true
+        active: false
       },
       {
         name: "DevLeague:Starfox Travel Agency",
@@ -278,7 +278,7 @@ export const PROJECTS: ContentSetup[] = [
         active: true
       },   
       {
-        name: "Adobe: Winners",
+        name: "Adobe: Platinum Club",
         thumb: "starfox.png",
         poster: "starfox.jpg",
         demo: "img|starfox.jpg",
@@ -287,10 +287,10 @@ export const PROJECTS: ContentSetup[] = [
         platform: "responsive",
         url: "starfox.tdogg.io",
         tech: [6,17,18,31],
-        active: true
+        active: false
       },
       {
-        name: "Nissan: Post Reveals 2021",
+        name: "Nissan: NEXT Lineup",
         thumb: "starfox.png",
         poster: "starfox.jpg",
         demo: "img|starfox.jpg",
@@ -299,7 +299,7 @@ export const PROJECTS: ContentSetup[] = [
         platform: "responsive",
         url: "starfox.tdogg.io",
         tech: [6,17,18,31],
-        active: true
+        active: false
       },  
       {
         name: "FM Global: Hacker Resilience",
@@ -307,6 +307,18 @@ export const PROJECTS: ContentSetup[] = [
         poster: "starfox.jpg",
         demo: "img|starfox.jpg",
         embed: "vid|https://player.vimeo.com/video/511263904",
+        copy: "Responsive, hotel informational",
+        platform: "responsive",
+        url: "starfox.tdogg.io",
+        tech: [6,17,18,31],
+        active: true
+      },  
+      {
+        name: "Andersen:VR Showroom",
+        thumb: "starfox.png",
+        poster: "starfox.jpg",
+        demo: "img|starfox.jpg",
+        embed: "vid|https://player.vimeo.com/video/511363802",
         copy: "Responsive, hotel informational",
         platform: "responsive",
         url: "starfox.tdogg.io",
