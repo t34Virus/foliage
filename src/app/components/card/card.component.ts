@@ -18,13 +18,19 @@ import { gsap } from "gsap";
   public mediaSrc: Array<string>;
   private cardAnimation;
   private jumpingSquares;
+  private demoVideos;
+  private cardActive: boolean = false;
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     this.jumpingSquares = document.querySelectorAll<HTMLElement>(".card.default")
+    this.demoVideos = document.querySelectorAll<HTMLVideoElement>(".demo-video");
     this.cardLayout(this.cardType);
+    this.demoVideos.forEach(demoVideo => {
+      demoVideo.muted = true;
+    })
   }
 
   cardLayout(cardType: string): void {
@@ -52,6 +58,7 @@ import { gsap } from "gsap";
       }
     })
     this.jumpingSquares[index].classList.add('scaleUp')
+    this.cardActive = true;
   }
   restartAnimation(): void {
     this.exitCard.nativeElement.classList.remove('show');
@@ -59,6 +66,18 @@ import { gsap } from "gsap";
     this.jumpingSquares.forEach((jumpingSquare) => {
         jumpingSquare.classList.remove('disable', 'scaleUp')
     })
+    this.cardActive = false;
+  }
+  playDemo(event, index: number): void {
+    if (!this.cardActive) {
+      event.target.load();
+      event.target.play();
+    }
+  }
+  stopDemo(event, index: number): void {
+    if (!this.cardActive) {
+      event.target.pause();
+    }
   }
   makeCircle(cards: ContentSetup[]): void {
     let interval: number = 360/(this.cards.length);
