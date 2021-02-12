@@ -1,7 +1,13 @@
 <swiper #thisSwiper [config]="config" style="height: 100%; width: 100%">
 	<div class="swiper-wrapper">
 		<div class="swiper-slide" *ngFor="let content of contents; let i = index">
-			{{ content.name }}
+			<h1 [innerHTML]="content.name.replace(':','<br>')"></h1>
+			<div class="video-container">
+				<!-- <video class="vimeo-video" muted="true" loop *ngIf="content.embed.split('|')[0] == 'vid'" [src]="'assets/videos/'+content.embed.split('|')[1] | safe"  [value]="content.name.replace(':','<br>')"></video> -->
+				<iframe *ngIf="content.embed.split('|')[0] == 'vid'" width="100%" height="100%" [src]="content.embed.split('|')[1] | safe" frameborder="0" allow="autoplay; fullscreen;"></iframe>
+
+			</div>
+			<p>{{ content.copy }}</p>
 		</div>
 	</div>
 	<!-- Add Pagination -->

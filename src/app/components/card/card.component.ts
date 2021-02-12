@@ -35,7 +35,6 @@ import { gsap } from "gsap";
     this.demoVideos.forEach(demoVideo => {
       demoVideo.muted = true;
     })
-    this.cardAnimation.pause();
   }
 
   cardLayout(cardType: string): void {
