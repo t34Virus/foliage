@@ -13,7 +13,7 @@ import { gsap } from "gsap";
 
   export class CardComponent implements OnInit {
   @ViewChild('exitCard') exitCard: ElementRef;
-  @ViewChild('centerVideo') centerVideo: ElementRef;
+  @ViewChild('centerText') centerText: ElementRef;
 
   @Input() cards: ContentSetup[] = []
   @Input() cardType: string;
@@ -23,6 +23,7 @@ import { gsap } from "gsap";
   private jumpingSquares;
   private demoVideos;
   private cardActive: boolean = false;
+  public currentTitle: string;
 
   constructor(private sanitizer: DomSanitizer) { }
 
@@ -34,6 +35,7 @@ import { gsap } from "gsap";
     this.demoVideos.forEach(demoVideo => {
       demoVideo.muted = true;
     })
+    this.cardAnimation.pause();
   }
 
   cardLayout(cardType: string): void {
@@ -72,14 +74,22 @@ import { gsap } from "gsap";
     this.cardActive = false;
   }
   playDemo(event, index: number): void {
-    this.centerVideo.nativeElement.src = event.target.src;
-    this.centerVideo.nativeElement.load()
-    this.centerVideo.nativeElement.play()
-    this.centerVideo.nativeElement.classList.add('show');
+    if (!this.cardActive) {
+      event.target.load();
+      event.target.play();
+    }
+    this.currentTitle = event.target.value;
+    // this.centerVideo.nativeElement.src = event.target.src;
+    // this.centerVideo.nativeElement.load()
+    // this.centerVideo.nativeElement.play()
+    this.centerText.nativeElement.classList.add('show');
   }
   stopDemo(event, index: number): void {
-    this.centerVideo.nativeElement.classList.remove('show');
-    this.centerVideo.nativeElement.pause()
+    if (!this.cardActive) {
+      event.target.pause();
+    }
+    this.centerText.nativeElement.classList.remove('show');
+    // this.centerVideo.nativeElement.pause()
   }
   makeCircle(cards: ContentSetup[]): void {
     let interval: number = 360/(this.cards.length);
