@@ -13,18 +13,28 @@ import { gsap } from "gsap";
 
   export class CardComponent implements OnInit {
   @ViewChild('exitCard') exitCard: ElementRef;
+  @ViewChild('centerText') centerText: ElementRef;
+
   @Input() cards: ContentSetup[] = []
   @Input() cardType: string;
   public mediaSrc: Array<string>;
-  private cardAnimation;
+  public targetVideoSrc: string;
+  public cardAnimation;
   private jumpingSquares;
+  private demoVideos;
+  private cardActive: boolean = false;
+  public currentTitle: string;
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     this.jumpingSquares = document.querySelectorAll<HTMLElement>(".card.default")
+    this.demoVideos = document.querySelectorAll<HTMLVideoElement>(".demo-video");
     this.cardLayout(this.cardType);
+    this.demoVideos.forEach(demoVideo => {
+      demoVideo.muted = true;
+    })
   }
 
   cardLayout(cardType: string): void {
@@ -52,13 +62,33 @@ import { gsap } from "gsap";
       }
     })
     this.jumpingSquares[index].classList.add('scaleUp')
+    this.cardActive = true;
   }
   restartAnimation(): void {
     this.exitCard.nativeElement.classList.remove('show');
-    this.cardAnimation.restart()
+    this.cardAnimation.play()
     this.jumpingSquares.forEach((jumpingSquare) => {
         jumpingSquare.classList.remove('disable', 'scaleUp')
     })
+    this.cardActive = false;
+  }
+  playDemo(event, index: number): void {
+    if (!this.cardActive) {
+      event.target.load();
+      event.target.play();
+    }
+    this.currentTitle = event.target.value;
+    // this.centerVideo.nativeElement.src = event.target.src;
+    // this.centerVideo.nativeElement.load()
+    // this.centerVideo.nativeElement.play()
+    this.centerText.nativeElement.classList.add('show');
+  }
+  stopDemo(event, index: number): void {
+    if (!this.cardActive) {
+      event.target.pause();
+    }
+    this.centerText.nativeElement.classList.remove('show');
+    // this.centerVideo.nativeElement.pause()
   }
   makeCircle(cards: ContentSetup[]): void {
     let interval: number = 360/(this.cards.length);
@@ -77,6 +107,10 @@ import { gsap } from "gsap";
       var rotate = interval * i;
       jumpingSquare.style.transform = 'rotate(' + rotate + 'deg) translateY(' + translateY + 'vw) translateX(' + translateX + 'vw)';
       // this.arrOfPositions.push(rotate);
+      let titles = document.querySelectorAll<HTMLElement>(".text")
+      titles[i].style.transform = 'rotate(' + (-rotate) + 'deg)';
+
+      
       this.cardAnimation.add({
         begin: function() {
           anime({
