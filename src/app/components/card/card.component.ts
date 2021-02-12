@@ -13,10 +13,13 @@ import { gsap } from "gsap";
 
   export class CardComponent implements OnInit {
   @ViewChild('exitCard') exitCard: ElementRef;
+  @ViewChild('centerVideo') centerVideo: ElementRef;
+
   @Input() cards: ContentSetup[] = []
   @Input() cardType: string;
   public mediaSrc: Array<string>;
-  private cardAnimation;
+  public targetVideoSrc: string;
+  public cardAnimation;
   private jumpingSquares;
   private demoVideos;
   private cardActive: boolean = false;
@@ -62,22 +65,21 @@ import { gsap } from "gsap";
   }
   restartAnimation(): void {
     this.exitCard.nativeElement.classList.remove('show');
-    this.cardAnimation.restart()
+    this.cardAnimation.play()
     this.jumpingSquares.forEach((jumpingSquare) => {
         jumpingSquare.classList.remove('disable', 'scaleUp')
     })
     this.cardActive = false;
   }
   playDemo(event, index: number): void {
-    if (!this.cardActive) {
-      event.target.load();
-      event.target.play();
-    }
+    this.centerVideo.nativeElement.src = event.target.src;
+    this.centerVideo.nativeElement.load()
+    this.centerVideo.nativeElement.play()
+    this.centerVideo.nativeElement.classList.add('show');
   }
   stopDemo(event, index: number): void {
-    if (!this.cardActive) {
-      event.target.pause();
-    }
+    this.centerVideo.nativeElement.classList.remove('show');
+    this.centerVideo.nativeElement.pause()
   }
   makeCircle(cards: ContentSetup[]): void {
     let interval: number = 360/(this.cards.length);
