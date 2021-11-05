@@ -1,0 +1,55 @@
+div {
+    color: white;
+    text-align: center;
+    text-transform: lowercase;
+}
+h1 {
+    text-align: center;
+}
+.list {
+    margin-top: 10rem;
+}
+.sub-list {
+    float: left;
+    width: 33.33%;
+    .list:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    span {
+        font-size: 1.25rem;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    li {
+        font-size: 1rem;
+        text-align: left;
+        text-transform: lowercase;
+        margin-top: 0.5rem;
+    }
+
+}
+
+@media (orientation: portrait) {
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+    .list {
+        margin-top: 0;
+    }
+    .sub-list {
+        width: 95%;
+        margin-top: 1rem;
+        span {
+            // text-align: left;
+            font-size: 1rem;
+        }
+        li {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            margin-left: 0.85rem;
+        }
+    }
+}

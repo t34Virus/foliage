@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PROJECTS } from 'src/app/config/projects.config'
 import { ContentSetup } from 'src/app/model/contents.model';
+import { ActiveProjectService } from 'src/app/services/active-project.service'
 
 @Component({
   selector: 'app-landing-page',
@@ -8,6 +9,8 @@ import { ContentSetup } from 'src/app/model/contents.model';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
+  public currentPage: string;
+  public currentTitle: string;
   public projects: ContentSetup[];
   public cardTypeArray: Array<string> = [
     'default',
@@ -15,7 +18,18 @@ export class LandingPageComponent implements OnInit {
     'fan'
   ]
   public cardType: string;
-  constructor() { }
+  constructor(
+    private activeProjectService: ActiveProjectService
+  ) { 
+    this.activeProjectService.currentPage().subscribe((currentPage:string) => {  
+      console.log(currentPage);
+      this.currentPage = currentPage;
+    })
+    this.activeProjectService.currentProject().subscribe((currentProject:number) => {  
+      console.log(currentProject);
+      this.currentTitle = PROJECTS[currentProject].name;
+    })
+  }
 
   ngOnInit(): void {
     this.getActiveProjects();
@@ -33,5 +47,8 @@ export class LandingPageComponent implements OnInit {
   }
   getRandomInt(max): number {
     return Math.floor(Math.random() * Math.floor(max));
+  }
+  showPage(page:string) {
+    this.activeProjectService.setPage(page);
   }
 }

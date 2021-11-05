@@ -11,32 +11,21 @@ import { SwiperOptions } from 'swiper';
 export class WorkPageComponent implements OnInit {
   public projects: ContentSetup[];
   public pageConfig: SwiperOptions = {
-    pagination: { el: '.swiper-pagination', clickable: true },
+    // pagination: { el: '.swiper-pagination', clickable: true },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-    effect: 'fade',
-    fadeEffect: {
-      crossFade: true
-    },
+    // effect: 'fade',
+    // fadeEffect: {
+    //   crossFade: true
+    // },
     loop: true,
-    slidesPerView: 1,
-    spaceBetween: 0,
+    slidesPerView: 2.5,
+    spaceBetween: 30,
     centeredSlides: true,
     initialSlide: 0,
     allowTouchMove: true,
-    breakpoints: {
-      '@0.00': {
-        // allowTouchMove: true
-      },
-      '@1.00': {
-        // allowTouchMove: true
-      },
-      '@1.01': {
-        // allowTouchMove: false
-      }
-    },
     on: {
       beforeInit: function() {
       },
