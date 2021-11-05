@@ -1,10 +1,10 @@
 <swiper #thisSwiper [config]="config" style="height: 100%; width: 100%">
 	<div class="swiper-wrapper">
-		<div class="swiper-slide" *ngFor="let content of contents; let i = index">
-			<h1 [innerHTML]="content.name.replace(':','<br>')"></h1>
-			<div class="video-container">
+		<div class="swiper-slide" [data-history]="'slide' + index" *ngFor="let content of contents; let i = index">
+			<h1 [innerHTML]="content.name.replace(':',' | ')"></h1>
+			<div *ngIf="content.embed.split('|')[0] == 'vid'" class="video-container">
 				<!-- <video class="vimeo-video" muted="true" loop *ngIf="content.embed.split('|')[0] == 'vid'" [src]="'assets/videos/'+content.embed.split('|')[1] | safe"  [value]="content.name.replace(':','<br>')"></video> -->
-				<iframe *ngIf="content.embed.split('|')[0] == 'vid'" width="100%" height="100%" [src]="content.embed.split('|')[1] | safe" frameborder="0" allow="autoplay; fullscreen;"></iframe>
+				<iframe width="100%" height="100%" [src]="content.embed.split('|')[1] | safe" [id]="'video_'+content.embed.split('video/')[1].toString()" [attr.data-vimeo-id]="content.embed.split('video/')[1].toString()" frameborder="0" allow="autoplay; fullscreen;" loop="1"></iframe>
 
 			</div>
 			<p>{{ content.copy }}</p>
