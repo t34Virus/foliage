@@ -17,15 +17,50 @@ section:nth-child(4) {
     justify-content: center;
     text-align: center;
     align-items: center;
-	h1, p {
+	h1, p{
 		color: white;
 	}
+	a {
+		text-decoration: none;
+		color: rgb(160, 240, 173);
+		font-size: 1rem;
+	}
 	.video-container {
-		height: 70%;
+		height: 60%;
 		width: 80%;
 		iframe {
 			width: 100%;
 			height: 100%;
 		}
+	}
+	p {
+		font-size: 1rem;
+	}
+}
+.swiper-button-prev {
+	left: 0;
+}
+.swiper-button-next {
+	right: 0;
+}
+
+@media (orientation: portrait) {
+	.swiper-slide {
+		.video-container {
+			height: 45%;
+			width: 95%;
+		}
+	}
+	.swiper-button-prev, .swiper-button-next {
+		position: fixed;
+		left: 47.5%;
+		transform: rotate(90deg);
+	}
+	.swiper-button-prev {
+		top: 6rem;
+	}
+	.swiper-button-next {
+		top: unset;
+		bottom: 6rem;
 	}
 }

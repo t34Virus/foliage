@@ -2,8 +2,10 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Pipe, PipeTransform } 
 import { ContentSetup } from 'src/app/model/contents.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import anime from 'animejs';
+import {Router} from '@angular/router';
 import { gsap } from "gsap";
-
+import { ActiveProjectService } from 'src/app/services/active-project.service'
+import { PROJECTS } from 'src/app/config/projects.config';
 
 @Component({
   selector: 'app-card',
@@ -14,6 +16,8 @@ import { gsap } from "gsap";
   export class CardComponent implements OnInit {
   @ViewChild('exitCard') exitCard: ElementRef;
   @ViewChild('centerText') centerText: ElementRef;
+  @ViewChild('centerVideo') centerVideo: ElementRef;
+
 
   @Input() cards: ContentSetup[] = []
   @Input() cardType: string;
@@ -23,12 +27,29 @@ import { gsap } from "gsap";
   private jumpingSquares;
   private demoVideos;
   private cardActive: boolean = false;
+  private firstLanding: boolean = true;
   public currentTitle: string;
+  private cardActiveTimeout: ReturnType<typeof setTimeout>;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private route:Router,
+    private activeProjectService: ActiveProjectService
+    ) {
+      // this.activeProjectService.currentPage().subscribe((currentPage:string) => {  
+      //   if (currentPage == 'home' && !this.firstLanding) {
+      //     this.restartAnimation();
+      //   }
+      //   if (this.firstLanding) {
+      //     this.firstLanding = false;
+      //   }
+      // })
+     }
 
   ngOnInit(): void {}
+  
   ngAfterViewInit(): void {
+
     this.jumpingSquares = document.querySelectorAll<HTMLElement>(".card.default")
     this.demoVideos = document.querySelectorAll<HTMLVideoElement>(".demo-video");
     this.cardLayout(this.cardType);
@@ -52,7 +73,14 @@ import { gsap } from "gsap";
   }
   jumpToCard(event, index): void {
     this.cardAnimation.pause()
-    this.scaleUpCard(event, index);    
+    this.scaleUpCard(event, index);   
+    // this.activeProjectService.setProject(index);
+    console.log(PROJECTS[index], index);
+    if (this.cardActive) {
+      // this.route.navigate(['/work'],{queryParams: {slide: index}})
+      this.activeProjectService.setProject(index);
+      this.activeProjectService.setPage('work');
+    }
   }
   scaleUpCard(event, index: number): void {
     this.exitCard.nativeElement.classList.add('show');
@@ -62,31 +90,36 @@ import { gsap } from "gsap";
       }
     })
     this.jumpingSquares[index].classList.add('scaleUp')
-    this.cardActive = true;
+    this.cardActiveTimeout = setTimeout(() => {
+      this.cardActive = true;
+    },1500)
   }
   restartAnimation(): void {
+    clearTimeout(this.cardActiveTimeout)
     this.exitCard.nativeElement.classList.remove('show');
     this.cardAnimation.play()
     this.jumpingSquares.forEach((jumpingSquare) => {
         jumpingSquare.classList.remove('disable', 'scaleUp')
     })
     this.cardActive = false;
+    this.activeProjectService.setPage('home');
   }
   playDemo(event, index: number): void {
-    if (!this.cardActive) {
-      event.target.load();
-      event.target.play();
-    }
-    this.currentTitle = event.target.value;
+    // if (!this.cardActive) {
+    //   event.target.load();
+    //   event.target.play();
+    // }
     // this.centerVideo.nativeElement.src = event.target.src;
     // this.centerVideo.nativeElement.load()
     // this.centerVideo.nativeElement.play()
+    this.currentTitle = event.target.value;
     this.centerText.nativeElement.classList.add('show');
   }
   stopDemo(event, index: number): void {
-    if (!this.cardActive) {
-      event.target.pause();
-    }
+    // if (!this.cardActive) {
+    //   event.target.pause();
+    // }
+
     this.centerText.nativeElement.classList.remove('show');
     // this.centerVideo.nativeElement.pause()
   }
@@ -109,8 +142,6 @@ import { gsap } from "gsap";
       // this.arrOfPositions.push(rotate);
       let titles = document.querySelectorAll<HTMLElement>(".text")
       titles[i].style.transform = 'rotate(' + (-rotate) + 'deg)';
-
-      
       this.cardAnimation.add({
         begin: function() {
           anime({
