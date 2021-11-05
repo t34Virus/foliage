@@ -5,6 +5,7 @@ import { SwiperComponent } from 'ngx-useful-swiper';
 import  Player  from '@vimeo/player';
 import { Observable, Subscription } from 'rxjs'
 import { ActiveProjectService } from 'src/app/services/active-project.service';
+import { DeviceInfoService } from 'src/app/services/device-info.service'
 
 // import SwiperCore from 'swiper/core';
 @Component({
@@ -20,9 +21,12 @@ export class SliderComponent implements OnInit {
   private player: Player;
   private playerArray: Array<any>;
   private videoPlaybackTimer: ReturnType<typeof setTimeout>;
-
+  private orientation: string;
+  private oldOrientation: string;
   constructor(
-    private activeProjectService: ActiveProjectService) { 
+    private activeProjectService: ActiveProjectService,
+    private deviceInfoService: DeviceInfoService
+    ) { 
 
     }
   
@@ -49,6 +53,21 @@ export class SliderComponent implements OnInit {
     })
     this.activeProjectService.currentProject().subscribe((currentProjectIndex:number) => {  
       this.thisSwiper.swiper.slideToLoop(currentProjectIndex,500)
+    })
+    this.deviceInfoService.device.subscribe((device:string) => {  
+      // this.thisSwiper.swiper.slideToLoop(currentProjectIndex,500)
+      // console.log(device);
+      if (this.orientation) {
+        this.oldOrientation = this.orientation
+      }
+      if (window.innerHeight >= window.innerWidth) {
+        this.orientation = 'portrait';
+        this.thisSwiper.swiper.changeDirection('vertical', true)
+      } else {
+        this.orientation = 'landscape';
+        this.thisSwiper.swiper.changeDirection('horizontal', true)
+      }
+      console.log(this.orientation)
     })
   }
    newPlayers(): void {

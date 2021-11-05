@@ -3,12 +3,14 @@
     <!-- <iframe *ngIf="card.embed.split('|')[0] == 'vid'" width="100%" height="100%" [src]="card.embed.split('|')[1] | safe" frameborder="0" allow="autoplay; fullscreen;"></iframe> -->
     <div class="text">
         <span [innerHTML]="card.name.replace(':',' ')"></span>
+        <p class="portrait">tap to learn more</p>
+        <p class="landscape">click to learn more</p>
     </div>
     <div class="video-container">
         <video (mouseenter)="playDemo($event, i)" (mouseleave)="stopDemo($event, i)" class="demo-video" muted="true" loop autoplay *ngIf="card.demo.split('|')[0] == 'vid'" [src]="'assets/videos/'+card.demo.split('|')[1] | safe"  [value]="card.name.replace(':',' | ')"></video>
     </div>
 </div>  
-<div #exitCard class="exit-card" (click)="restartAnimation()">+</div>
+<div #exitCard class="exit-card" (click)="restartAnimation()"><</div>
 <div #centerText class="center-text" [innerHTML]="currentTitle">
 </div>
 <!-- <video #centerVideo muted loop autoplay class="center-video"></video> -->

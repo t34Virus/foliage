@@ -10,6 +10,7 @@ import { ActiveProjectService } from 'src/app/services/active-project.service'
 })
 export class LandingPageComponent implements OnInit {
   public currentPage: string;
+  public currentTitle: string;
   public projects: ContentSetup[];
   public cardTypeArray: Array<string> = [
     'default',
@@ -23,6 +24,10 @@ export class LandingPageComponent implements OnInit {
     this.activeProjectService.currentPage().subscribe((currentPage:string) => {  
       console.log(currentPage);
       this.currentPage = currentPage;
+    })
+    this.activeProjectService.currentProject().subscribe((currentProject:number) => {  
+      console.log(currentProject);
+      this.currentTitle = PROJECTS[currentProject].name;
     })
   }
 

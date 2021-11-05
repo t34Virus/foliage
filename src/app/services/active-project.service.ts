@@ -23,6 +23,6 @@ export class ActiveProjectService {
   }
   constructor() { 
     this._currentProject$ = new BehaviorSubject<number>(0);
-    this._currentPage$ = new BehaviorSubject<string>('about');
+    this._currentPage$ = new BehaviorSubject<string>('home');
   }
 }
