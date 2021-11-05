@@ -1,4 +1,6 @@
 @import '~compass-mixins/lib/compass/css3';
+@import 'src/assets/styles/animations.scss';
+
 $rainbow_segments: 20;
 
 .card {
@@ -65,13 +67,14 @@ $rainbow_segments: 20;
             width: 50%;
             height: 50%;
             z-index: 1;
-            top: 65%;
+            top: 75%;
             left: 25%;
             background-color: black;
             border: none;
             .text {
                 opacity: 1;
                 transform: scale(1) !important;
+                font-size: 1rem;
                 span {
                     color: white;
                     transform: scale(1);
@@ -85,9 +88,11 @@ $rainbow_segments: 20;
                 opacity: 1;
                 overflow: unset;
                 video {
-                    padding-top: 5%;
-                    height: 110%;
-                    width: 100%;
+                    // padding-top: 5%;
+                    height: auto;
+                    width: auto;
+                    box-shadow: 0px 0px 0 white;
+                    animation: fireflyBox infinite 1.5s alternate;
                 }
             }
         }
@@ -103,19 +108,29 @@ $rainbow_segments: 20;
         background-color: blue;
     }
     .text {
-        span {
+        span, p {
             position: absolute;
             font-size: 100%;
             width: 100%;
             color: white;
+        }
+        p {
+            top: 1rem;
+            font-size: 75%;
+            text-align: center;
+            text-shadow: 0px 0px 0 white;
+            animation: fireflyText infinite 1.5s alternate;
+            &.portrait {
+                display: none;
+            }
         }
     }
 }
 .exit-card {
     height: 3vw;
     width: 3vw;
-    top: 4rem;
-    right: 3rem;
+    top: 4.25rem;
+    left: 6rem;
     border-radius: 100%;
     background-color: transparent;
     background-size: 100% auto;
@@ -125,11 +140,11 @@ $rainbow_segments: 20;
     opacity: 0;
     cursor: pointer;
     transition: all 0.15s ease-in-out;
-    color: red;
+    color: white;
     font-size: 4rem;
-    transform: scale(1) rotate(45deg);
+    transform: scale(1);
     &:hover {
-        transform: scale(1.15) rotate(45deg);
+        transform: scale(1.15);
     }
     &.show {
         transition-delay: 0;
@@ -139,12 +154,12 @@ $rainbow_segments: 20;
 }
 .center-text, .center-video {
     position: absolute;
-    left: 39%;
+    left: 42%;
     top: 27%;
     border-radius: 100%;
     overflow: hidden;
     height: 42%;
-    width: 25%;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -160,4 +175,27 @@ $rainbow_segments: 20;
 }
 .center-video {
     opacity: 1;
+}
+@media (orientation: portrait) {
+    .exit-card {
+        left: 1rem;
+    }
+    .card.default.scaleUp {
+        height: 42%;
+        .video-container {
+            video {
+                animation: none;
+                width: 100%;
+                // height: auto;
+            }
+        }
+        p {
+            &.portrait {
+                display: unset;
+            }
+            &.landscape {
+                display: none;
+            }
+        }
+    }
 }

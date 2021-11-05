@@ -1,33 +1,52 @@
-<div id="header">
-    <div (click)="showPage('home')" class="text">tdogg</div>
-    <div class="button-container">
-        <button (click)="showPage('home')">home</button>
-        <span> | </span>
-        <button (click)="showPage('work')">work</button>
-        <span> | </span>
-        <button (click)="showPage('about')">about</button>
+<div id="landingPage">
+    <div id="header">
+        <div (click)="showPage('home')" class="text">teresa.nededog</div>
+        <div class="location">{{currentPage}}</div>
+        <div class="button-container">
+            <button [class.active]="currentPage == 'home'" (click)="showPage('home')">
+                <img src="assets/icons/iconmonstr-home-10.svg" alt="">
+            </button>
+            <button [class.active]="currentPage == 'work'" (click)="showPage('work')">
+                <img src="assets/icons/iconmonstr-task-1.svg" alt="">
+            </button>
+            <button [class.active]="currentPage == 'about'" (click)="showPage('about')">
+                <img src="assets/icons/iconmonstr-generation-14.svg" alt="">
+            </button>
+        </div>
     </div>
-</div>
 
-<div [class.active]="currentPage == 'home'" class="container" id="card-container" style="font-size: 1vw; height: 60vh; width: 100vw; margin: 8rem auto;">
-    <app-card [cards]="projects" [cardType]="cardType"></app-card>
-</div>
-<div [class.active]="currentPage == 'work'" class="container" id="work-container" style="height: 90vh; width: 100vw; margin: 0 auto;">
-    <app-work-page></app-work-page>
-</div>
-<div [class.active]="currentPage == 'about'" class="container" id="about-container" style="height: 90vh; width: 100vw; margin: 4rem auto;">
-    <app-about-page></app-about-page>
-</div>
+    <div [class.active]="currentPage == 'home'" class="container" id="card-container" style="font-size: 1vw; height: 80vh; width: 100vw; margin: 6rem auto;">
+        <app-card [cards]="projects" [cardType]="cardType"></app-card>
+    </div>
+    <div [class.active]="currentPage == 'work'" class="container" id="work-container" style="height: 90vh; width: 100vw; margin: 0 auto;">
+        <app-work-page></app-work-page>
+    </div>
+    <div [class.active]="currentPage == 'about'" class="container" id="about-container" style="height: auto; width: 100vw; margin: 4rem auto; padding-bottom: 10rem;">
+        <app-about-page></app-about-page>
+    </div>
 
-<div id="footer">
-    <div>
-        <a href="mailto: treindle@gmail.com">email</a>
-    </div> 
-    <div>
-        <a target="_blank" href="https://github.com/treindle">github</a>
-        <span> | </span>
-        <a target="_blank" href="https://linkedin.com/pub/Teresa-Nededog/9b/3a/96">linkedin</a>
-        <span> | </span>
-        <a target="_blank" href="https://twitch.tv/t34burg">twitch</a>
+    <div id="footer">
+        <div>
+            <a href="mailto:treindle@gmail.com">            
+                <img src="assets/icons/iconmonstr-email-2.svg" alt="">
+            </a>
+            <a href="tel:+18042527447">            
+                <img src="assets/icons/iconmonstr-phone-7.svg" alt="">
+            </a>
+        </div> 
+        <div>
+            <a target="_blank" href="https://github.com/treindle">
+                <img src="assets/icons/iconmonstr-github-1.svg" alt="">
+            </a>
+            <a target="_blank" href="https://linkedin.com/pub/Teresa-Nededog/9b/3a/96">
+                <img src="assets/icons/iconmonstr-linkedin-1.svg" alt="">
+            </a>
+            <a target="_blank" href="https://twitch.tv/t34burg">
+                <img src="assets/icons/iconmonstr-twitch-1.svg" alt="">
+            </a>
+            <a target="_blank" href="https://www.rankone.global/t34burg">
+                <img src="assets/icons/iconmonstr-gamepad-3.svg" alt="">
+            </a>
+        </div>
     </div>
 </div>
