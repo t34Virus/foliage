@@ -1,0 +1,25 @@
+div {
+    color: white;
+    text-align: center;
+    text-transform: lowercase;
+}
+.column {
+    float: left;
+    width: 33.33%;
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    span {
+        font-size: 1.25rem;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    li {
+        font-size: 1rem;
+        text-align: left;
+        text-transform: lowercase;
+    }
+
+}

@@ -1,7 +1,33 @@
-<button routerLink="work" routerLinkActive="active">Work</button>
-<button routerLink="about" routerLinkActive="active">About</button>
-
-<div class="card-container" appBreakpointClasses style="font-size: 1vw; height: 60vh; width: 80vw; margin: 0 10vw; padding-top: 15%;">
-    <app-card [cards]="projects" [cardType]="cardType"></app-card>
+<div id="header">
+    <div (click)="showPage('home')" class="text">tdogg</div>
+    <div class="button-container">
+        <button (click)="showPage('home')">home</button>
+        <span> | </span>
+        <button (click)="showPage('work')">work</button>
+        <span> | </span>
+        <button (click)="showPage('about')">about</button>
+    </div>
 </div>
 
+<div [class.active]="currentPage == 'home'" class="container" id="card-container" style="font-size: 1vw; height: 60vh; width: 100vw; margin: 8rem auto;">
+    <app-card [cards]="projects" [cardType]="cardType"></app-card>
+</div>
+<div [class.active]="currentPage == 'work'" class="container" id="work-container" style="height: 90vh; width: 100vw; margin: 0 auto;">
+    <app-work-page></app-work-page>
+</div>
+<div [class.active]="currentPage == 'about'" class="container" id="about-container" style="height: 90vh; width: 100vw; margin: 4rem auto;">
+    <app-about-page></app-about-page>
+</div>
+
+<div id="footer">
+    <div>
+        <a href="mailto: treindle@gmail.com">email</a>
+    </div> 
+    <div>
+        <a target="_blank" href="https://github.com/treindle">github</a>
+        <span> | </span>
+        <a target="_blank" href="https://linkedin.com/pub/Teresa-Nededog/9b/3a/96">linkedin</a>
+        <span> | </span>
+        <a target="_blank" href="https://twitch.tv/t34burg">twitch</a>
+    </div>
+</div>

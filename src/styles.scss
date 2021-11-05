@@ -1,6 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~swiper/swiper-bundle';
 
-body {
-    background-color: black;
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 64%}
+    50%{background-position:100% 37%}
+    100%{background-position:0% 64%}
 }
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 64%}
+    50%{background-position:100% 37%}
+    100%{background-position:0% 64%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 64%}
+    50%{background-position:100% 37%}
+    100%{background-position:0% 64%}
+}
+
+body {
+    // background: linear-gradient(315deg, #07f0f8, #f80f07);
+    // background-size: 400% 400%;
+    // -webkit-animation: AnimationName 8s ease-in-out infinite;
+    // -moz-animation: AnimationName 8s ease-in-out infinite;
+    // animation: AnimationName 8s ease-in-out infinite;
+    background-color: black;
+    font-family: monospace;
+    overflow: hidden;
+    // font-family: AvenirNext, "Helvetica Neue", Helvetica, Arial;
+}
+

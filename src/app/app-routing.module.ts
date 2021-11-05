@@ -7,8 +7,8 @@ import { AboutPageComponent } from './components/pages/about-page/about-page.com
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
-  { path: 'work', component: WorkPageComponent },
-  { path: 'about', component: AboutPageComponent }
+  // { path: 'work', component: WorkPageComponent },
+  // { path: 'about', component: AboutPageComponent }
 ]
 
 @NgModule({

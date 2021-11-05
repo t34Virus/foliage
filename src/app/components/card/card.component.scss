@@ -7,9 +7,10 @@ $rainbow_segments: 20;
         pointer-events: none;
     }
     &.default {
+        cursor: pointer;
         transform-origin: 50% 160%;
         height: 20%;
-        width: 100%/ $rainbow_segments;
+        width: 65%/ $rainbow_segments;
         background-color: transparent;
         transition: background-color 0.15s ease-in-out, top 0.15s ease-in-out;
         top: 15%;
@@ -59,13 +60,13 @@ $rainbow_segments: 20;
         }
         &.scaleUp {
             transition: all 0.5s ease-in-out 0.05s;
-            transform: scale(2)!important;
+            transform: translate(-50%, -50%) scale(2)!important;
             transform-origin: 0 100%;
             width: 50%;
             height: 50%;
             z-index: 1;
-            top: 50%;
-            left: 0;
+            top: 65%;
+            left: 25%;
             background-color: black;
             border: none;
             .text {
@@ -74,6 +75,7 @@ $rainbow_segments: 20;
                 span {
                     color: white;
                     transform: scale(1);
+                    text-align: center;
                 }
             }
             iframe {
@@ -81,9 +83,11 @@ $rainbow_segments: 20;
             }
             .video-container {
                 opacity: 1;
+                overflow: unset;
                 video {
+                    padding-top: 5%;
+                    height: 110%;
                     width: 100%;
-                    height: 100%;
                 }
             }
         }
@@ -110,27 +114,37 @@ $rainbow_segments: 20;
 .exit-card {
     height: 3vw;
     width: 3vw;
-    top: 0;
-    right: 0;
-    background-color: red;
-    position: absolute;
+    top: 4rem;
+    right: 3rem;
+    border-radius: 100%;
+    background-color: transparent;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    position: fixed;
     z-index: -1;
     opacity: 0;
+    cursor: pointer;
     transition: all 0.15s ease-in-out;
+    color: red;
+    font-size: 4rem;
+    transform: scale(1) rotate(45deg);
+    &:hover {
+        transform: scale(1.15) rotate(45deg);
+    }
     &.show {
         transition-delay: 0;
         opacity: 1;
         z-index: 1;
     }
 }
-.center-text {
+.center-text, .center-video {
     position: absolute;
-    left: 35%;
+    left: 39%;
     top: 27%;
     border-radius: 100%;
     overflow: hidden;
     height: 42%;
-    width: 35%;
+    width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -143,4 +157,7 @@ $rainbow_segments: 20;
     &.show {
         opacity: 1;
     }
+}
+.center-video {
+    opacity: 1;
 }
