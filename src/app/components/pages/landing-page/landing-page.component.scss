@@ -1,3 +1,5 @@
+@import 'src/assets/styles/animations.scss';
+
 #header, #footer {
     position: fixed;
     left: 0;
@@ -58,6 +60,17 @@
 #footer {
     bottom: 0;
 }
+.cta {
+    position: absolute;
+    top: 0;
+    left: 2vw;
+    font-size: 1rem;
+    p {
+        text-shadow: 0px 0px 0 white;
+        color: white;
+        animation: fireflyText infinite 1.5s alternate;
+    }
+}
 .container {
     display: flex;
     align-items: top;
@@ -82,6 +95,11 @@
 }
 @media (orientation: portrait) {
     #landingPage {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
         overflow: hidden;
     }
     #about-container {
@@ -89,10 +107,8 @@
         overflow-x: hidden;
     }
     #work-container, #card-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: scroll;
     }
     .location {
         display: none;

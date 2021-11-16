@@ -23,7 +23,6 @@
     "@types/vimeo__player": "^2.10.0",
     "@vimeo/player": "^2.15.0",
     "animejs": "^3.2.1",
-    "compass-mixins": "^0.12.10",
     "gsap": "^3.6.0",
     "ngx-useful-swiper": "^10.0.1",
     "rxjs": "~6.6.0",

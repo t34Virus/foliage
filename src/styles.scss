@@ -31,4 +31,22 @@ body {
     margin: 0;
     // font-family: AvenirNext, "Helvetica Neue", Helvetica, Arial;
 }
+.swiper-container {
+    -webkit-overflow-scrolling: touch;
+}
+@media (orientation: portrait) {
+    .swiper-container {
+        // padding-top: 10rem;
+        // padding-bottom: 10rem;
+        // overflow: scroll;
+        .swiper-slide {
+            // height: 100% !important;
+            // padding-bottom: 10rem;
+        }
+        .swiper-slide:last-child {
+            // padding-bottom: 60%;
+        }
+
+    }
+}
 
