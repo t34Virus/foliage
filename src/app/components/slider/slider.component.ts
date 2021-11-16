@@ -23,6 +23,7 @@ export class SliderComponent implements OnInit {
   private videoPlaybackTimer: ReturnType<typeof setTimeout>;
   private orientation: string;
   private oldOrientation: string;
+  public deviceType: string;
   constructor(
     private activeProjectService: ActiveProjectService,
     private deviceInfoService: DeviceInfoService
@@ -57,17 +58,21 @@ export class SliderComponent implements OnInit {
     this.deviceInfoService.device.subscribe((device:string) => {  
       // this.thisSwiper.swiper.slideToLoop(currentProjectIndex,500)
       // console.log(device);
+      this.deviceType = device;
       if (this.orientation) {
         this.oldOrientation = this.orientation
       }
       if (window.innerHeight >= window.innerWidth) {
         this.orientation = 'portrait';
-        this.thisSwiper.swiper.changeDirection('vertical', true)
+        // this.thisSwiper.swiper.slides
+        if (device.indexOf('mobile') > -1) {
+          // this.thisSwiper.swiper.destroy(false, true)
+          this.thisSwiper.swiper.changeDirection('vertical', true)
+        }
       } else {
         this.orientation = 'landscape';
         this.thisSwiper.swiper.changeDirection('horizontal', true)
       }
-      console.log(this.orientation)
     })
   }
    newPlayers(): void {

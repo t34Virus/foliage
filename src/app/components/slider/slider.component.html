@@ -3,6 +3,7 @@
 		<div class="swiper-slide" [data-history]="'slide' + index" *ngFor="let content of contents; let i = index">
 			<h1 [innerHTML]="content.name.replace(':',' | ')"></h1>
 			<a *ngIf="content.url" target="_blank" [href]="content.url | safe">Live Link</a>
+			<a *ngIf="!content.url && content.embed.split('|')[0] == 'vid'" target="_blank" [href]="content.embed.split('|')[1] | safe">Full-screen Demo</a>
 			<div *ngIf="content.embed.split('|')[0] == 'vid'" class="video-container">
 				<!-- <video class="vimeo-video" muted="true" loop *ngIf="content.embed.split('|')[0] == 'vid'" [src]="'assets/videos/'+content.embed.split('|')[1] | safe"  [value]="content.name.replace(':','<br>')"></video> -->
 				<iframe width="100%" height="100%" [src]="content.embed.split('|')[1] | safe" [id]="'video_'+content.embed.split('video/')[1].toString()" [attr.data-vimeo-id]="content.embed.split('video/')[1].toString()" frameborder="0" allow="autoplay; fullscreen;" loop="1"></iframe>
@@ -14,6 +15,8 @@
 	<!-- Add Pagination -->
 	<div class="swiper-pagination"></div>
 	<!-- Add Arrows -->
-	<div class="swiper-button-next"></div>
-	<div class="swiper-button-prev"></div>
+	<div class="prev-next-buttons">
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+	</div>
   </swiper>

@@ -21,8 +21,9 @@ export class WorkPageComponent implements OnInit {
     //   crossFade: true
     // },
     loop: true,
-    slidesPerView: 2.5,
-    spaceBetween: 30,
+    freeMode: true,
+    slidesPerView: 2,
+    spaceBetween: 40,
     centeredSlides: true,
     initialSlide: 0,
     allowTouchMove: true,

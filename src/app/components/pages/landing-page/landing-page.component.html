@@ -1,9 +1,10 @@
 <div id="landingPage">
     <div id="header">
-        <div (click)="showPage('home')" class="text">teresa.nededog</div>
+        <div *ngIf="!isMobile" (click)="showPage('home')" class="text">teresa.nededog</div>
+        <div *ngIf="isMobile" (click)="showPage('work')" class="text">teresa.nededog</div>
         <div class="location">{{currentPage}}</div>
         <div class="button-container">
-            <button [class.active]="currentPage == 'home'" (click)="showPage('home')">
+            <button *ngIf="!isMobile" [class.active]="currentPage == 'home'" (click)="showPage('home')">
                 <img src="assets/icons/iconmonstr-home-10.svg" alt="">
             </button>
             <button [class.active]="currentPage == 'work'" (click)="showPage('work')">
@@ -14,8 +15,10 @@
             </button>
         </div>
     </div>
-
-    <div [class.active]="currentPage == 'home'" class="container" id="card-container" style="font-size: 1vw; height: 80vh; width: 100vw; margin: 6rem auto;">
+    <div *ngIf="!isMobile" [class.active]="currentPage == 'home'" class="container" id="card-container" style="font-size: 1vw; height: 80vh; width: 100vw; margin: 6rem auto;">
+        <div *ngIf="!hideCta" class="cta">
+            <p>select a rectangle</p>
+        </div>
         <app-card [cards]="projects" [cardType]="cardType"></app-card>
     </div>
     <div [class.active]="currentPage == 'work'" class="container" id="work-container" style="height: 90vh; width: 100vw; margin: 0 auto;">

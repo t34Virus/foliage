@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Pipe, PipeTransform, Output } from '@angular/core';
 import { ContentSetup } from 'src/app/model/contents.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import anime from 'animejs';
@@ -76,6 +76,7 @@ import { PROJECTS } from 'src/app/config/projects.config';
     this.scaleUpCard(event, index);   
     // this.activeProjectService.setProject(index);
     console.log(PROJECTS[index], index);
+    this.activeProjectService.setFirstClick(true);
     if (this.cardActive) {
       // this.route.navigate(['/work'],{queryParams: {slide: index}})
       this.activeProjectService.setProject(index);

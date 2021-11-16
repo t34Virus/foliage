@@ -18,11 +18,19 @@ export class ActiveProjectService {
   public currentPage(): Observable<string> {
     return this._currentPage$.asObservable();
   }
+  private _firstClick$: BehaviorSubject<boolean>;
+  public firstClick(): Observable<boolean> {
+    return this._firstClick$.asObservable();
+  }
   public setPage(projectIndex:string) {
     this._currentPage$.next(projectIndex);
+  }
+  public setFirstClick(confirmation: boolean) {
+    this._firstClick$.next(confirmation);
   }
   constructor() { 
     this._currentProject$ = new BehaviorSubject<number>(0);
     this._currentPage$ = new BehaviorSubject<string>('home');
+    this._firstClick$  = new BehaviorSubject<boolean>(false);
   }
 }
