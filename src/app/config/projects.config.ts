@@ -249,7 +249,7 @@ export const PROJECTS: ContentSetup[] = [
         embed: "vid|https://player.vimeo.com/video/511322612",
         copy: "",
         platform: "responsive",
-        url: "https://www.ibm.com/events/activations-ripple-effect/",
+        url: "",
         tech: [6,17,18,31],
         active: true
       },
