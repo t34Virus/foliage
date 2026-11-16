@@ -1,0 +1,13 @@
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+.capGrid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 16px; }
+.capTile {
+  display: grid; gap: 10px; align-content: start; height: 100%;
+  padding: 22px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg-raised);
+  text-decoration: none; transition: border-color 0.2s, transform 0.2s;
+}
+.capTile:hover { border-color: var(--blush); transform: translateY(-2px); }
+.capTile p { color: var(--muted); font-size: 0.95rem; }
+.capNum { font-family: var(--mono); font-size: 0.8rem; color: var(--pink); }
+
+.clients { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--muted); }

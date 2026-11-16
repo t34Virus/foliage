@@ -1,0 +1,27 @@
+.card { display: block; text-decoration: none; }
+.media {
+  position: relative; aspect-ratio: 16 / 10; overflow: hidden;
+  border-radius: var(--radius); background: var(--bg-raised); border: 1px solid var(--line);
+}
+.media img, .media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.media img { transition: transform 0.6s ease; }
+.media video { opacity: 0; transition: opacity 0.3s ease; }
+.card:hover .media video, .card:focus-visible .media video { opacity: 1; }
+.card:hover .media img { transform: scale(1.03); }
+
+.typeTile {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center;
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--pink) 35%, transparent), transparent 55%),
+    radial-gradient(circle at 80% 80%, color-mix(in srgb, var(--blue) 35%, transparent), transparent 55%),
+    var(--bg-raised);
+  font-family: var(--mono); font-size: 1.1rem; letter-spacing: 0.04em;
+}
+.badge {
+  position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px;
+  background: var(--gradient); color: #121218; font-family: var(--mono); font-size: 0.7rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.text { display: grid; gap: 4px; padding: 14px 2px 0; }
+.text h3 { font-size: 1.15rem; }
+.madeAt { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }

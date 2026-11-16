@@ -1,0 +1,143 @@
+/* Ported from the original card.component.scss and landing-page.component.scss (tag v1-angular).
+   The original stage was 100vw x 80vh (about 2:1) with font-size 1vw. Here that stage is the
+   .canvas: 2:1, twice as wide as the hero's right column and centered on it, with cq units in
+   place of vw, so the ring keeps its exact proportions at any size. */
+
+.hero { position: relative; overflow-x: clip; }
+.grid {
+  display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(24px, 4vw, 64px);
+  min-height: min(calc(100svh - 64px), 760px); padding-top: 32px; padding-bottom: 32px;
+}
+.copy { display: grid; gap: 20px; }
+@media (max-width: 860px) {
+  .grid { grid-template-columns: 1fr; min-height: auto; padding-top: 40px; }
+}
+/* On a narrow fly-out, keep the title clear of the "<" (these rules sit after the base ones below). */
+
+.ring { position: relative; aspect-ratio: 1; font-family: monospace; /* the original site's font */ }
+
+.canvas {
+  container-type: size;
+  position: absolute; top: 0; left: -50%;
+  width: 200%; height: 100%;
+  font-size: 1cqw;
+  pointer-events: none; /* the empty sides overlap the copy; only the cards take clicks */
+}
+
+.cta {
+  position: absolute; top: 0; left: 0; margin: 0; z-index: 3;
+  font-size: 1rem; color: #fff;
+  text-shadow: 0 0 0 #fff;
+  animation: fireflyText 1.5s infinite alternate;
+}
+
+/* .card.default */
+.card {
+  position: absolute; top: 15%; left: 50%;
+  width: calc(65% / 20); height: 20%;
+  padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; pointer-events: auto;
+  transform-origin: 50% 160%;
+  background-color: transparent;
+  border: 1px solid hsl(var(--hue) 100% 50%);
+  border-radius: 0;
+  transition: background-color 0.15s ease-in-out, top 0.15s ease-in-out;
+}
+.card:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.disable { pointer-events: none; }
+
+/* Zero-height strip at the top of the card, like the original's unpositioned .text div. */
+.text {
+  position: absolute; top: 0; left: 0; width: 100%; height: 0; z-index: 2; display: block;
+  background-color: black; opacity: 0; transition: opacity 0.25s ease-in-out;
+  pointer-events: none;
+}
+.name, .more { position: absolute; left: 0; width: 100%; font-size: 100%; color: white; }
+.name { transform: scale(1); transition: transform 0.25s ease-in-out; }
+.more { top: 1rem; font-size: 75%; text-align: center; text-shadow: 0 0 0 white; animation: fireflyText 1.5s infinite alternate; }
+.portrait { display: none; }
+
+.videoContainer {
+  display: flex; justify-content: center;
+  height: 100%; width: 100%; overflow: hidden;
+  opacity: 0; transition: opacity 0.25s ease-in-out;
+}
+.videoContainer video { width: auto; height: 100%; max-width: none; }
+
+.card:hover { background-color: grey; z-index: 1; }
+.card:hover .name { transform: scale(2); }
+.card:hover .videoContainer { opacity: 1; }
+
+/* .card.default.scaleUp: the card flies out to fill the stage (the whole hero on wide screens).
+   The box comes from CardCircle's measure(); the fallbacks are the original's percentages.
+   !important beats the inline rotate() transforms, as in the original. */
+.card.scaleUp {
+  transition-property: transform, width, height, top, left, background-color;
+  transition-duration: 0.5s; transition-timing-function: ease-in-out; transition-delay: 0.05s;
+  transform: translate(-50%, -50%) scale(2) !important;
+  transform-origin: 0 100%;
+  width: var(--su-w, 50%); height: var(--su-h, 50%); top: var(--su-top, 75%); left: var(--su-left, 25%);
+  z-index: 1;
+  background-color: black;
+  border: none;
+}
+.card.scaleUp .text { opacity: 1; transform: scale(1) !important; font-size: 1rem; }
+.card.scaleUp .name { color: white; transform: scale(1); text-align: center; }
+.card.scaleUp .videoContainer { opacity: 1; overflow: visible; align-items: center; }
+.card.scaleUp .videoContainer video {
+  height: var(--vid-h, 100%); width: var(--vid-w, auto);
+  box-shadow: 0 0 0 white;
+  animation: fireflyBox 1.5s infinite alternate;
+}
+
+.exit {
+  position: absolute; top: 0; left: 6rem; z-index: -1; /* top/left set from the fly-out area */
+  height: 3vw; min-height: 40px; width: 3vw; min-width: 40px;
+  border: 0; border-radius: 100%; padding: 0;
+  background-color: transparent; color: white; font-size: 4rem; line-height: 1; font-family: monospace;
+  opacity: 0; cursor: pointer;
+  transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out; transform: scale(1);
+}
+.exit:hover { transform: scale(1.15); }
+.exit.show { opacity: 1; z-index: 3; }
+
+/* .center-text: "Client | Title" in the middle of the ring on hover */
+.center {
+  position: absolute; left: 42%; top: 27%;
+  width: 20%; height: 42%; margin: 0;
+  border-radius: 100%; overflow: hidden;
+  display: flex; justify-content: center; align-items: center;
+  color: white; text-align: center; font-size: max(150%, 14px);
+  opacity: 0; transition: opacity 0.25s ease-in-out;
+  pointer-events: none;
+}
+.center.show { opacity: 1; }
+
+@keyframes fireflyText {
+  0% { text-shadow: 0 0 0 white; }
+  100% {
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
+  }
+}
+@keyframes fireflyBox {
+  0% { box-shadow: 0 0 0 white; }
+  100% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
+  }
+}
+
+@media (orientation: portrait) {
+  .card.scaleUp .videoContainer video { animation: none; }
+  .scaleUp .portrait { display: unset; }
+  .scaleUp .landscape { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta, .more, .scaleUp .videoContainer video { animation: none; }
+  .card.scaleUp { transition: none; }
+}
+
+@media (max-width: 860px) {
+  .card.scaleUp .text { font-size: 0.75rem; }
+  .exit { font-size: 3rem; }
+}
