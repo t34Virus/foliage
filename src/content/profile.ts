@@ -16,13 +16,16 @@ export const profile = {
   intro:
     "10+ years shipping React, React Native and TypeScript products, from interactive sales tools for Fortune 500 brands to a K12 learning community on iOS, Android and web.",
   bio: [
-    "I'm a senior software engineer and creative technologist in Los Angeles. I've spent more than ten years building software people use in the real world: touchscreen murals and iPad sales tools for Fortune 500 brands, show-floor installations at CES, healthcare automation for major health systems, and most recently a cross-platform community app for K12 learning coaches that I architected from scratch.",
+    "I'm a senior software engineer and creative technologist in Los Angeles. I've spent more than ten years building software people use in the real world, much of it experiential: touchscreen murals and iPad sales tools for Fortune 500 brands, show-floor installations at CES, generative AI photo kiosks for live activations, healthcare automation for major health systems, and most recently a cross-platform community app for K12 learning coaches that I architected from scratch.",
     "I've also led teams. I managed a team of 11 at Glossi and served as acting Head of Technology at Spinifex Group, where I oversaw delivery for 20+ enterprise clients. I'm CompTIA CySA+ and Splunk Core Certified, so security is part of how I build, not an afterthought.",
   ],
 };
 
-export type Job = { title: string; company: string; dates: string; summary: string };
+export type Job = { title: string; company: string; dates: string; summary: string; tech: string[] };
 
+// tech: the "Technologies" line for each job in her original resume (~/Personal/Teresa Nededog.pdf),
+// in her order, with names spelled the official way (ReactJS as React, NodeJS as Node.js). Tilted
+// Windmill came after that resume, so its list is the Technologies line from her LinkedIn.
 export const experience: Job[] = [
   {
     title: "Cross-Platform Engineer",
@@ -30,6 +33,7 @@ export const experience: Job[] = [
     dates: "Jul 2025 - Present",
     summary:
       "Architected and built a cross-platform social learning community for K12 learning coaches, from database to UI, on iOS, Android and desktop web.",
+    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "AWS", "Docker", "WebSockets"],
   },
   {
     title: "Engineering Manager",
@@ -37,6 +41,7 @@ export const experience: Job[] = [
     dates: "Jul 2023 - Oct 2024",
     summary:
       "Introduced engineering standards for a team of 11 and cut monthly AWS costs by 38% while staying hands-on as a developer.",
+    tech: ["React", "Next.js", "GraphQL", "AWS", "Unreal Engine 5", "MongoDB"],
   },
   {
     title: "Backend Engineer",
@@ -44,6 +49,7 @@ export const experience: Job[] = [
     dates: "Sep 2022 - Apr 2023",
     summary:
       "Built data tools for oil and saltwater logistics and shipped React Native apps for iOS and Android.",
+    tech: ["React", "React Native", "NestJS", "Expo Go", "EAS", "TypeScript", "MongoDB", "DynamoDB", "GraphQL"],
   },
   {
     title: "Senior Software Engineer",
@@ -51,6 +57,9 @@ export const experience: Job[] = [
     dates: "Jan 2022 - Sep 2022",
     summary:
       "Built healthcare automation for enterprise health systems and an internal tool that cut report generation time by 50%.",
+    // Her resume also lists Olive's in-house OliveScript and CSaaS; she said to show them as
+    // JavaScript and TypeScript (2026-11-17), which are already here.
+    tech: ["TypeScript", "JavaScript", "Docker", "Node.js"],
   },
   {
     title: "Software Development Lead",
@@ -58,6 +67,7 @@ export const experience: Job[] = [
     dates: "Nov 2019 - Jan 2022",
     summary:
       "Acting Head of Technology, overseeing delivery for 20+ enterprise clients and events including CES and the LA Auto Show.",
+    tech: ["Angular", "Kubernetes", "AWS", "Unity", "Bitbucket", "Lottie", "Vue.js", "Docker"],
   },
   {
     title: "Software Engineer",
@@ -65,6 +75,7 @@ export const experience: Job[] = [
     dates: "Nov 2015 - Nov 2019",
     summary:
       "Lead developer for long-running interactive sales platforms for Cummins and Andersen Windows, and builder of experiences for 10+ Fortune 500 companies.",
+    tech: ["WebVR", "Google VR", "Unity", "iOS", "Perforce", "Server-side scripting"],
   },
 ];
 

@@ -6,7 +6,7 @@ import styles from "./capabilities.module.css";
 
 export const metadata: Metadata = {
   title: "Capabilities",
-  description: "Cross-platform apps, full-stack platforms, interactive experiences, cloud and security, and engineering leadership.",
+  description: "Cross-platform apps, full-stack platforms, experiential and interactive work, cloud and security, and engineering leadership.",
 };
 
 export default function CapabilitiesPage() {

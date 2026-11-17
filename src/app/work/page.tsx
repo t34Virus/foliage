@@ -5,7 +5,7 @@ import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Cross-platform apps, full-stack platforms and interactive experiences for brands including IBM, Cummins, Baxter and Andersen Windows.",
+  description: "Cross-platform apps, full-stack platforms and experiential work for brands including IBM, Cummins, Baxter and Andersen Windows.",
 };
 
 export default function WorkPage() {

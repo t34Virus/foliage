@@ -25,6 +25,9 @@ export default function AboutPage() {
             <div>
               <h3>{j.title}, {j.company}</h3>
               <p>{j.summary}</p>
+              <ul className={`chips ${styles.tech}`} aria-label={`Technologies at ${j.company}`}>
+                {j.tech.map((t) => <li key={t}>{t}</li>)}
+              </ul>
             </div>
           </li>
         ))}

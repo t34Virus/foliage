@@ -52,12 +52,13 @@ export const capabilities: Capability[] = [
     ],
   },
   {
-    slug: "interactive-experiences",
-    title: "Interactive Experiences",
-    short: "Touchscreen murals, iPad sales tools, VR showrooms and event activations.",
+    slug: "interactive-experiences", // the URL stays put; the title changed to "Experiential and Interactive" on 2026-11-17
+    title: "Experiential and Interactive",
+    short: "Brand activations, GenAI photo kiosks, touchscreen murals, VR showrooms and iPad sales tools.",
     intro:
-      "Before apps, I built the things people touch at trade shows and in sales meetings: interactive murals, iPad tools, VR showrooms and virtual event activations for Fortune 500 brands.",
+      "Experiential is where I started, and I keep coming back to it: the things people touch at trade shows, brand activations and sales meetings. Interactive murals, iPad tools, VR showrooms, virtual event activations and, lately, generative AI photo kiosks.",
     builds: [
+      "Generative AI photo kiosks and booths for live activations",
       "Large-format touchscreen and mural experiences",
       "iPad and Surface Pro sales tools",
       "VR and real-time 3D experiences in Unity, Unreal Engine and WebVR",
@@ -67,6 +68,7 @@ export const capabilities: Capability[] = [
       "Lead developer on Cummins and Andersen Windows sales platforms, still in use",
       "Experiences for 10+ Fortune 500 companies, including GE Healthcare, Intel, Mercedes and Boeing's Aviall division",
       "Installations for Harman at CES and for Gulfstream as Software Development Lead at Spinifex",
+      "A generative AI photo kiosk for a live activation: 5 AI images per guest and a real-time moderator dashboard",
     ],
   },
   {
