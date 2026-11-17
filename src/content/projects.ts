@@ -32,6 +32,40 @@ const SPINIFEX_TODO =
 const INHANCE_TODO = "Confirm your role on this project, the stack, and anything measurable.";
 
 export const projects: Project[] = [
+  // First on the Work page at her request ("Put the dream generator at the top", 2026-11-17).
+  // Independent contractor work: she asked to include it (2026-11-17).
+  // Facts from her TFG repos and session notes; media from her OLG zip and her Vimeo upload.
+  // Her rule: never show a guest's full name, email or phone number (first names are fine).
+  {
+    slug: "olg-dream-generator",
+    client: "OLG",
+    title: "Dream Generator: Generative AI Photo Kiosk",
+    madeAt: "Independent contractor",
+    summary:
+      "A walk-up generative AI kiosk for Ontario Lottery and Gaming: guests pick the dreams that speak to them, pose for a photo, and get an AI-made portrait of themselves living that dream, to print or scan home.",
+    capabilities: ["interactive-experiences", "full-stack-platforms"],
+    role: "Independent contractor for The Famous Group: full-stack engineer on the kiosk, moderator and share experience, on their Vixi platform",
+    platform: ["Touchscreen kiosk (Windows)", "Web moderator dashboard", "Mobile share page"],
+    tech: ["NestJS", "Nuxt 3", "Vue 3", "TypeScript", "MongoDB", "WebSockets", "Keycloak", "Google Cloud Storage", "Gemini", "Jest"],
+    challenge:
+      "Turn generative AI into an in-person experience anyone could walk up to: in English or French, accessible, quick enough to hold a guest's attention, and with a person able to review what the AI makes before it goes out.",
+    built: [
+      "The kiosk flow: language, sign-up, dream cards drawn from a configurable deck, camera capture, generation, review and share.",
+      "Prompts built from each guest's picks, generating 5 images per session (a batch of 4 plus an accessible variant), with a direct Gemini fallback for image generation.",
+      "A real-time moderator dashboard synced to the kiosk over WebSockets, with approval before results go out and a self-serve mode when no moderator is present.",
+      "A public share page reached by QR code, consent and data-retention notices, and a Windows installer that runs the kiosk full screen on the on-site PC.",
+    ],
+    media: {
+      poster: "/media/posters/olg-dream-generator.jpg",
+      // Hover demo: the same edit as her highlight GIF (welcome sign, dream cards, generating,
+      // result and QR, phone, print), rendered as video from IMG_8114. First names only on screen.
+      preview: "/media/videos/olg-dream-generator.mp4",
+      vimeo: "1247757908", // guest walkthrough, last name and email blurred
+      images: ["/media/images/olg-dream-generator-1.jpg", "/media/images/olg-dream-generator-2.jpg"],
+    },
+    todo: "Add any results (dates, venue, guests served, prints).",
+  },
+
   // ---------- Tilted Windmill Agency ----------
   {
     slug: "k12-learning-coach-community",
@@ -381,38 +415,6 @@ export const projects: Project[] = [
   },
 
   // ---------- Independent contractor ----------
-  // Teresa asked to include this one (2026-11-17) and said she built it as an independent contractor.
-  // Facts from her TFG repos and session notes; media from her OLG zip and her Vimeo upload.
-  // Her rule: never show a guest's full name, email or phone number (first names are fine).
-  {
-    slug: "olg-dream-generator",
-    client: "OLG",
-    title: "Dream Generator: Generative AI Photo Kiosk",
-    madeAt: "Independent contractor",
-    summary:
-      "A walk-up generative AI kiosk for Ontario Lottery and Gaming: guests pick the dreams that speak to them, pose for a photo, and get an AI-made portrait of themselves living that dream, to print or scan home.",
-    capabilities: ["interactive-experiences", "full-stack-platforms"],
-    role: "Independent contractor for The Famous Group: full-stack engineer on the kiosk, moderator and share experience, on their Vixi platform",
-    platform: ["Touchscreen kiosk (Windows)", "Web moderator dashboard", "Mobile share page"],
-    tech: ["NestJS", "Nuxt 3", "Vue 3", "TypeScript", "MongoDB", "WebSockets", "Keycloak", "Google Cloud Storage", "Gemini", "Jest"],
-    challenge:
-      "Turn generative AI into an in-person experience anyone could walk up to: in English or French, accessible, quick enough to hold a guest's attention, and with a person able to review what the AI makes before it goes out.",
-    built: [
-      "The kiosk flow: language, sign-up, dream cards drawn from a configurable deck, camera capture, generation, review and share.",
-      "Prompts built from each guest's picks, generating 5 images per session (a batch of 4 plus an accessible variant), with a direct Gemini fallback for image generation.",
-      "A real-time moderator dashboard synced to the kiosk over WebSockets, with approval before results go out and a self-serve mode when no moderator is present.",
-      "A public share page reached by QR code, consent and data-retention notices, and a Windows installer that runs the kiosk full screen on the on-site PC.",
-    ],
-    media: {
-      poster: "/media/posters/olg-dream-generator.jpg",
-      // Hover demo: the same edit as her highlight GIF (welcome sign, dream cards, generating,
-      // result and QR, phone, print), rendered as video from IMG_8114. First names only on screen.
-      preview: "/media/videos/olg-dream-generator.mp4",
-      vimeo: "1247757908", // guest walkthrough, last name and email blurred
-      images: ["/media/images/olg-dream-generator-1.jpg", "/media/images/olg-dream-generator-2.jpg"],
-    },
-    todo: "Add any results (dates, venue, guests served, prints).",
-  },
   // Teresa, 2026-11-17: "Snap was/is Snapchat. Make that clear." Built as an independent contractor.
   // From her `snap` repo (11 commits, Feb to Mar 2024).
   {
