@@ -12,7 +12,6 @@
 @media (max-width: 860px) {
   .grid { grid-template-columns: 1fr; min-height: auto; padding-top: 40px; }
 }
-/* On a narrow fly-out, keep the title clear of the "<" (these rules sit after the base ones below). */
 
 .ring { position: relative; aspect-ratio: 1; font-family: monospace; /* the original site's font */ }
 
@@ -27,8 +26,15 @@
 .cta {
   position: absolute; top: 0; left: 0; margin: 0; z-index: 3;
   font-size: 1rem; color: #fff;
-  text-shadow: 0 0 0 #fff;
-  animation: fireflyText 1.5s infinite alternate;
+}
+/* The original pulsed the cta's text-shadow (fireflyText), which repaints big blurs every frame
+   and held the home page to about 60 fps. Same fix as .moreGlow: a glowing copy pulsed with opacity. */
+.ctaGlow {
+  position: absolute; inset: 0;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
+  opacity: 0;
+  animation: glowPulse 1.5s infinite alternate;
+  will-change: opacity;
 }
 
 /* .card.default */
@@ -44,17 +50,7 @@
 }
 .card:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .disable { pointer-events: none; }
-
-/* Zero-height strip at the top of the card, like the original's unpositioned .text div. */
-.text {
-  position: absolute; top: 0; left: 0; width: 100%; height: 0; z-index: 2; display: block;
-  background-color: black; opacity: 0; transition: opacity 0.25s ease-in-out;
-  pointer-events: none;
-}
-.name, .more { position: absolute; left: 0; width: 100%; font-size: 100%; color: white; }
-.name { transform: scale(1); transition: transform 0.25s ease-in-out; }
-.more { top: 1rem; font-size: 75%; text-align: center; text-shadow: 0 0 0 white; animation: fireflyText 1.5s infinite alternate; }
-.portrait { display: none; }
+.flown { visibility: hidden; } /* the stage stands in for it while it's flown out */
 
 .videoContainer {
   display: flex; justify-content: center;
@@ -64,41 +60,80 @@
 .videoContainer video { width: auto; height: 100%; max-width: none; }
 
 .card:hover { background-color: grey; z-index: 1; }
-.card:hover .name { transform: scale(2); }
 .card:hover .videoContainer { opacity: 1; }
 
-/* .card.default.scaleUp: the card flies out to fill the stage (the whole hero on wide screens).
-   The box comes from CardCircle's measure(); the fallbacks are the original's percentages.
-   !important beats the inline rotate() transforms, as in the original. */
-.card.scaleUp {
-  transition-property: transform, width, height, top, left, background-color;
-  transition-duration: 0.5s; transition-timing-function: ease-in-out; transition-delay: 0.05s;
-  transform: translate(-50%, -50%) scale(2) !important;
-  transform-origin: 0 100%;
-  width: var(--su-w, 50%); height: var(--su-h, 50%); top: var(--su-top, 75%); left: var(--su-left, 25%);
-  z-index: 1;
-  background-color: black;
-  border: none;
+/* The fly-out stage. Its finished look matches the original .scaleUp card, which was a half-size
+   box scaled 2x, so the text sizes, offsets and glow here are twice the original values. It moves
+   with transforms only (see CardCircle), which keeps the flight smooth. */
+.stage {
+  position: absolute; z-index: 3; /* top/left/width/height set from the fly-out area */
+  display: block; padding: 0; margin: 0; border: 0; border-radius: 0;
+  background-color: #000; color: #fff; font-family: monospace; cursor: pointer;
+  transform-origin: 50% 50%;
+  will-change: transform;
 }
-.card.scaleUp .text { opacity: 1; transform: scale(1) !important; font-size: 1rem; }
-.card.scaleUp .name { color: white; transform: scale(1); text-align: center; }
-.card.scaleUp .videoContainer { opacity: 1; overflow: visible; align-items: center; }
-.card.scaleUp .videoContainer video {
-  height: var(--vid-h, 100%); width: var(--vid-w, auto);
-  box-shadow: 0 0 0 white;
-  animation: fireflyBox 1.5s infinite alternate;
+.stage:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+/* The hovered card's grey. The fly-out fades it off the black and the close fades it back on,
+   which looks the same as animating the background color but never repaints. */
+.tint { position: absolute; inset: 0; background-color: grey; opacity: 0; pointer-events: none; }
+.stageContent { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+.stageText {
+  position: absolute; top: 0; left: 0; width: 100%; height: 0; z-index: 2;
+  font-size: 2rem; pointer-events: none;
+}
+.stageName, .stageMore { position: absolute; left: 0; width: 100%; text-align: center; color: #fff; }
+.stageMore { top: 2rem; font-size: 75%; }
+/* The original pulsed this text's eight-layer text-shadow (fireflyText2x), which repaints blurs up
+   to 300px on every frame and held the GPU to about 12 fps, so the flight home stuttered. Same
+   fix as .glow: a copy of the text carries the full glow, drawn once, and pulses with opacity. */
+.moreGlow {
+  position: absolute; inset: 0;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff, 0 0 80px #0ff, 0 0 160px #0ff, 0 0 180px #0ff, 0 0 200px #0ff, 0 0 300px #0ff;
+  opacity: 0;
+  animation: glowPulse 1.5s infinite alternate;
+  will-change: opacity;
+}
+.portrait { display: none; }
+
+.stageVideo { position: relative; z-index: 1; display: block; width: var(--vid-w); height: var(--vid-h); max-width: none; }
+
+/* The original pulsed the video's box-shadow, which repaints a huge blur on every frame.
+   The same full glow is drawn once here and pulsed with opacity, which costs almost nothing. */
+.glow {
+  position: absolute; left: 50%; top: 50%;
+  width: var(--vid-w); height: var(--vid-h);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff, 0 0 80px #0ff, 0 0 160px #0ff, 0 0 180px #0ff, 0 0 200px #0ff, 0 0 300px #0ff;
+  opacity: 0;
+  animation: glowPulse 1.5s infinite alternate;
+  will-change: opacity;
+  pointer-events: none;
 }
 
+/* Back button: Font Awesome chevron in a round, glassy button. */
 .exit {
-  position: absolute; top: 0; left: 6rem; z-index: -1; /* top/left set from the fly-out area */
-  height: 3vw; min-height: 40px; width: 3vw; min-width: 40px;
-  border: 0; border-radius: 100%; padding: 0;
-  background-color: transparent; color: white; font-size: 4rem; line-height: 1; font-family: monospace;
-  opacity: 0; cursor: pointer;
-  transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out; transform: scale(1);
+  position: absolute; z-index: 4; /* top/left set from the fly-out area */
+  display: grid; place-items: center;
+  width: 48px; height: 48px; padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  background-color: rgb(10 10 13 / 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff; cursor: pointer;
+  opacity: 0; pointer-events: none; transform: scale(0.85);
+  transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
-.exit:hover { transform: scale(1.15); }
-.exit.show { opacity: 1; z-index: 3; }
+.exit svg { width: 16px; height: 16px; margin-left: -2px; transition: transform 0.15s ease; }
+.exit.show {
+  opacity: 1; pointer-events: auto; transform: scale(1);
+  transition: opacity 0.2s ease 0.2s, transform 0.2s ease 0.2s, background-color 0.15s ease, border-color 0.15s ease;
+}
+.exit:hover { background-color: rgb(255 255 255 / 0.14); border-color: rgb(255 255 255 / 0.7); }
+.exit:hover svg { transform: translateX(-2px); }
+.exit:active { transform: scale(0.94); }
+.exit:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
 /* .center-text: "Client | Title" in the middle of the ring on hover */
 .center {
@@ -112,32 +147,28 @@
 }
 .center.show { opacity: 1; }
 
-@keyframes fireflyText {
-  0% { text-shadow: 0 0 0 white; }
-  100% {
-    color: #fff;
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
-  }
-}
-@keyframes fireflyBox {
-  0% { box-shadow: 0 0 0 white; }
-  100% {
-    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
-  }
-}
+@keyframes glowPulse { from { opacity: 0; } to { opacity: 1; } }
 
 @media (orientation: portrait) {
-  .card.scaleUp .videoContainer video { animation: none; }
-  .scaleUp .portrait { display: unset; }
-  .scaleUp .landscape { display: none; }
+  .glow { display: none; }
+  .stage .portrait { display: unset; }
+  .stage .landscape { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cta, .more, .scaleUp .videoContainer video { animation: none; }
-  .card.scaleUp { transition: none; }
+  .ctaGlow, .moreGlow, .glow { animation: none; }
+  .exit, .exit.show, .exit:active { transform: none; transition: opacity 0.15s ease; }
+  .exit:hover svg { transform: none; }
 }
 
+/* Phones: the stage fills the ring column. Stack the title and keep it clear of the back button. */
 @media (max-width: 860px) {
-  .card.scaleUp .text { font-size: 0.75rem; }
-  .exit { font-size: 3rem; }
+  .stageText {
+    height: auto; padding: 14px 68px 0; box-sizing: border-box;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    font-size: 1.5rem;
+  }
+  .stageName { position: static; }
+  .stageMore { position: relative; } /* in the flow, but still the box for .moreGlow */
+  .exit { width: 44px; height: 44px; }
 }
