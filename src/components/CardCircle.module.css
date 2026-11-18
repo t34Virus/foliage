@@ -65,8 +65,14 @@
 }
 .videoContainer video { width: auto; height: 100%; max-width: none; }
 
-.card:hover { background-color: grey; z-index: 1; }
-.card:hover .videoContainer { opacity: 1; }
+/* A card lights up grey with its demo for a mouse hover or keyboard focus. On touch a tap flies it
+   straight out instead (CardCircle only previews for a mouse or keyboard), so nothing sticks. */
+.card:focus-visible { background-color: grey; z-index: 1; }
+.card:focus-visible .videoContainer { opacity: 1; }
+@media (hover: hover) {
+  .card:hover { background-color: grey; z-index: 1; }
+  .card:hover .videoContainer { opacity: 1; }
+}
 
 /* The fly-out stage. Its finished look matches the original .scaleUp card, which was a half-size
    box scaled 2x, so the text sizes, offsets and glow here are twice the original values. It moves
@@ -129,7 +135,8 @@
   opacity: 0;
 }
 .glowing::after { animation: glowPulse 1.5s infinite alternate; }
-.stage:hover .learn, .stage:focus-visible .learn { animation-play-state: running; }
+.stage:focus-visible .learn { animation-play-state: running; }
+@media (hover: hover) { .stage:hover .learn { animation-play-state: running; } }
 
 .stageVideo { position: relative; z-index: 1; display: block; width: var(--vid-w); height: var(--vid-h); max-width: none; }
 
@@ -155,8 +162,10 @@
   opacity: 1; pointer-events: auto; transform: scale(1);
   transition: opacity 0.2s ease 0.2s, transform 0.2s ease 0.2s, background-color 0.15s ease, border-color 0.15s ease;
 }
-.exit:hover { background-color: rgb(20 20 27 / 0.8); }
-.exit:hover svg { transform: translateX(-2px); }
+@media (hover: hover) {
+  .exit:hover { background-color: rgb(20 20 27 / 0.8); }
+  .exit:hover svg { transform: translateX(-2px); }
+}
 .exit:active { transform: scale(0.94); }
 .exit:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 

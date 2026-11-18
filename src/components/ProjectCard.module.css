@@ -8,8 +8,12 @@
 .media .backdrop { object-fit: cover; filter: blur(18px) brightness(0.65); transform: scale(1.15); }
 .media .poster { transition: transform 0.6s ease; }
 .media video { opacity: 0; transition: opacity 0.3s ease; }
-.card:hover .media video, .card:focus-visible .media video { opacity: 1; }
-.card:hover .media .poster { transform: scale(1.03); }
+/* The demo plays (and the poster eases in) for a mouse or keyboard only; on touch a tap just opens the project. */
+.card:focus-visible .media video { opacity: 1; }
+@media (hover: hover) {
+  .card:hover .media video { opacity: 1; }
+  .card:hover .media .poster { transform: scale(1.03); }
+}
 
 .typeTile {
   position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center;

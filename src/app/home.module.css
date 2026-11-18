@@ -6,7 +6,7 @@
   padding: 22px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg-raised);
   text-decoration: none; transition: border-color 0.2s, transform 0.2s;
 }
-.capTile:hover { transform: translateY(-2px); }
+@media (hover: hover) { .capTile:hover { transform: translateY(-2px); } }
 .capTile p { color: var(--muted); font-size: 0.95rem; }
 .capNum { font-family: var(--mono); font-size: 0.8rem; color: var(--pink); }
 

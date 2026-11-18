@@ -12,5 +12,5 @@
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .cta svg { width: 14px; height: 14px; }
-.facade:hover .cta { background: rgb(10 10 13 / 0.85); }
+@media (hover: hover) { .facade:hover .cta { background: rgb(10 10 13 / 0.85); } }
 .facade:focus-visible { outline: 2px solid var(--pink); outline-offset: -4px; }

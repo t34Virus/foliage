@@ -61,9 +61,10 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
               type="button"
               className={`${styles.tile} spin-border spin-inset`}
               onClick={() => open(i)}
-              onPointerEnter={(e) => startPreview(e.currentTarget)}
-              onPointerLeave={(e) => stopPreview(e.currentTarget)}
-              onFocus={(e) => startPreview(e.currentTarget)}
+              // Mouse hover or keyboard focus only; a tap just opens the viewer.
+              onPointerEnter={(e) => { if (e.pointerType === "mouse") startPreview(e.currentTarget); }}
+              onPointerLeave={(e) => { if (e.pointerType === "mouse") stopPreview(e.currentTarget); }}
+              onFocus={(e) => { if (e.currentTarget.matches(":focus-visible")) startPreview(e.currentTarget); }}
               onBlur={(e) => stopPreview(e.currentTarget)}
               aria-label={`View ${it.video ? "video" : "image"} ${i + 1} of ${n}: ${it.caption ?? it.alt}`}
             >

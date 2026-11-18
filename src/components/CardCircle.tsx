@@ -314,9 +314,11 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
                   ].join(" ")}
                   style={{ transform: base(i), "--hue": ((i + 1) / 20) * 360 } as CSSProperties}
                   aria-label={`Preview ${p.client}: ${p.title}`}
-                  onMouseEnter={() => hover(i)}
-                  onMouseLeave={() => unhover(i)}
-                  onFocus={() => hover(i)}
+                  // Preview for a mouse or keyboard only. A tap on a phone fires these too and would
+                  // leave the preview stuck on, so touch goes straight to the fly-out.
+                  onPointerEnter={(e) => { if (e.pointerType === "mouse") hover(i); }}
+                  onPointerLeave={(e) => { if (e.pointerType === "mouse") unhover(i); }}
+                  onFocus={(e) => { if (e.currentTarget.matches(":focus-visible")) hover(i); }}
                   onBlur={() => unhover(i)}
                   onClick={() => select(i)}
                 >

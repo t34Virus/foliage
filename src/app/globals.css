@@ -38,7 +38,6 @@ body {
 a { color: inherit; }
 /* Brands and events that link to her work or an outside case study (see content/brands.ts). */
 .brand-link { transition: color 0.15s; }
-.brand-link:hover { color: var(--text); }
 img, video, iframe { display: block; max-width: 100%; }
 h1, h2, h3 { line-height: 1.15; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
@@ -78,7 +77,7 @@ p { margin: 0; }
   background: var(--flow) 0 50% / 200% 100%; color: #121218; border: none; font-weight: 600;
   animation: flow-x 5s linear infinite paused;
 }
-.button.primary:hover, .button.primary:focus-visible, .grad-fill:hover, .grad-fill:focus-visible { animation-play-state: running; }
+.button.primary:focus-visible, .grad-fill:focus-visible { animation-play-state: running; }
 
 .text-link { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
@@ -107,8 +106,7 @@ p { margin: 0; }
   transition: color 0.25s ease;
   animation: flow-x 5s linear infinite paused;
 }
-.grad-text:hover, .grad-text:focus-visible,
-.grad-host:hover .grad-text, .grad-host:focus-visible .grad-text { color: transparent; animation-play-state: running; }
+.grad-text:focus-visible, .grad-host:focus-visible .grad-text { color: transparent; animation-play-state: running; }
 
 /* Drawn as a background so it can be a gradient and still wrap across lines with the text. */
 .text-link, .brand-link, .grad-underline {
@@ -118,7 +116,6 @@ p { margin: 0; }
   animation: flow-x 5s linear infinite paused;
 }
 .text-link { --underline-rest: var(--line); }
-.text-link:hover, .brand-link:hover, .grad-underline:hover,
 .text-link:focus-visible, .brand-link:focus-visible, .grad-underline:focus-visible {
   background-image: var(--flow); background-size: 200% 2px; background-repeat: repeat-x;
   animation-play-state: running;
@@ -139,9 +136,32 @@ p { margin: 0; }
 }
 /* For boxes that clip their content (overflow: hidden), draw the ring just inside the edge instead. */
 .spin-border.spin-inset::after { inset: 0; }
-.spin-border:hover, .spin-border:focus-visible, .spin-host:hover .spin-border { border-color: transparent; }
-.spin-border:hover::after, .spin-border:focus-visible::after,
-.spin-host:hover .spin-border::after, .spin-host:focus-visible .spin-border::after { opacity: 1; animation-play-state: running; }
+.spin-border:focus-visible, .spin-host:focus-visible .spin-border { border-color: transparent; }
+.spin-border:focus-visible::after, .spin-host:focus-visible .spin-border::after { opacity: 1; animation-play-state: running; }
+
+/* Hover vs touch. Touch screens can't hover: a tap applies :hover and leaves it stuck until the
+   next tap somewhere else, so every hover effect lives in this block and only applies where a
+   mouse or trackpad can hover. Keyboard focus (above) gets the effects everywhere. */
+@media (hover: hover) {
+  .brand-link:hover { color: var(--text); }
+  .button.primary:hover, .grad-fill:hover { animation-play-state: running; }
+  .grad-text:hover, .grad-host:hover .grad-text { color: transparent; animation-play-state: running; }
+  .text-link:hover, .brand-link:hover, .grad-underline:hover {
+    background-image: var(--flow); background-size: 200% 2px; background-repeat: repeat-x;
+    animation-play-state: running;
+  }
+  .spin-border:hover, .spin-host:hover .spin-border { border-color: transparent; }
+  .spin-border:hover::after, .spin-host:hover .spin-border::after { opacity: 1; animation-play-state: running; }
+}
+/* On every device, a press (:active, only while the finger or mouse button is down) answers with
+   the gradient right away, so a tap gets feedback without anything staying stuck afterward. */
+.grad-text:active, .grad-host:active .grad-text { color: transparent; transition: none; }
+.text-link:active, .brand-link:active, .grad-underline:active { background-image: var(--flow); background-size: 200% 2px; background-repeat: repeat-x; }
+.spin-border:active, .spin-host:active .spin-border { border-color: transparent; }
+.spin-border:active::after, .spin-host:active .spin-border::after { opacity: 1; transition: none; }
+.button:active, .grad-fill:active { transform: scale(0.97); }
+/* That press feedback replaces the grey box phones draw over a tapped link. */
+a, button { -webkit-tap-highlight-color: transparent; }
 
 @media (prefers-reduced-motion: reduce) {
   .grad-text, .text-link, .brand-link, .grad-underline, .spin-border::after, .button.primary, .grad-fill { animation: none; }

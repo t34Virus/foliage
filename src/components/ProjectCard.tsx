@@ -22,9 +22,10 @@ export default function ProjectCard({ project }: { project: Project }) {
     <Link
       href={`/work/${project.slug}/`}
       className={`${styles.card} grad-host`}
-      onMouseEnter={play}
-      onMouseLeave={stop}
-      onFocus={play}
+      // Mouse hover or keyboard focus only: a tap on a phone would start the demo and leave it playing.
+      onPointerEnter={(e) => { if (e.pointerType === "mouse") play(); }}
+      onPointerLeave={(e) => { if (e.pointerType === "mouse") stop(); }}
+      onFocus={(e) => { if (e.currentTarget.matches(":focus-visible")) play(); }}
       onBlur={stop}
     >
       <div className={styles.media}>
