@@ -84,12 +84,26 @@
 .tint { position: absolute; inset: 0; background-color: grey; opacity: 0; pointer-events: none; }
 .stageContent { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 
+/* The title and "click to learn more" stack in a row across the top, centered, with side padding
+   (--title-inset, set from the back button's spot) so they never run under the button. The top
+   padding centers the first line on the button. */
 .stageText {
-  position: absolute; top: 0; left: 0; width: 100%; height: 0; z-index: 2;
-  font-size: 2rem; pointer-events: none;
+  position: absolute; top: 0; left: 0; width: 100%; z-index: 2; box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 17px var(--title-inset, 76px) 14px;
+  font-size: 2rem; line-height: 1.2; pointer-events: none;
 }
-.stageName, .stageMore { position: absolute; left: 0; width: 100%; text-align: center; color: #fff; }
-.stageMore { top: 2rem; font-size: 75%; }
+/* A darkened, blurred band behind the text, so it reads clearly over any demo. It fades in once the
+   card has landed and out before it flies home, so the flight never has to redraw a blur. */
+.stageText::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgb(10 10 13 / 0.55);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.landed::before { opacity: 1; }
+.stageName, .stageMore { position: relative; width: 100%; text-align: center; color: #fff; }
+.stageMore { font-size: 75%; }
 /* The original pulsed this text's eight-layer text-shadow (fireflyText2x), which repaints blurs up
    to 300px on every frame and held the GPU to about 12 fps, so the flight home stuttered. Same
    fix as .glow: a copy of the text carries the full glow, drawn once, and pulses with opacity. */
@@ -167,14 +181,9 @@
   .exit:hover svg { transform: none; }
 }
 
-/* Phones: the stage fills the ring column. Stack the title and keep it clear of the back button. */
+/* Phones: the stage fills the ring column. A smaller title (long ones take about three lines, so the
+   band covers little of the demo), its first line centered on the 44px back button. */
 @media (max-width: 860px) {
-  .stageText {
-    height: auto; padding: 14px 68px 0; box-sizing: border-box;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    font-size: 1.5rem;
-  }
-  .stageName { position: static; }
-  .stageMore { position: relative; } /* in the flow, but still the box for .moreGlow */
+  .stageText { padding-top: 23px; font-size: 1.1rem; }
   .exit { width: 44px; height: 44px; }
 }

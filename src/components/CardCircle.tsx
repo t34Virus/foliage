@@ -112,6 +112,11 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
     const fitHeight = area.width / area.height > aspect;
     const top = area.top - h.top;
     const left = area.left - h.left;
+    // The back button lines up with the page's left edge on wide screens (the same line as the
+    // header's name), and sits 12px in on phones. The title keeps clear of it on both sides.
+    const wrap = hero.current?.firstElementChild as HTMLElement | null;
+    const pageLeft = wrap ? wrap.getBoundingClientRect().left + parseFloat(getComputedStyle(wrap).paddingLeft) - h.left : left + 12;
+    const exitLeft = wide ? pageLeft : left + 12;
     return {
       stage: {
         top,
@@ -120,8 +125,9 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
         height: area.height,
         "--vid-w": `${fitHeight ? area.height * aspect : area.width}px`,
         "--vid-h": `${fitHeight ? area.height : area.width / aspect}px`,
+        "--title-inset": `${exitLeft - left + (wide ? 48 + 16 : 44 + 10)}px`, // button width plus a gap
       } as CSSProperties,
-      exit: { top: top + (wide ? 20 : 12), left: left + (wide ? 96 : 12) },
+      exit: { top: top + 12, left: exitLeft },
     };
   };
 
@@ -337,7 +343,7 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
         >
           <span ref={tint} className={styles.tint} aria-hidden="true" />
           <span ref={stageContent} className={styles.stageContent}>
-            <span className={styles.stageText}>
+            <span className={`${styles.stageText} ${ready && !closing ? styles.landed : ""}`}>
               <span className={styles.stageName}>{active.client} {active.title}</span>
               {(["portrait", "landscape"] as const).map((o) => {
                 const label = o === "portrait" ? "tap to learn more" : "click to learn more";
