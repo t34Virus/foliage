@@ -59,7 +59,7 @@ export default function CalendlyButton() {
       onPointerEnter={preload}
       onFocus={preload}
     >
-      <span className={styles.emoji} aria-hidden="true">📅</span>
+      <span className={styles.emoji} aria-hidden="true">🗓️</span>
       {/* Collapsed until hover or keyboard focus, but always in the page, so screen readers hear it. */}
       <span className={styles.label}>Schedule time with me</span>
     </a>

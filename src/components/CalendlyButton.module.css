@@ -1,4 +1,4 @@
-/* Floats in the bottom-right corner on every page, like Calendly's badge: a round 📅 button that
+/* Floats in the bottom-right corner on every page, like Calendly's badge: a round 🗓️ button that
    slides open to "Schedule time with me" on hover or keyboard focus (touch screens just tap the icon).
    The gradient fill and its hover drift come from the global .grad-fill class. Dialogs (the gallery
    viewer, Calendly's popup) sit above it. */
