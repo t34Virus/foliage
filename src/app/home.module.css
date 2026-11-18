@@ -1,5 +1,4 @@
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-.note { font-family: var(--mono); font-size: 0.75rem; line-height: 1.6; color: var(--muted); }
 
 .capGrid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 16px; }
 .capTile {

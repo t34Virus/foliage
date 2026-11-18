@@ -18,7 +18,12 @@ export default function Home() {
 
   return (
     <>
-      <CardCircle projects={circle}>
+      <CardCircle
+        projects={circle}
+        // Teresa's wording (2026-11-17): only that it was handwritten in 2021, no AI mention.
+        // On 2026-11-18 she moved it under the ring, smaller, as an asterisk note.
+        note="*The rectangle ring is my original animation, handwritten in 2021."
+      >
         <p className="eyebrow">{profile.roles.join(" / ")}</p>
         <h1>
           I build software people <span className="gradient-text">use, touch and remember.</span>
@@ -28,8 +33,6 @@ export default function Home() {
           <Link className="button primary" href="/work/">See the work</Link>
           <a className="button spin-border" href={profile.resumeRequest}>Request resume</a>
         </div>
-        {/* Teresa's wording (2026-11-17): only that it was handwritten in 2021, no AI mention. */}
-        <p className={styles.note}>The rectangle ring is my original animation, handwritten in 2021.</p>
       </CardCircle>
 
       <section className="wrap section">

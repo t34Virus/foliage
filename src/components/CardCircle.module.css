@@ -13,7 +13,13 @@
   .grid { grid-template-columns: 1fr; min-height: auto; padding-top: 40px; }
 }
 
-.ring { position: relative; aspect-ratio: 1; font-family: monospace; /* the original site's font */ }
+/* The ring's column holds three rows that never touch: the prompt, the ring, the note. At the
+   wave's peak the top card reaches 5% of the ring's width above the ring's box (cards stay inside
+   it at the bottom), so the ring keeps that much room above it, plus a gap. Percentage margins are
+   fractions of the column's width, so this holds at every size. */
+.ringColumn { display: grid; justify-items: center; text-align: center; font-family: monospace; /* the original site's font */ }
+.ring { position: relative; width: 100%; aspect-ratio: 1; margin: calc(5% + 12px) 0 12px; }
+.note { margin: 0; max-width: 46ch; font-family: var(--mono); font-size: 0.68rem; line-height: 1.6; color: var(--muted); }
 
 .canvas {
   container-type: size;
@@ -23,10 +29,9 @@
   pointer-events: none; /* the empty sides overlap the copy; only the cards take clicks */
 }
 
-.cta {
-  position: absolute; top: 0; left: 0; margin: 0; z-index: 3;
-  font-size: 1rem; color: #fff;
-}
+.cta { position: relative; margin: 0; font-size: 1rem; color: #fff; }
+.ctaHidden { visibility: hidden; }
+.ctaHidden .ctaGlow { animation: none; }
 /* The original pulsed the cta's text-shadow (fireflyText), which repaints big blurs every frame
    and held the home page to about 60 fps. Same fix as .moreGlow: a glowing copy pulsed with opacity. */
 .ctaGlow {

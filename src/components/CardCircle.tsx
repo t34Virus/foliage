@@ -54,7 +54,7 @@ const outward = (p: Pose, t: number) => ({ k: zoomed(easeOut(t), 1 / sizeAt(p, 0
 // Icon: Font Awesome Free "chevron-left" (CC BY 4.0, https://fontawesome.com/license/free).
 const [chevronW, chevronH, , , chevronPath] = faChevronLeft.icon;
 
-export default function CardCircle({ projects, children }: Readonly<{ projects: Project[]; children: ReactNode }>) {
+export default function CardCircle({ projects, children, note }: Readonly<{ projects: Project[]; children: ReactNode; note?: ReactNode }>) {
   const router = useRouter();
   const n = projects.length;
   const step = 5000 / (n * 2);
@@ -272,51 +272,54 @@ export default function CardCircle({ projects, children }: Readonly<{ projects: 
       <div className={`wrap ${styles.grid}`}>
         <div className={styles.copy}>{children}</div>
 
-        <div ref={column} className={styles.ring}>
-          {!ctaHidden && (
-            <p className={styles.cta}>
-              select a rectangle
-              <span className={styles.ctaGlow} aria-hidden="true">select a rectangle</span>
-            </p>
-          )}
-          <div className={styles.canvas}>
-            {projects.map((p, i) => (
-              <button
-                key={p.slug}
-                type="button"
-                ref={(el) => { cards.current[i] = el; }}
-                className={[
-                  styles.card,
-                  scaled === i && ready && !closing ? styles.flown : "", // in flight, the card crossfades instead
-                  scaled !== null && scaled !== i ? styles.disable : "",
-                ].join(" ")}
-                style={{ transform: base(i), "--hue": ((i + 1) / 20) * 360 } as CSSProperties}
-                aria-label={`Preview ${p.client}: ${p.title}`}
-                onMouseEnter={() => hover(i)}
-                onMouseLeave={() => unhover(i)}
-                onFocus={() => hover(i)}
-                onBlur={() => unhover(i)}
-                onClick={() => select(i)}
-              >
-                <span className={styles.videoContainer}>
-                  {p.media.preview && (
-                    <video
-                      ref={(el) => { videos.current[i] = el; }}
-                      src={asset(p.media.preview)}
-                      poster={p.media.poster ? asset(p.media.poster) : undefined}
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                    />
-                  )}
-                </span>
-              </button>
-            ))}
-            <p className={`${styles.center} ${title ? styles.show : ""}`} aria-live="polite">
-              {title}
-            </p>
+        {/* Three rows that never touch: the prompt, the ring, then the note. */}
+        <div className={styles.ringColumn}>
+          {/* Hidden, not removed, once a card is picked, so the ring doesn't jump mid-flight. */}
+          <p className={`${styles.cta} ${ctaHidden ? styles.ctaHidden : ""}`}>
+            select a rectangle
+            <span className={styles.ctaGlow} aria-hidden="true">select a rectangle</span>
+          </p>
+          <div ref={column} className={styles.ring}>
+            <div className={styles.canvas}>
+              {projects.map((p, i) => (
+                <button
+                  key={p.slug}
+                  type="button"
+                  ref={(el) => { cards.current[i] = el; }}
+                  className={[
+                    styles.card,
+                    scaled === i && ready && !closing ? styles.flown : "", // in flight, the card crossfades instead
+                    scaled !== null && scaled !== i ? styles.disable : "",
+                  ].join(" ")}
+                  style={{ transform: base(i), "--hue": ((i + 1) / 20) * 360 } as CSSProperties}
+                  aria-label={`Preview ${p.client}: ${p.title}`}
+                  onMouseEnter={() => hover(i)}
+                  onMouseLeave={() => unhover(i)}
+                  onFocus={() => hover(i)}
+                  onBlur={() => unhover(i)}
+                  onClick={() => select(i)}
+                >
+                  <span className={styles.videoContainer}>
+                    {p.media.preview && (
+                      <video
+                        ref={(el) => { videos.current[i] = el; }}
+                        src={asset(p.media.preview)}
+                        poster={p.media.poster ? asset(p.media.poster) : undefined}
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                      />
+                    )}
+                  </span>
+                </button>
+              ))}
+              <p className={`${styles.center} ${title ? styles.show : ""}`} aria-live="polite">
+                {title}
+              </p>
+            </div>
           </div>
+          {note && <p className={styles.note}>{note}</p>}
         </div>
       </div>
 
