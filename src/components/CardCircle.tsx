@@ -66,6 +66,8 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const stage = useRef<HTMLButtonElement>(null);
   const stageContent = useRef<HTMLSpanElement>(null);
+  const stageText = useRef<HTMLSpanElement>(null);
+  const exitButton = useRef<HTMLButtonElement>(null);
   const stageVideo = useRef<HTMLVideoElement>(null);
   const tint = useRef<HTMLSpanElement>(null); // the hovered card's grey, faded over the stage's black
   const flight = useRef<Animation[]>([]); // the stage's transform first, then its fades
@@ -172,6 +174,15 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
     setReady(reducedMotion());
     setScaled(i);
   };
+
+  // Center the back button on the title band. The band's height depends on how the title wraps, so
+  // it's measured once the stage is laid out (at its final size; the flight only transforms it).
+  useLayoutEffect(() => {
+    const text = stageText.current;
+    const button = exitButton.current;
+    if (!geometry || !text || !button) return;
+    button.style.top = `${Number(geometry.stage.top) + text.offsetTop + (text.offsetHeight - button.offsetHeight) / 2}px`;
+  }, [geometry]);
 
   // Fly out as soon as the stage mounts, before the first paint, so it starts on top of the card.
   useLayoutEffect(() => {
@@ -343,19 +354,11 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
         >
           <span ref={tint} className={styles.tint} aria-hidden="true" />
           <span ref={stageContent} className={styles.stageContent}>
-            <span className={`${styles.stageText} ${ready && !closing ? styles.landed : ""}`}>
+            <span ref={stageText} className={`${styles.stageText} ${ready && !closing ? styles.landed : ""}`}>
               <span className={styles.stageName}>{active.client} {active.title}</span>
-              {(["portrait", "landscape"] as const).map((o) => {
-                const label = o === "portrait" ? "tap to learn more" : "click to learn more";
-                return (
-                  <span key={o} className={`${styles.stageMore} ${styles[o]}`}>
-                    {label}
-                    {/* Added once it lands: drawing its wide blur the first time is costly, so that
-                        happens while nothing is moving. Its pulse starts from zero, so it fades in. */}
-                    {(ready || closing) && <span className={styles.moreGlow} aria-hidden="true">{label}</span>}
-                  </span>
-                );
-              })}
+              {/* Looks like the site's main button so the action is clear (Teresa, 2026-11-18: "Learn
+                  more" instead of "click to learn more"). The whole stage is the actual button. */}
+              <span className={`${styles.learn} button primary`}>Learn more</span>
             </span>
             <span className={styles.glow} aria-hidden="true" />
             {active.media.preview && (
@@ -375,6 +378,7 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
       )}
 
       <button
+        ref={exitButton}
         type="button"
         className={`${styles.exit} ${open ? styles.show : ""} spin-border`}
         style={geometry?.exit}

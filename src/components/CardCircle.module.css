@@ -34,7 +34,7 @@
 .ctaHidden { visibility: hidden; }
 .ctaHidden .ctaGlow { animation: none; }
 /* The original pulsed the cta's text-shadow (fireflyText), which repaints big blurs every frame
-   and held the home page to about 60 fps. Same fix as .moreGlow: a glowing copy pulsed with opacity. */
+   and held the home page to about 60 fps. Same fix as .glow: a glowing copy pulsed with opacity. */
 .ctaGlow {
   position: absolute; inset: 0;
   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
@@ -84,37 +84,32 @@
 .tint { position: absolute; inset: 0; background-color: grey; opacity: 0; pointer-events: none; }
 .stageContent { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 
-/* The title and "click to learn more" stack in a row across the top, centered, with side padding
-   (--title-inset, set from the back button's spot) so they never run under the button. The top
-   padding centers the first line on the button. */
+/* The title and the Learn more button stack across the top, centered, with side padding
+   (--title-inset, set from the back button's spot) so they never run under the button, which
+   CardCircle centers on this block. */
 .stageText {
   position: absolute; top: 0; left: 0; width: 100%; z-index: 2; box-sizing: border-box;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 17px var(--title-inset, 76px) 14px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 16px var(--title-inset, 76px);
   font-size: 2rem; line-height: 1.2; pointer-events: none;
 }
-/* A darkened, blurred band behind the text, so it reads clearly over any demo. It fades in once the
-   card has landed and out before it flies home, so the flight never has to redraw a blur. */
+/* A darkened, blurred band behind the text, so it reads clearly over any demo. It reaches a little
+   below the text and fades out there, so it has no hard edge. It fades in once the card has landed
+   and out before it flies home, so the flight never has to redraw a blur. */
 .stageText::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
+  content: ""; position: absolute; inset: 0 0 -36px; z-index: -1;
   background: rgb(10 10 13 / 0.55);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent);
   opacity: 0; transition: opacity 0.3s ease;
 }
 .landed::before { opacity: 1; }
-.stageName, .stageMore { position: relative; width: 100%; text-align: center; color: #fff; }
-.stageMore { font-size: 75%; }
-/* The original pulsed this text's eight-layer text-shadow (fireflyText2x), which repaints blurs up
-   to 300px on every frame and held the GPU to about 12 fps, so the flight home stuttered. Same
-   fix as .glow: a copy of the text carries the full glow, drawn once, and pulses with opacity. */
-.moreGlow {
-  position: absolute; inset: 0;
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff, 0 0 80px #0ff, 0 0 160px #0ff, 0 0 180px #0ff, 0 0 200px #0ff, 0 0 300px #0ff;
-  opacity: 0;
-  animation: glowPulse 1.5s infinite alternate;
-  will-change: opacity;
-}
-.portrait { display: none; }
+.stageName { position: relative; width: 100%; text-align: center; color: #fff; }
+/* Takes the pointer so hovering it feels like a button; a click still goes to the stage. Hovering
+   anywhere on the stage drifts its gradient too. */
+.learn { pointer-events: auto; line-height: 1; }
+.stage:hover .learn, .stage:focus-visible .learn { animation-play-state: running; }
 
 .stageVideo { position: relative; z-index: 1; display: block; width: var(--vid-w); height: var(--vid-h); max-width: none; }
 
@@ -171,19 +166,18 @@
 
 @media (orientation: portrait) {
   .glow { display: none; }
-  .stage .portrait { display: unset; }
-  .stage .landscape { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ctaGlow, .moreGlow, .glow { animation: none; }
+  .ctaGlow, .glow { animation: none; }
   .exit, .exit.show, .exit:active { transform: none; transition: opacity 0.15s ease; }
   .exit:hover svg { transform: none; }
 }
 
-/* Phones: the stage fills the ring column. A smaller title (long ones take about three lines, so the
-   band covers little of the demo), its first line centered on the 44px back button. */
+/* Phones: the stage fills the ring column. A smaller title and button, so long titles take about
+   three lines and the band covers little of the demo. */
 @media (max-width: 860px) {
-  .stageText { padding-top: 23px; font-size: 1.1rem; }
+  .stageText { padding-block: 12px; gap: 8px; font-size: 1.1rem; }
+  .learn { padding: 8px 14px; font-size: 0.75rem; }
   .exit { width: 44px; height: 44px; }
 }
