@@ -1,5 +1,6 @@
 export type CapabilitySlug =
   | "cross-platform-apps"
+  | "generative-ai"
   | "full-stack-platforms"
   | "interactive-experiences"
   | "cloud-devsecops"
@@ -31,6 +32,30 @@ export const capabilities: Capability[] = [
       "Architected a K12 learning coach community from scratch: one codebase, three platforms",
       "Led the desktop web expansion: architecture decision record, 16 scoped tickets, no changes to the native apps",
       "Shipped React Native apps for iOS and Android from an Expo EAS monorepo at Bison Technologies",
+    ],
+  },
+  // Teresa, 2026-11-18: AI has to show across the portfolio, since the first featured project is GenAI.
+  // Every line is checked against the code: OLG's Gemini models (pipeline doc and her own route), the
+  // Snapchat booth's Hugging Face models (t34Virus/snap), and her daily Claude Code use at Tilted Windmill.
+  // The K12 app has no AI features, so it isn't tagged here; its page shows how AI was used to build it.
+  {
+    slug: "generative-ai",
+    title: "Generative AI",
+    short: "GenAI in live products with a person in the loop, and AI-native engineering with Claude Code.",
+    intro:
+      "I put generative AI in front of real people, and I build with AI every day. My first featured project runs on Google Gemini with a moderator approving every result, and I write production code with Claude Code under guardrails that keep every AI-written change reviewed, tested and signed off.",
+    builds: [
+      "Image generation with the Gemini API (Gemini 2.5 Flash Image) and with Stable Diffusion, using Hugging Face models through ComfyUI",
+      "Prompt pipelines: Gemini 2.5 Flash-Lite turning a guest's choices into an image prompt and a caption",
+      "Human-in-the-loop review: real-time moderator approval, consent and data-retention notices",
+      "Fallbacks that keep an experience running when an AI provider fails",
+      "AI-assisted development with Claude Code and MCP (Jira, Confluence, Figma), behind SonarQube, tests and human sign-off",
+    ],
+    proof: [
+      "Built the OLG Dream Generator for Ontario Lottery and Gaming: 5 AI portraits per guest on Google Gemini, with a moderator approving every result",
+      "Added a direct Gemini API fallback so image generation keeps working if the main pipeline fails",
+      "Use Claude Code daily across a production React Native app, Laravel API and CMS, with every AI-written change reviewed, tested and signed off",
+      "More than a year of professional AI-assisted development",
     ],
   },
   {

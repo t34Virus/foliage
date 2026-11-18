@@ -43,7 +43,7 @@ export default async function CapabilityPage(props: PageProps<"/capabilities/[sl
 
       <div className="section-head">
         <h2>Related work</h2>
-        <span className="eyebrow">{work.length} projects</span>
+        <span className="eyebrow">{work.length} {work.length === 1 ? "project" : "projects"}</span>
       </div>
       <div className="project-grid">
         {work.map((p) => <ProjectCard key={p.slug} project={p} />)}

@@ -13,7 +13,7 @@ export const profile = {
   // No resume PDF is published (Teresa, 2026-11-16): visitors request it by email.
   resumeRequest: "mailto:hello@alohateresa.com?subject=Resume%20request",
   intro:
-    "10+ years shipping React, React Native and TypeScript products, from interactive sales tools for Fortune 500 brands to a K12 learning community on iOS, Android and web.",
+    "10+ years shipping React, React Native and TypeScript products, from interactive sales tools for Fortune 500 brands and a generative AI kiosk on Google Gemini to a K12 learning community on iOS, Android and web.",
   bio: [
     "I'm a senior software engineer and creative technologist in Los Angeles. I've spent more than ten years building software people use in the real world, much of it experiential: touchscreen murals and iPad sales tools for Fortune 500 brands, show-floor installations at CES, generative AI photo kiosks for live activations, healthcare automation for major health systems, and most recently a cross-platform community app for K12 learning coaches that I architected from scratch.",
     "I've also led teams. I managed a team of 11 at Glossi and served as acting Head of Technology at Spinifex Group, where I oversaw delivery for 20+ enterprise clients. I'm CompTIA CySA+ and Splunk Core Certified, so security is part of how I build, not an afterthought.",
@@ -31,8 +31,19 @@ export const experience: Job[] = [
     company: "Tilted Windmill Agency",
     dates: "Jul 2025 - Present",
     summary:
-      "Architected and built Stride's cross-platform social learning community for K12 learning coaches, from database to UI: native iOS and Android apps and a full website.",
-    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "AWS", "Docker", "WebSockets", "SonarQube"], // SonarQube added 2026-11-17 at her request
+      "Architected and built Stride's cross-platform social learning community for K12 learning coaches, from database to UI: native iOS and Android apps and a full website. I build with Claude Code (Anthropic) every day, behind SonarQube, tests and my sign-off on every AI-written change.",
+    // SonarQube added 2026-11-17 at her request; Redis and Claude Code 2026-11-18 (she confirmed Redis, and asked to name the AI).
+    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "Redis", "AWS", "Docker", "WebSockets", "SonarQube", "Claude Code"],
+  },
+  {
+    // Her contract work (OLG for The Famous Group, and the Snapchat booth). On project pages she prefers
+    // "Engagement: Contract" over "Independent contractor" (2026-11-17), so this entry says Contract Engineer.
+    title: "Contract Engineer",
+    company: "Self-Employed",
+    dates: "2024 - 2026",
+    summary:
+      "Built the OLG Dream Generator for The Famous Group: a generative AI photo kiosk for Ontario Lottery and Gaming on Google Gemini (Gemini 2.5 Flash-Lite writes the prompts and captions, Gemini 2.5 Flash Image makes the portraits), with a moderator approving every result. Also built an AI photo booth for Snapchat with Stable Diffusion (Hugging Face models) and Gemini.",
+    tech: ["NestJS", "Nuxt 3", "Vue 3", "TypeScript", "MongoDB", "WebSockets", "Keycloak", "Gemini API", "Gemini 2.5 Flash Image", "Gemini 2.5 Flash-Lite", "Stable Diffusion", "Hugging Face", "ComfyUI", "React", "Socket.IO", "Electron"],
   },
   {
     title: "Engineering Manager",
@@ -40,7 +51,7 @@ export const experience: Job[] = [
     dates: "Jul 2023 - Oct 2024",
     summary:
       "Introduced engineering standards for a team of 11 and cut monthly AWS costs by 38% while staying hands-on as a developer.",
-    tech: ["React", "Next.js", "GraphQL", "AWS", "Unreal Engine 5", "MongoDB"],
+    tech: ["React", "Next.js", "GraphQL", "AWS", "Unreal Engine 5", "MongoDB", "DynamoDB"], // DynamoDB confirmed 2026-11-18
   },
   {
     title: "Backend Engineer",

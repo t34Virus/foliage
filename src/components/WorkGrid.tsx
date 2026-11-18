@@ -43,7 +43,7 @@ export default function WorkGrid({ projects, capabilities }: { projects: Project
           Client: {client} <span aria-hidden="true">&times;</span>
         </button>
       )}
-      <p className={styles.count} aria-live="polite">{shown.length} projects{client ? ` for ${client}` : ""}</p>
+      <p className={styles.count} aria-live="polite">{shown.length} {shown.length === 1 ? "project" : "projects"}{client ? ` for ${client}` : ""}</p>
       <div className="project-grid">
         {shown.map((p) => (
           <ProjectCard key={p.slug} project={p} />

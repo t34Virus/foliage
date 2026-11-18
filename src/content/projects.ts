@@ -63,7 +63,7 @@ const allProjects: Project[] = [
     madeAtLabel: "Engagement",
     summary:
       "A walk-up generative AI kiosk for Ontario Lottery and Gaming: guests pick the dreams that speak to them, pose for a photo, and get an AI-made portrait of themselves living that dream, to print or scan home.",
-    capabilities: ["interactive-experiences", "full-stack-platforms"],
+    capabilities: ["generative-ai", "interactive-experiences", "full-stack-platforms"],
     role: "Full-Stack Engineer",
     platform: ["Touchscreen kiosk (Windows)", "Web moderator dashboard", "Mobile share page"],
     tech: ["NestJS", "Nuxt 3", "Vue 3", "TypeScript", "MongoDB", "WebSockets", "Keycloak", "Google Cloud Storage", "Gemini 2.5 Flash Image", "Gemini 2.5 Flash-Lite", "Gemini API", "Jest"],
@@ -832,7 +832,7 @@ const allProjects: Project[] = [
     madeAtLabel: "Engagement",
     summary:
       "A multi-device AI photo booth for Snapchat: an iPad runs the shoot, a live display shows it, and Stable Diffusion turns each photo into a styled image.",
-    capabilities: ["interactive-experiences"],
+    capabilities: ["generative-ai", "interactive-experiences"],
     platform: ["iPad", "Live display", "Desktop kiosk (Electron)"],
     role: "Creative Technologist",
     // Teresa, 2026-11-18: "For the Snap project, I used Hugging face and Gemini"; Gemini "generated images based on prompts".

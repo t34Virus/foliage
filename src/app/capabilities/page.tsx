@@ -26,7 +26,7 @@ export default function CapabilitiesPage() {
                 <h2 className="grad-text">{c.title}</h2>
                 <p>{c.short}</p>
               </span>
-              <span className={styles.count}>{projectsFor(c.slug).length} projects</span>
+              <span className={styles.count}>{projectsFor(c.slug).length} {projectsFor(c.slug).length === 1 ? "project" : "projects"}</span>
             </Link>
           </li>
         ))}
