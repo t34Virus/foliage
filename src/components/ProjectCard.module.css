@@ -8,8 +8,9 @@
 .media .backdrop { object-fit: cover; filter: blur(18px) brightness(0.65); transform: scale(1.15); }
 .media .poster { transition: transform 0.6s ease; }
 .media video { opacity: 0; transition: opacity 0.3s ease; }
-/* The demo plays (and the poster eases in) for a mouse or keyboard only; on touch a tap just opens the project. */
-.card:focus-visible .media video { opacity: 1; }
+/* The demo shows for a mouse hover or keyboard focus, and on touch screens while the card is in
+   view (data-playing, set by ProjectCard once it's playing). A tap just opens the project. */
+.card:focus-visible .media video, .card[data-playing] .media video { opacity: 1; }
 @media (hover: hover) {
   .card:hover .media video { opacity: 1; }
   .card:hover .media .poster { transform: scale(1.03); }

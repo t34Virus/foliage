@@ -1,15 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { Project } from "@/content/projects";
 import { asset } from "@/lib/asset";
 import styles from "./ProjectCard.module.css";
 
-// Agency-style tile: poster at rest, the muted demo loop plays on hover or keyboard focus.
+// Agency-style tile: poster at rest, the muted demo loop plays on hover or keyboard focus, and on
+// touch screens while the card is scrolled into view (Teresa, 2026-11-18), since phones can't hover.
 export default function ProjectCard({ project }: { project: Project }) {
+  const card = useRef<HTMLAnchorElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const { poster, preview } = project.media;
+
+  // Touch screens: the demo plays while at least 60% of the card is on screen and pauses when it
+  // scrolls away (preload="none", so it only downloads then). It fades in once it's actually
+  // playing, so the poster never flashes to black. Not with reduced motion or the data saver.
+  useEffect(() => {
+    const el = card.current;
+    const v = video.current;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (!el || !v || !window.matchMedia("(hover: none)").matches
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches || connection?.saveData) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        v.play().then(() => { el.dataset.playing = ""; }).catch(() => {}); // e.g. iOS Low Power Mode
+      } else {
+        delete el.dataset.playing;
+        v.pause();
+      }
+    }, { threshold: 0.6 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const play = () => {
     const v = video.current;
@@ -20,6 +43,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link
+      ref={card}
       href={`/work/${project.slug}/`}
       className={`${styles.card} grad-host`}
       // Mouse hover or keyboard focus only: a tap on a phone would start the demo and leave it playing.
