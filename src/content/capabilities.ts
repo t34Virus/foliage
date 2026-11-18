@@ -44,20 +44,21 @@ export const capabilities: Capability[] = [
     title: "Generative AI",
     short: "GenAI in live products with a person in the loop, and AI-native engineering with Claude Code.",
     intro:
-      "I put generative AI in front of real people, and I build with AI every day. My first featured project runs on Google Gemini with a moderator approving every result, and I write production code with Claude Code under guardrails that keep every AI-written change reviewed, tested and signed off.",
+      "I've worked with AI professionally for more than two years: automation bots for health systems, generative AI in front of real people, and AI in my own engineering every day. My first featured project runs on Google Gemini with a moderator approving every result, and I write production code with Claude Code under guardrails that keep every AI-written change reviewed, tested and signed off.",
     builds: [
       "Image generation with the Gemini API (Gemini 2.5 Flash Image) and with Stable Diffusion, using Hugging Face models through ComfyUI",
       "Prompt pipelines: Gemini 2.5 Flash-Lite turning a guest's choices into an image prompt and a caption",
       "Human-in-the-loop review: real-time moderator approval, consent and data-retention notices",
       "Fallbacks that keep an experience running when an AI provider fails",
       "AI-assisted development with Claude Code and MCP (Jira, Confluence, Figma), behind SonarQube, tests and human sign-off",
+      "Healthcare automation bots for enterprise health systems (Olive AI)",
     ],
     proof: [
       "Built the OLG Dream Generator for Ontario Lottery and Gaming: 5 AI portraits per guest on Google Gemini, with a moderator approving every result",
       "Added a direct Gemini API fallback so image generation keeps working if the main pipeline fails",
       "Built an AI photo booth for Snapchat: Stable Diffusion 1.5 with Hugging Face models through ComfyUI, plus Google Gemini, run from an iPad",
       "Use Claude Code daily across a production React Native app, Laravel API and CMS, with every AI-written change reviewed, tested and signed off",
-      "More than a year of professional AI-assisted development",
+      "2+ years of professional AI work: healthcare automation bots at Olive AI, generative AI products, and daily AI-native development",
     ],
   },
   {

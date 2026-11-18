@@ -66,7 +66,7 @@ export const experience: Job[] = [
     company: "Olive AI",
     dates: "Jan 2022 - Sep 2022",
     summary:
-      "Built healthcare automation for enterprise health systems and an internal tool that cut report generation time by 50%.",
+      "Built healthcare automation bots for enterprise health systems in OliveScript, Olive's in-house TypeScript automation, and an internal tool that cut report generation time by 50%.",
     // Her resume also lists Olive's in-house OliveScript and CSaaS; she said to show them as
     // JavaScript and TypeScript (2026-11-17), which are already here.
     tech: ["TypeScript", "JavaScript", "Docker", "Node.js"],
