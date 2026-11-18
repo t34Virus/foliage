@@ -1,19 +1,19 @@
-/* Floats in the bottom-right corner on every page, like Calendly's badge: a round calendar icon that
+/* Floats in the bottom-right corner on every page, like Calendly's badge: a round 📅 button that
    slides open to "Schedule time with me" on hover or keyboard focus (touch screens just tap the icon).
    The gradient fill and its hover drift come from the global .grad-fill class. Dialogs (the gallery
    viewer, Calendly's popup) sit above it. */
 .badge {
-  --size: 52px;
+  --size: 52px; --icon: 24px;
   position: fixed; z-index: 40;
   right: max(clamp(12px, 2vw, 24px), env(safe-area-inset-right));
   bottom: max(clamp(12px, 2vw, 24px), env(safe-area-inset-bottom));
   display: inline-flex; align-items: center;
-  height: var(--size); padding: 0 calc((var(--size) - 20px) / 2); border-radius: 999px;
+  height: var(--size); padding: 0 calc((var(--size) - var(--icon)) / 2); border-radius: 999px;
   font-family: var(--mono); font-size: 0.9rem; letter-spacing: 0.02em; line-height: 1; white-space: nowrap;
   text-decoration: none;
   box-shadow: 0 6px 24px rgb(0 0 0 / 0.45);
 }
-.badge svg { width: 20px; height: 20px; flex: none; }
+.emoji { display: grid; place-items: center; width: var(--icon); height: var(--icon); flex: none; font-size: 21px; line-height: 1; }
 .label {
   max-width: 0; margin-left: 0; overflow: hidden; opacity: 0;
   transition: max-width 0.35s ease, margin-left 0.35s ease, opacity 0.15s ease;

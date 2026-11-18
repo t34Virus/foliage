@@ -1,8 +1,6 @@
 "use client";
 
-import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import type { MouseEvent } from "react";
-import Icon from "./Icon";
 import styles from "./CalendlyButton.module.css";
 
 // Teresa's Calendly scheduler, opened in Calendly's own popup. This replaces Calendly's badge widget
@@ -61,7 +59,7 @@ export default function CalendlyButton() {
       onPointerEnter={preload}
       onFocus={preload}
     >
-      <Icon icon={faCalendarDays} />
+      <span className={styles.emoji} aria-hidden="true">📅</span>
       {/* Collapsed until hover or keyboard focus, but always in the page, so screen readers hear it. */}
       <span className={styles.label}>Schedule time with me</span>
     </a>
