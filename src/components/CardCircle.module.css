@@ -34,7 +34,7 @@
 .ctaHidden { visibility: hidden; }
 .ctaHidden .ctaGlow { animation: none; }
 /* The original pulsed the cta's text-shadow (fireflyText), which repaints big blurs every frame
-   and held the home page to about 60 fps. Same fix as .glow: a glowing copy pulsed with opacity. */
+   and held the home page to about 60 fps. The fix: a glowing copy of the text, pulsed with opacity. */
 .ctaGlow {
   position: absolute; inset: 0;
   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
@@ -84,9 +84,8 @@
 .tint { position: absolute; inset: 0; background-color: grey; opacity: 0; pointer-events: none; }
 .stageContent { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 
-/* The title and the Learn more button stack across the top, centered, with side padding
-   (--title-inset, set from the back button's spot) so they never run under the button, which
-   CardCircle centers on this block. */
+/* The title sits across the top, centered, with side padding (--title-inset, set from the back
+   button's spot) so it never runs under the button, which CardCircle lines up with its first line. */
 .stageText {
   position: absolute; top: 0; left: 0; width: 100%; z-index: 2; box-sizing: border-box;
   display: flex; flex-direction: column; align-items: center; gap: 12px;
@@ -106,25 +105,34 @@
 }
 .landed::before { opacity: 1; }
 .stageName { position: relative; width: 100%; text-align: center; color: #fff; }
-/* Takes the pointer so hovering it feels like a button; a click still goes to the stage. Hovering
-   anywhere on the stage drifts its gradient too. */
-.learn { pointer-events: auto; line-height: 1; }
+/* "Learn more": centered at the bottom of the demo (--vid-h is the demo's height), a little
+   see-through over a light blur, with a soft pastel glow that pulses once the card has landed. The
+   glow is drawn once and pulsed with opacity, like .ctaGlow, so it costs almost nothing; it replaces
+   the cyan glow that used to ring the demo. The button takes the pointer so hovering it feels like a
+   button; a click still goes to the stage, and hovering anywhere on the stage drifts its gradient.
+   Selectors carry .stage .stageContent so they beat the global .button.primary background. */
+.stage .stageContent .learn {
+  position: absolute; left: 50%; bottom: calc((100% - var(--vid-h)) / 2 + 20px); z-index: 2;
+  translate: -50% 0;
+  pointer-events: auto; line-height: 1;
+  background-image: linear-gradient(90deg,
+    color-mix(in srgb, var(--pink) 85%, transparent),
+    color-mix(in srgb, var(--blush) 85%, transparent) 25%,
+    color-mix(in srgb, var(--blue) 85%, transparent) 50%,
+    color-mix(in srgb, var(--blush) 85%, transparent) 75%,
+    color-mix(in srgb, var(--pink) 85%, transparent));
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.learn::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  box-shadow: 0 0 10px var(--blush), 0 0 24px var(--pink), 0 0 48px var(--blue), 0 0 80px color-mix(in srgb, var(--pink) 60%, transparent);
+  opacity: 0;
+}
+.glowing::after { animation: glowPulse 1.5s infinite alternate; }
 .stage:hover .learn, .stage:focus-visible .learn { animation-play-state: running; }
 
 .stageVideo { position: relative; z-index: 1; display: block; width: var(--vid-w); height: var(--vid-h); max-width: none; }
 
-/* The original pulsed the video's box-shadow, which repaints a huge blur on every frame.
-   The same full glow is drawn once here and pulsed with opacity, which costs almost nothing. */
-.glow {
-  position: absolute; left: 50%; top: 50%;
-  width: var(--vid-w); height: var(--vid-h);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff, 0 0 80px #0ff, 0 0 160px #0ff, 0 0 180px #0ff, 0 0 200px #0ff, 0 0 300px #0ff;
-  opacity: 0;
-  animation: glowPulse 1.5s infinite alternate;
-  will-change: opacity;
-  pointer-events: none;
-}
 
 /* Back button: a glassy "‹ Back" pill in the same type as the site's buttons, with the spinning
    gradient border on hover (the global spin-border class). Phones get just the chevron in a circle. */
@@ -166,12 +174,10 @@
 
 @keyframes glowPulse { from { opacity: 0; } to { opacity: 1; } }
 
-@media (orientation: portrait) {
-  .glow { display: none; }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .ctaGlow, .glow { animation: none; }
+  .ctaGlow, .learn::after { animation: none; }
+  .glowing::after { opacity: 0.6; } /* a steady glow instead of a pulse */
   .exit, .exit.show, .exit:active { transform: none; transition: opacity 0.15s ease; }
   .exit:hover svg { transform: none; }
 }
@@ -180,7 +186,7 @@
    three lines and the band covers little of the demo. */
 @media (max-width: 860px) {
   .stageText { padding-block: 12px; gap: 8px; font-size: 1.1rem; }
-  .learn { padding: 8px 14px; font-size: 0.75rem; }
+  .stage .stageContent .learn { bottom: calc((100% - var(--vid-h)) / 2 + 12px); padding: 8px 14px; font-size: 0.75rem; }
   .exit { width: 40px; padding: 0; }
   .exitLabel { display: none; }
 }

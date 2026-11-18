@@ -359,11 +359,7 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
           <span ref={stageContent} className={styles.stageContent}>
             <span ref={stageText} className={`${styles.stageText} ${ready && !closing ? styles.landed : ""}`}>
               <span className={styles.stageName}>{active.client} {active.title}</span>
-              {/* Looks like the site's main button so the action is clear (Teresa, 2026-11-18: "Learn
-                  more" instead of "click to learn more"). The whole stage is the actual button. */}
-              <span className={`${styles.learn} button primary`}>Learn more</span>
             </span>
-            <span className={styles.glow} aria-hidden="true" />
             {active.media.preview && (
               <video
                 ref={stageVideo}
@@ -376,6 +372,10 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
                 preload="auto"
               />
             )}
+            {/* Teresa, 2026-11-18: "Learn more" instead of "click to learn more", at the bottom of the
+                demo, a little see-through, carrying the glow that used to ring the demo. It looks
+                like the site's main button; the whole stage is the actual button. */}
+            <span className={`${styles.learn} ${ready && !closing ? styles.glowing : ""} button primary`}>Learn more</span>
           </span>
         </button>
       )}
