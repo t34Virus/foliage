@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BrandText from "@/components/BrandText";
 import { certifications, community, education, experience, profile, recognition } from "@/content/profile";
 import styles from "./about.module.css";
 
@@ -13,7 +14,7 @@ export default function AboutPage() {
       <p className="eyebrow">About</p>
       <h1 style={{ margin: "12px 0 24px" }}>{profile.name}</h1>
       <div className={styles.bio}>
-        {profile.bio.map((p) => <p key={p}>{p}</p>)}
+        {profile.bio.map((p) => <p key={p}><BrandText text={p} /></p>)}
         <div><a className="button primary" href={profile.resumeRequest}>Request resume</a></div>
       </div>
 
@@ -24,7 +25,7 @@ export default function AboutPage() {
             <span className={styles.dates}>{j.dates}</span>
             <div>
               <h3>{j.title}, {j.company}</h3>
-              <p>{j.summary}</p>
+              <p><BrandText text={j.summary} /></p>
               <ul className={`chips ${styles.tech}`} aria-label={`Technologies at ${j.company}`}>
                 {j.tech.map((t) => <li key={t}>{t}</li>)}
               </ul>

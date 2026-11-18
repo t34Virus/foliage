@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLink } from "@/components/BrandText";
 import CardCircle from "@/components/CardCircle";
 import ProjectCard from "@/components/ProjectCard";
 import { capabilities } from "@/content/capabilities";
@@ -27,6 +28,8 @@ export default function Home() {
           <Link className="button primary" href="/work/">See the work</Link>
           <a className="button" href={profile.resumeRequest}>Request resume</a>
         </div>
+        {/* Teresa's wording (2026-11-17): only that it was handwritten in 2021, no AI mention. */}
+        <p className={styles.note}>The rectangle ring is my original animation, handwritten in 2021.</p>
       </CardCircle>
 
       <section className="wrap section">
@@ -63,7 +66,7 @@ export default function Home() {
         <p className="eyebrow">Brands I&apos;ve built for</p>
         <ul className={styles.clients}>
           {clients.map((c) => (
-            <li key={c}>{c}</li>
+            <li key={c}><BrandLink name={c} /></li>
           ))}
         </ul>
       </section>

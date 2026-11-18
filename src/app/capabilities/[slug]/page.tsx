@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BrandText from "@/components/BrandText";
 import ProjectCard from "@/components/ProjectCard";
 import { capabilities, capabilityBySlug } from "@/content/capabilities";
 import { projectsFor } from "@/content/projects";
@@ -27,16 +28,16 @@ export default async function CapabilityPage(props: PageProps<"/capabilities/[sl
       <Link className="text-link" href="/capabilities/">All capabilities</Link>
       <p className="eyebrow" style={{ marginTop: 32 }}>Capability</p>
       <h1 style={{ margin: "12px 0 16px" }}>{capability.title}</h1>
-      <p className="lede">{capability.intro}</p>
+      <p className="lede"><BrandText text={capability.intro} /></p>
 
       <div className={styles.columns}>
         <div>
           <h2>What I build</h2>
-          <ul>{capability.builds.map((b) => <li key={b}>{b}</li>)}</ul>
+          <ul>{capability.builds.map((b) => <li key={b}><BrandText text={b} /></li>)}</ul>
         </div>
         <div className={styles.proof}>
           <h2>Proof</h2>
-          <ul>{capability.proof.map((p) => <li key={p}>{p}</li>)}</ul>
+          <ul>{capability.proof.map((p) => <li key={p}><BrandText text={p} /></li>)}</ul>
         </div>
       </div>
 

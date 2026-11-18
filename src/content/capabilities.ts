@@ -105,6 +105,7 @@ export const capabilities: Capability[] = [
       "Engineering Manager for a team of 11 engineers, QA, 3D artists and contractors at Glossi",
       "Acting Head of Technology at Spinifex: 20+ enterprise clients, $500K+ in tech operations",
       "Mentored junior developers and ran code review at Olive AI",
+      "Keynote speaker at the Hawaii STEM Conference on Maui, sharing my path into tech with Hawaii's students",
     ],
   },
 ];

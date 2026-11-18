@@ -29,12 +29,21 @@
 .story h2 { font-size: 1.4rem; margin-bottom: 12px; }
 .story ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
 .story li::marker { color: var(--pink); }
+.how { display: grid; gap: 22px; }
+.how h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.how p { color: var(--muted); line-height: 1.6; }
 
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px; margin-top: clamp(48px, 7vw, 88px); }
-.gallery img { width: 100%; border-radius: var(--radius); border: 1px solid var(--line); }
+.gallery { margin-top: clamp(48px, 7vw, 88px); }
+.moreVideos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px; margin-top: clamp(48px, 7vw, 88px); }
+.moreVideos figure { margin: 0; display: grid; gap: 10px; }
+.moreVideos figcaption { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--muted); }
 
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: clamp(56px, 8vw, 96px); }
 .pager a { display: grid; gap: 6px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; }
 .pager a:hover { border-color: var(--blush); }
 .nextLink { text-align: right; }
 @media (max-width: 600px) { .pager { grid-template-columns: 1fr; } .nextLink { text-align: left; } }
+.footnote { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.82rem; font-style: italic; color: var(--muted); display: grid; gap: 4px; }
+.quote { margin: 0; padding: 4px 0 4px 22px; border-left: 3px solid var(--pink); }
+.quote blockquote { margin: 0; font-size: 1.2rem; line-height: 1.55; font-style: italic; color: var(--text); }
+.quote figcaption { margin-top: 12px; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--muted); }

@@ -32,8 +32,8 @@ export const experience: Job[] = [
     company: "Tilted Windmill Agency",
     dates: "Jul 2025 - Present",
     summary:
-      "Architected and built a cross-platform social learning community for K12 learning coaches, from database to UI, on iOS, Android and desktop web.",
-    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "AWS", "Docker", "WebSockets"],
+      "Architected and built Stride's cross-platform social learning community for K12 learning coaches, from database to UI: native iOS and Android apps and a full website.",
+    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "AWS", "Docker", "WebSockets", "SonarQube"], // SonarQube added 2026-11-17 at her request
   },
   {
     title: "Engineering Manager",
@@ -66,7 +66,7 @@ export const experience: Job[] = [
     company: "Spinifex Group",
     dates: "Nov 2019 - Jan 2022",
     summary:
-      "Acting Head of Technology, overseeing delivery for 20+ enterprise clients and events including CES and the LA Auto Show.",
+      "Acting Head of Technology, overseeing delivery for 20+ enterprise clients and events including CES, the LA Auto Show and Gulfstream's G400 and G800 launch.",
     tech: ["Angular", "Kubernetes", "AWS", "Unity", "Bitbucket", "Lottie", "Vue.js", "Docker"],
   },
   {

@@ -1,0 +1,16 @@
+.facade { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: #000; cursor: pointer; }
+
+/* Selectors carry the .facade class so they win over the page's ".frame img" rule. */
+.facade .backdrop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(28px) brightness(0.55); transform: scale(1.12); }
+.facade .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+
+.cta {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px;
+  border-radius: 999px; border: 1px solid rgb(255 255 255 / 0.25); background: rgb(10 10 13 / 0.72); color: var(--text);
+  font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.cta svg { width: 14px; height: 14px; }
+.facade:hover .cta { border-color: var(--blush); background: rgb(10 10 13 / 0.85); }
+.facade:focus-visible { outline: 2px solid var(--pink); outline-offset: -4px; }

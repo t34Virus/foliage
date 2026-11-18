@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BrandText from "@/components/BrandText";
+import Gallery from "@/components/Gallery";
+import HeroMedia, { type HeroSource } from "@/components/HeroMedia";
 import { capabilityBySlug } from "@/content/capabilities";
 import { projectBySlug, projects } from "@/content/projects";
 import { asset } from "@/lib/asset";
@@ -24,32 +27,32 @@ export async function generateMetadata(props: PageProps<"/work/[slug]">): Promis
 }
 
 function Hero({ project }: { project: NonNullable<ReturnType<typeof projectBySlug>> }) {
-  const { vimeo, video, poster } = project.media;
-  if (vimeo) {
-    return (
-      <div className={styles.frame}>
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeo}?dnt=1&title=0&byline=0&portrait=0`}
-          title={`${project.client} ${project.title} demo video`}
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-          loading="lazy"
-        />
-      </div>
-    );
-  }
-  if (video) {
-    return (
-      <div className={styles.frame}>
-        <video src={asset(video)} poster={poster ? asset(poster) : undefined} controls playsInline preload="metadata" />
-      </div>
-    );
-  }
+  const { vimeo, youtube, videoTitle, video, preview, poster } = project.media;
+  const name = `${project.client} ${project.title}`;
+  // Teresa, 2026-11-17: the hero is an image, with the video one click away. The full video comes first
+  // (Vimeo, then YouTube, then a self-hosted clip); a project with only the demo loop plays that.
+  const source: HeroSource | null = vimeo
+    ? { kind: "vimeo", id: vimeo }
+    : youtube
+      ? { kind: "youtube", id: youtube }
+      : video
+        ? { kind: "video", src: asset(video) }
+        : preview
+          ? { kind: "loop", src: asset(preview) }
+          : null;
   if (poster) {
     return (
       <div className={styles.frame}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset(poster)} alt={`${project.client} ${project.title}`} />
+        {source ? (
+          <HeroMedia
+            source={source}
+            poster={asset(poster)}
+            title={source.kind === "loop" ? `${name} demo` : (videoTitle ?? `${name} video`)}
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={asset(poster)} alt={name} />
+        )}
       </div>
     );
   }
@@ -65,16 +68,23 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
   const project = projectBySlug(slug);
   if (!project) notFound();
 
+  const here = `/work/${project.slug}/`; // brand links skip the page you're on
   const i = projects.indexOf(project);
   const prev = projects[(i - 1 + projects.length) % projects.length];
   const next = projects[(i + 1) % projects.length];
 
   const meta = [
     ["Role", project.role],
-    ["Built at", project.madeAt],
+    [project.madeAtLabel ?? "Built at", project.madeAt],
     ["Platform", project.platform?.join(", ")],
     ["Recognition", project.award],
   ].filter(([, v]) => v) as [string, string][];
+
+  const gallery = (project.media.images ?? []).map((m) =>
+    typeof m === "string"
+      ? { src: asset(m), alt: `${project.client} ${project.title} screen` }
+      : { src: asset(m.src), poster: asset(m.poster), alt: m.label, caption: m.label, video: true },
+  );
 
   return (
     <article>
@@ -88,7 +98,7 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
       <header className={`wrap ${styles.header}`}>
         <p className="eyebrow">{project.client}</p>
         <h1>{project.title}</h1>
-        <p className="lede">{project.summary}</p>
+        <p className="lede"><BrandText text={project.summary} here={here} /></p>
       </header>
 
       <div className={`wrap ${styles.body}`}>
@@ -113,25 +123,50 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
               <li key={c}><Link href={`/capabilities/${c}/`}>{capabilityBySlug(c)?.title}</Link></li>
             ))}
           </ul>
+          {(project.credit || project.aiUse) && (
+            <div className={styles.footnote}>
+              {project.credit && <p>{project.credit}</p>}
+              {project.aiUse && <p>{project.aiUse}</p>}
+            </div>
+          )}
         </aside>
 
         <div className={styles.story}>
+          {project.quote && (
+            <figure className={styles.quote}>
+              <blockquote>&ldquo;{project.quote.text}&rdquo;</blockquote>
+              <figcaption>{project.quote.by}</figcaption>
+            </figure>
+          )}
           {project.challenge && (
             <section>
-              <h2>Challenge</h2>
-              <p>{project.challenge}</p>
+              <h2>{project.challengeTitle ?? "Challenge"}</h2>
+              <p><BrandText text={project.challenge} here={here} /></p>
             </section>
           )}
           {project.built && (
             <section>
               <h2>What I built</h2>
-              <ul>{project.built.map((b) => <li key={b}>{b}</li>)}</ul>
+              <ul>{project.built.map((b) => <li key={b}><BrandText text={b} here={here} /></li>)}</ul>
+            </section>
+          )}
+          {project.howItWorks && (
+            <section>
+              <h2>How it works</h2>
+              <div className={styles.how}>
+                {project.howItWorks.map((h) => (
+                  <div key={h.part}>
+                    <h3>{h.part}</h3>
+                    <p><BrandText text={h.detail} here={here} /></p>
+                  </div>
+                ))}
+              </div>
             </section>
           )}
           {project.results && (
             <section>
               <h2>Results</h2>
-              <ul>{project.results.map((r) => <li key={r}>{r}</li>)}</ul>
+              <ul>{project.results.map((r) => <li key={r}><BrandText text={r} here={here} /></li>)}</ul>
             </section>
           )}
           {project.links && (
@@ -143,12 +178,28 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
         </div>
       </div>
 
-      {project.media.images && (
-        <div className={`wrap ${styles.gallery}`}>
-          {project.media.images.map((src) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={src} src={asset(src)} alt={`${project.client} ${project.title} screen`} loading="lazy" />
+      {project.media.moreVideos && (
+        <section className={`wrap ${styles.moreVideos}`} aria-label="More video">
+          {project.media.moreVideos.map((v) => (
+            <figure key={v.youtube}>
+              <div className={styles.frame}>
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${v.youtube}?rel=0`}
+                  title={v.title}
+                  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>{v.title}</figcaption>
+            </figure>
           ))}
+        </section>
+      )}
+
+      {gallery.length > 0 && (
+        <div className={`wrap ${styles.gallery}`}>
+          <Gallery items={gallery} />
         </div>
       )}
 

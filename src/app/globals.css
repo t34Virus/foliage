@@ -9,8 +9,10 @@
   --blush: #eadedb;
   --blue: #7a9deb;
   --gradient: linear-gradient(140deg, var(--pink) 0%, var(--blush) 50%, var(--blue) 75%);
-  --sans: var(--font-geist-sans), system-ui, sans-serif;
-  --mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Teresa's own fonts from the original foliage site (tag v1-angular, src/styles.scss): her sans stack
+     (AvenirNext, "Helvetica Neue", Helvetica, Arial) and plain monospace, which the ring still uses. */
+  --sans: "Avenir Next", AvenirNext, Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: monospace, monospace; /* written twice so browsers keep the set size instead of shrinking it */
   --max: 1200px;
   --gutter: clamp(16px, 4vw, 48px);
   --radius: 14px;
@@ -31,6 +33,9 @@ body {
 }
 
 a { color: inherit; }
+/* Brands and events that link to her work or an outside case study (see content/brands.ts). */
+.brand-link { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color 0.15s, text-decoration-color 0.15s; }
+.brand-link:hover { color: var(--text); text-decoration-color: var(--pink); }
 img, video, iframe { display: block; max-width: 100%; }
 h1, h2, h3 { line-height: 1.15; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
