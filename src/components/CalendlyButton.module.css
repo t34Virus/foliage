@@ -1,17 +1,30 @@
-/* Floats in the bottom-right corner on every page, like Calendly's badge. The gradient fill and its
-   hover drift come from the global .grad-fill class. Dialogs (the gallery viewer, Calendly's popup)
-   sit above it. */
+/* Floats in the bottom-right corner on every page, like Calendly's badge: a round calendar icon that
+   slides open to "Schedule time with me" on hover or keyboard focus (touch screens just tap the icon).
+   The gradient fill and its hover drift come from the global .grad-fill class. Dialogs (the gallery
+   viewer, Calendly's popup) sit above it. */
 .badge {
+  --size: 52px;
   position: fixed; z-index: 40;
   right: max(clamp(12px, 2vw, 24px), env(safe-area-inset-right));
   bottom: max(clamp(12px, 2vw, 24px), env(safe-area-inset-bottom));
-  padding: 14px 24px; border-radius: 999px;
-  font-family: var(--mono); font-size: 0.9rem; letter-spacing: 0.02em; line-height: 1.2;
+  display: inline-flex; align-items: center;
+  height: var(--size); padding: 0 calc((var(--size) - 20px) / 2); border-radius: 999px;
+  font-family: var(--mono); font-size: 0.9rem; letter-spacing: 0.02em; line-height: 1; white-space: nowrap;
   text-decoration: none;
   box-shadow: 0 6px 24px rgb(0 0 0 / 0.45);
 }
+.badge svg { width: 20px; height: 20px; flex: none; }
+.label {
+  max-width: 0; margin-left: 0; overflow: hidden; opacity: 0;
+  transition: max-width 0.35s ease, margin-left 0.35s ease, opacity 0.15s ease;
+}
+.badge:focus-visible .label { max-width: 16em; margin-left: 10px; opacity: 1; transition: max-width 0.35s ease, margin-left 0.35s ease, opacity 0.25s ease 0.1s; }
+@media (hover: hover) {
+  .badge:hover .label { max-width: 16em; margin-left: 10px; opacity: 1; transition: max-width 0.35s ease, margin-left 0.35s ease, opacity 0.25s ease 0.1s; }
+}
+@media (prefers-reduced-motion: reduce) { .label, .badge:hover .label, .badge:focus-visible .label { transition: none; } }
 
 @media (max-width: 640px) {
-  .badge { padding: 12px 20px; font-size: 0.82rem; }
+  .badge { --size: 48px; font-size: 0.82rem; }
 }
 @media print { .badge { display: none; } }

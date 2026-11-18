@@ -10,9 +10,9 @@ import {
   faChevronRight,
   faPlay,
   faXmark,
-  type IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
+import Icon from "./Icon";
 import styles from "./Gallery.module.css";
 
 export type GalleryItem = {
@@ -22,16 +22,6 @@ export type GalleryItem = {
   caption?: string;
   video?: boolean;
 };
-
-// Icons: Font Awesome Free (CC BY 4.0, https://fontawesome.com/license/free).
-function Icon({ icon }: Readonly<{ icon: IconDefinition }>) {
-  const [w, h, , , path] = icon.icon;
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} aria-hidden="true" focusable="false">
-      <path fill="currentColor" d={String(path)} />
-    </svg>
-  );
-}
 
 // A clip tile plays like a GIF while hovered or focused, unless the visitor prefers reduced motion.
 const startPreview = (tile: HTMLElement) => {
