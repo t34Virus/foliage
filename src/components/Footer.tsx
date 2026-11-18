@@ -18,7 +18,6 @@ export default function Footer() {
       </div>
       <div className={`wrap ${styles.base}`}>
         <span>{profile.location}</span>
-        <span>{profile.name}</span>
       </div>
     </footer>
   );
