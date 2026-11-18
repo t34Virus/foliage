@@ -72,12 +72,13 @@ p { margin: 0; }
   text-decoration: none; border: 1px solid var(--line); background: transparent; color: var(--text);
   transition: border-color 0.2s, background 0.2s;
 }
-/* Outlined buttons get the spinning border below (class "spin-border" in the markup). The filled one drifts its gradient. */
-.button.primary {
+/* Outlined buttons get the spinning border below (class "spin-border" in the markup). Filled ones
+   (.button.primary, .grad-fill) drift their gradient while hovered. */
+.button.primary, .grad-fill {
   background: var(--flow) 0 50% / 200% 100%; color: #121218; border: none; font-weight: 600;
   animation: flow-x 5s linear infinite paused;
 }
-.button.primary:hover, .button.primary:focus-visible { animation-play-state: running; }
+.button.primary:hover, .button.primary:focus-visible, .grad-fill:hover, .grad-fill:focus-visible { animation-play-state: running; }
 
 .text-link { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
@@ -143,5 +144,5 @@ p { margin: 0; }
 .spin-host:hover .spin-border::after, .spin-host:focus-visible .spin-border::after { opacity: 1; animation-play-state: running; }
 
 @media (prefers-reduced-motion: reduce) {
-  .grad-text, .text-link, .brand-link, .grad-underline, .spin-border::after, .button.primary { animation: none; }
+  .grad-text, .text-link, .brand-link, .grad-underline, .spin-border::after, .button.primary, .grad-fill { animation: none; }
 }

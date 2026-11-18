@@ -1,4 +1,5 @@
-.footer { border-top: 1px solid var(--line); margin-top: clamp(48px, 8vw, 96px); padding: 48px 0 32px; }
+/* The extra bottom padding keeps the last row clear of the floating Calendly button. */
+.footer { border-top: 1px solid var(--line); margin-top: clamp(48px, 8vw, 96px); padding: 48px 0 112px; }
 .inner { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
 .cta { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; margin-bottom: 8px; }
 .email { font-family: var(--mono); color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
