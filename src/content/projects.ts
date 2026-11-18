@@ -835,8 +835,9 @@ const allProjects: Project[] = [
     capabilities: ["interactive-experiences"],
     platform: ["iPad", "Live display", "Desktop kiosk (Electron)"],
     role: "Creative Technologist",
-    // Teresa, 2026-11-18: "For the Snap project, I used Hugging face and Gemini." The repo (t34Virus/snap) shows the
-    // Hugging Face models: Stable Diffusion 1.5 (Realistic Vision V6.0 checkpoint), IP-Adapter Plus Face and ControlNet.
+    // Teresa, 2026-11-18: "For the Snap project, I used Hugging face and Gemini", and Gemini generated images too.
+    // The repo (t34Virus/snap) shows the Hugging Face models: Stable Diffusion 1.5 (Realistic Vision V6.0
+    // checkpoint), IP-Adapter Plus Face and ControlNet. The Gemini image generation isn't in the public repo.
     tech: ["React", "Socket.IO", "Express", "Electron", "ComfyUI", "Stable Diffusion 1.5 (Realistic Vision)", "Hugging Face", "ControlNet", "IP-Adapter", "Gemini"],
     built: [
       "An iPad controller and a live display kept in sync over Socket.IO.",
@@ -857,7 +858,7 @@ const allProjects: Project[] = [
       {
         part: "Generation",
         detail:
-          "ComfyUI runs a Stable Diffusion 1.5 workflow on a local NVIDIA GPU, with open models from Hugging Face (the Realistic Vision V6.0 checkpoint, ControlNet and IP-Adapter Plus Face), queued over ComfyUI's WebSocket API with the theme the guest picked, such as Action Heroes. ControlNet keeps the guest's pose, IP-Adapter carries the theme's style, a face swap keeps the guest recognizable, and a safety checker filters every result.",
+          "ComfyUI runs a Stable Diffusion 1.5 workflow on a local NVIDIA GPU, with open models from Hugging Face (the Realistic Vision V6.0 checkpoint, ControlNet and IP-Adapter Plus Face), queued over ComfyUI's WebSocket API with the theme the guest picked, such as Action Heroes. ControlNet keeps the guest's pose, IP-Adapter carries the theme's style, a face swap keeps the guest recognizable, and a safety checker filters every result. Google Gemini generated images as well, alongside Stable Diffusion.",
       },
       {
         part: "Results everywhere at once",
