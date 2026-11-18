@@ -6,13 +6,13 @@ export const profile = {
   wordmark: "teresa.nededog",
   roles: ["Senior Software Engineer", "Creative Technologist"],
   location: "Los Angeles, CA (remote or hybrid)",
-  email: "treindle@gmail.com",
+  email: "hello@alohateresa.com",
   links: {
     linkedin: "https://www.linkedin.com/in/teresa-nededog/",
     github: "https://github.com/t34Virus",
   },
   // No resume PDF is published (Teresa, 2026-11-16): visitors request it by email.
-  resumeRequest: "mailto:treindle@gmail.com?subject=Resume%20request",
+  resumeRequest: "mailto:hello@alohateresa.com?subject=Resume%20request",
   intro:
     "10+ years shipping React, React Native and TypeScript products, from interactive sales tools for Fortune 500 brands to a K12 learning community on iOS, Android and web.",
   bio: [
