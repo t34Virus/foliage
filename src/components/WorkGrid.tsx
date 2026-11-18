@@ -31,7 +31,7 @@ export default function WorkGrid({ projects, capabilities }: { projects: Project
             key={c.slug}
             type="button"
             aria-pressed={filter === c.slug}
-            className={styles.filter}
+            className={`${styles.filter} spin-border`}
             onClick={() => setFilter(c.slug)}
           >
             {c.title}
@@ -39,7 +39,7 @@ export default function WorkGrid({ projects, capabilities }: { projects: Project
         ))}
       </div>
       {client && (
-        <button type="button" className={`${styles.filter} ${styles.clientChip}`} onClick={clearClient} aria-label={`Stop showing only ${client} work`}>
+        <button type="button" className={`${styles.filter} ${styles.clientChip} spin-border`} onClick={clearClient} aria-label={`Stop showing only ${client} work`}>
           Client: {client} <span aria-hidden="true">&times;</span>
         </button>
       )}

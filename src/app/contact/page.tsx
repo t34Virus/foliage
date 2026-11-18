@@ -25,7 +25,7 @@ export default function ContactPage() {
           <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap", padding: "22px 0", borderBottom: "1px solid var(--line)" }}>
             <dt className="eyebrow">{label}</dt>
             <dd style={{ margin: 0, fontSize: "clamp(1.1rem, 2.4vw, 1.5rem)", overflowWrap: "anywhere" }}>
-              <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{text}</a>
+              <a className="grad-underline" href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{text}</a>
             </dd>
           </div>
         ))}

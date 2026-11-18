@@ -120,7 +120,7 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
           <p className={styles.metaLabel}>Capabilities</p>
           <ul className={styles.caps}>
             {project.capabilities.map((c) => (
-              <li key={c}><Link href={`/capabilities/${c}/`}>{capabilityBySlug(c)?.title}</Link></li>
+              <li key={c}><Link className="grad-underline" href={`/capabilities/${c}/`}>{capabilityBySlug(c)?.title}</Link></li>
             ))}
           </ul>
           {(project.credit || project.aiUse) && (
@@ -172,7 +172,7 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
           {project.links && (
             <section>
               <h2>Links</h2>
-              <ul>{project.links.map((l) => <li key={l.href}><a href={l.href} target="_blank" rel="noreferrer">{l.label}</a></li>)}</ul>
+              <ul>{project.links.map((l) => <li key={l.href}><a className="grad-underline" href={l.href} target="_blank" rel="noreferrer">{l.label}</a></li>)}</ul>
             </section>
           )}
         </div>
@@ -204,8 +204,8 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
       )}
 
       <nav className={`wrap ${styles.pager}`} aria-label="More projects">
-        <Link href={`/work/${prev.slug}/`}><span className="eyebrow">Previous</span>{prev.client}: {prev.title}</Link>
-        <Link href={`/work/${next.slug}/`} className={styles.nextLink}><span className="eyebrow">Next</span>{next.client}: {next.title}</Link>
+        <Link href={`/work/${prev.slug}/`} className="spin-border"><span className="eyebrow">Previous</span>{prev.client}: {prev.title}</Link>
+        <Link href={`/work/${next.slug}/`} className={`${styles.nextLink} spin-border`}><span className="eyebrow">Next</span>{next.client}: {next.title}</Link>
       </nav>
     </article>
   );

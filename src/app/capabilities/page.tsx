@@ -20,10 +20,10 @@ export default function CapabilitiesPage() {
       <ol className={styles.list}>
         {capabilities.map((c, i) => (
           <li key={c.slug}>
-            <Link href={`/capabilities/${c.slug}/`} className={styles.row}>
+            <Link href={`/capabilities/${c.slug}/`} className={`${styles.row} grad-host`}>
               <span className={styles.num}>{String(i + 1).padStart(2, "0")}</span>
               <span className={styles.rowText}>
-                <h2>{c.title}</h2>
+                <h2 className="grad-text">{c.title}</h2>
                 <p>{c.short}</p>
               </span>
               <span className={styles.count}>{projectsFor(c.slug).length} projects</span>

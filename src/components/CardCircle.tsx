@@ -364,7 +364,7 @@ export default function CardCircle({ projects, children }: Readonly<{ projects: 
 
       <button
         type="button"
-        className={`${styles.exit} ${open ? styles.show : ""}`}
+        className={`${styles.exit} ${open ? styles.show : ""} spin-border`}
         style={geometry?.exit}
         onClick={exit}
         aria-label="Back to the circle"

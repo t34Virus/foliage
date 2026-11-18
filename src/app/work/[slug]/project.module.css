@@ -22,8 +22,7 @@
 .meta dd { margin: 2px 0 0; }
 .metaLabel { margin-top: 6px; }
 .caps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.caps a { text-decoration: none; border-bottom: 1px solid var(--line); }
-.caps a:hover { border-color: var(--blush); }
+.caps a { --underline-rest: var(--line); }
 
 .story { display: grid; gap: 40px; max-width: 70ch; }
 .story h2 { font-size: 1.4rem; margin-bottom: 12px; }
@@ -40,7 +39,6 @@
 
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: clamp(56px, 8vw, 96px); }
 .pager a { display: grid; gap: 6px; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; }
-.pager a:hover { border-color: var(--blush); }
 .nextLink { text-align: right; }
 @media (max-width: 600px) { .pager { grid-template-columns: 1fr; } .nextLink { text-align: left; } }
 .footnote { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.82rem; font-style: italic; color: var(--muted); display: grid; gap: 4px; }

@@ -13,17 +13,17 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={`wrap ${styles.bar}`}>
-        <Link href="/" className={styles.wordmark}>
-          <span className={styles.name}>{profile.wordmark}</span>
+        <Link href="/" className={`${styles.wordmark} grad-host`}>
           <span className={styles.flower} aria-hidden="true">🌺</span>
+          <span className="grad-text">{profile.name}</span>
         </Link>
         <nav aria-label="Main" className={styles.nav}>
           {nav.map((item) => (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} className="grad-text">
               {item.label}
             </Link>
           ))}
-          <a className={styles.resume} href={profile.resumeRequest} title="Request my resume by email">
+          <a className={`${styles.resume} spin-border`} href={profile.resumeRequest} title="Request my resume by email">
             Resume
           </a>
         </nav>

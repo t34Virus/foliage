@@ -69,7 +69,7 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
           <li key={it.src}>
             <button
               type="button"
-              className={styles.tile}
+              className={`${styles.tile} spin-border spin-inset`}
               onClick={() => open(i)}
               onPointerEnter={(e) => startPreview(e.currentTarget)}
               onPointerLeave={(e) => stopPreview(e.currentTarget)}
@@ -106,7 +106,7 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
       >
         <div className={styles.bar}>
           <p aria-live="polite">{at !== null && `${at + 1} / ${n}`}</p>
-          <button type="button" className={styles.icon} onClick={() => dialog.current?.close()} aria-label="Close gallery">
+          <button type="button" className={`${styles.icon} spin-border`} onClick={() => dialog.current?.close()} aria-label="Close gallery">
             <Icon icon={faXmark} />
           </button>
         </div>
@@ -144,10 +144,10 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
 
         {n > 1 && (
           <>
-            <button type="button" className={`${styles.icon} ${styles.prev}`} onClick={() => go(-1)} aria-label="Previous">
+            <button type="button" className={`${styles.icon} ${styles.prev} spin-border`} onClick={() => go(-1)} aria-label="Previous">
               <Icon icon={faChevronLeft} />
             </button>
-            <button type="button" className={`${styles.icon} ${styles.next}`} onClick={() => go(1)} aria-label="Next">
+            <button type="button" className={`${styles.icon} ${styles.next} spin-border`} onClick={() => go(1)} aria-label="Next">
               <Icon icon={faChevronRight} />
             </button>
           </>

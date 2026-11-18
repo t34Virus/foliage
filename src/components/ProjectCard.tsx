@@ -21,7 +21,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/work/${project.slug}/`}
-      className={styles.card}
+      className={`${styles.card} grad-host`}
       onMouseEnter={play}
       onMouseLeave={stop}
       onFocus={play}
@@ -49,7 +49,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
       <div className={styles.text}>
         <span className="eyebrow">{project.client}</span>
-        <h3>{project.title}</h3>
+        <h3 className="grad-text">{project.title}</h3>
         <span className={styles.madeAt}>{project.madeAt}</span>
       </div>
     </Link>

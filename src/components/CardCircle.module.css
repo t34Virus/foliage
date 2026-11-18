@@ -130,7 +130,7 @@
   opacity: 1; pointer-events: auto; transform: scale(1);
   transition: opacity 0.2s ease 0.2s, transform 0.2s ease 0.2s, background-color 0.15s ease, border-color 0.15s ease;
 }
-.exit:hover { background-color: rgb(255 255 255 / 0.14); border-color: rgb(255 255 255 / 0.7); }
+.exit:hover { background-color: rgb(255 255 255 / 0.14); }
 .exit:hover svg { transform: translateX(-2px); }
 .exit:active { transform: scale(0.94); }
 .exit:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }

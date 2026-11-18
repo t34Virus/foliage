@@ -58,12 +58,12 @@ export default function HeroMedia({
   }
 
   return (
-    <button type="button" className={styles.facade} onClick={() => setPlaying(true)} aria-label={`Play ${title}`}>
+    <button type="button" className={`${styles.facade} spin-host`} onClick={() => setPlaying(true)} aria-label={`Play ${title}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className={styles.backdrop} src={poster} alt="" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className={styles.poster} src={poster} alt="" />
-      <span className={styles.cta}>
+      <span className={`${styles.cta} spin-border`}>
         <svg viewBox={`0 0 ${playW} ${playH}`} aria-hidden="true" focusable="false">
           <path fill="currentColor" d={String(playPath)} />
         </svg>

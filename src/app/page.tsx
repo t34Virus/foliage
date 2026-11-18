@@ -26,7 +26,7 @@ export default function Home() {
         <p className="lede">{profile.intro}</p>
         <div className={styles.actions}>
           <Link className="button primary" href="/work/">See the work</Link>
-          <a className="button" href={profile.resumeRequest}>Request resume</a>
+          <a className="button spin-border" href={profile.resumeRequest}>Request resume</a>
         </div>
         {/* Teresa's wording (2026-11-17): only that it was handwritten in 2021, no AI mention. */}
         <p className={styles.note}>The rectangle ring is my original animation, handwritten in 2021.</p>
@@ -40,7 +40,7 @@ export default function Home() {
         <ul className={styles.capGrid}>
           {capabilities.map((c, i) => (
             <li key={c.slug}>
-              <Link href={`/capabilities/${c.slug}/`} className={styles.capTile}>
+              <Link href={`/capabilities/${c.slug}/`} className={`${styles.capTile} spin-border`}>
                 <span className={styles.capNum}>{String(i + 1).padStart(2, "0")}</span>
                 <h3>{c.title}</h3>
                 <p>{c.short}</p>

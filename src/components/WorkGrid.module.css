@@ -4,7 +4,7 @@
   padding: 8px 14px; border-radius: 999px; cursor: pointer;
   background: transparent; color: var(--muted); border: 1px solid var(--line);
 }
-.filter:hover { color: var(--text); border-color: var(--blush); }
+.filter:hover { color: var(--text); }
 .filter[aria-pressed="true"] { background: var(--gradient); color: #121218; border-color: transparent; font-weight: 600; }
 .count { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); margin-bottom: 24px; }
 .clientChip { margin-bottom: 12px; color: var(--text); border-color: var(--blush); }

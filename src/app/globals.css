@@ -9,6 +9,9 @@
   --blush: #eadedb;
   --blue: #7a9deb;
   --gradient: linear-gradient(140deg, var(--pink) 0%, var(--blush) 50%, var(--blue) 75%);
+  /* The same colors as a seamless loop, drawn at 200% width so hover effects can drift it sideways.
+     At rest its visible half reads pink, blush, blue, like --gradient. */
+  --flow: linear-gradient(90deg, var(--pink), var(--blush) 25%, var(--blue) 50%, var(--blush) 75%, var(--pink));
   /* Teresa's own fonts from the original foliage site (tag v1-angular, src/styles.scss): her sans stack
      (AvenirNext, "Helvetica Neue", Helvetica, Arial) and plain monospace, which the ring still uses. */
   --sans: "Avenir Next", AvenirNext, Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -34,8 +37,8 @@ body {
 
 a { color: inherit; }
 /* Brands and events that link to her work or an outside case study (see content/brands.ts). */
-.brand-link { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color 0.15s, text-decoration-color 0.15s; }
-.brand-link:hover { color: var(--text); text-decoration-color: var(--pink); }
+.brand-link { transition: color 0.15s; }
+.brand-link:hover { color: var(--text); }
 img, video, iframe { display: block; max-width: 100%; }
 h1, h2, h3 { line-height: 1.15; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
@@ -69,12 +72,14 @@ p { margin: 0; }
   text-decoration: none; border: 1px solid var(--line); background: transparent; color: var(--text);
   transition: border-color 0.2s, background 0.2s;
 }
-.button:hover { border-color: var(--blush); }
-.button.primary { background: var(--gradient); color: #121218; border: none; font-weight: 600; }
-.button.primary:hover { filter: brightness(1.05); }
+/* Outlined buttons get the spinning border below (class "spin-border" in the markup). The filled one drifts its gradient. */
+.button.primary {
+  background: var(--flow) 0 50% / 200% 100%; color: #121218; border: none; font-weight: 600;
+  animation: flow-x 5s linear infinite paused;
+}
+.button.primary:hover, .button.primary:focus-visible { animation-play-state: running; }
 
-.text-link { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
-.text-link:hover { border-color: var(--blush); }
+.text-link { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
 .chips li { font-family: var(--mono); font-size: 0.78rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
@@ -82,3 +87,61 @@ p { margin: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: clamp(24px, 3vw, 40px); }
+
+/* ---------- Hover gradients ----------
+   Every clickable thing answers hover (and keyboard focus) with the site gradient:
+   .grad-text      words fill with the gradient, which drifts slowly
+   .grad-underline the underline turns into the drifting gradient
+   .spin-border    an outlined pill, button or card gets a gradient border that turns slowly
+   Put .grad-host / .spin-host on a parent when hovering the parent should light up the child.
+   The animations sit paused at rest and only run while hovered. */
+@property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes spin-border { to { --spin: 360deg; } }
+@keyframes flow-x { from { background-position-x: 0%; } to { background-position-x: -200%; } }
+
+.grad-text {
+  background-image: var(--flow); background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  width: fit-content; /* size the gradient to the words, not the whole row */
+  transition: color 0.25s ease;
+  animation: flow-x 5s linear infinite paused;
+}
+.grad-text:hover, .grad-text:focus-visible,
+.grad-host:hover .grad-text, .grad-host:focus-visible .grad-text { color: transparent; animation-play-state: running; }
+
+/* Drawn as a background so it can be a gradient and still wrap across lines with the text. */
+.text-link, .brand-link, .grad-underline {
+  --underline-rest: color-mix(in srgb, currentColor 35%, transparent);
+  text-decoration: none; padding-bottom: 2px;
+  background: linear-gradient(var(--underline-rest), var(--underline-rest)) 0 100% / 100% 1px no-repeat;
+  animation: flow-x 5s linear infinite paused;
+}
+.text-link { --underline-rest: var(--line); }
+.text-link:hover, .brand-link:hover, .grad-underline:hover,
+.text-link:focus-visible, .brand-link:focus-visible, .grad-underline:focus-visible {
+  background-image: var(--flow); background-size: 200% 2px; background-repeat: repeat-x;
+  animation-play-state: running;
+}
+
+/* Zero specificity, so a component that positions the element (absolute buttons) keeps its own value. */
+:where(.spin-border) { position: relative; }
+.spin-border::after {
+  content: ""; position: absolute; inset: -1px; padding: 1px; border-radius: inherit; pointer-events: none;
+  background: conic-gradient(from var(--spin), var(--pink), var(--blush), var(--blue), var(--blush), var(--pink));
+  /* Keep only the 1px ring: the padding area minus the content box. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0; transition: opacity 0.3s ease;
+  animation: spin-border 6s linear infinite paused;
+}
+/* For boxes that clip their content (overflow: hidden), draw the ring just inside the edge instead. */
+.spin-border.spin-inset::after { inset: 0; }
+.spin-border:hover, .spin-border:focus-visible, .spin-host:hover .spin-border { border-color: transparent; }
+.spin-border:hover::after, .spin-border:focus-visible::after,
+.spin-host:hover .spin-border::after, .spin-host:focus-visible .spin-border::after { opacity: 1; animation-play-state: running; }
+
+@media (prefers-reduced-motion: reduce) {
+  .grad-text, .text-link, .brand-link, .grad-underline, .spin-border::after, .button.primary { animation: none; }
+}
