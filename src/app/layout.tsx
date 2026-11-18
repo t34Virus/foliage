@@ -5,7 +5,7 @@ import { profile } from "@/content/profile";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://t34virus.github.io/foliage/"),
+  metadataBase: new URL("https://portfolio.alohateresa.com/"),
   title: { default: `${profile.name} | ${profile.roles.join(" and ")}`, template: `%s | ${profile.name}` },
   description: profile.intro,
   openGraph: { type: "website", siteName: profile.name },

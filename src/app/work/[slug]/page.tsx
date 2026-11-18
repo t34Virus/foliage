@@ -21,7 +21,7 @@ export async function generateMetadata(props: PageProps<"/work/[slug]">): Promis
   return {
     title: `${p.client}: ${p.title}`,
     description: p.summary,
-    // Plain path: metadataBase already ends in /foliage/, so asset() here would double it.
+    // Plain path: metadataBase already carries the site's base, so asset() here could double it.
     openGraph: p.media.poster ? { images: [p.media.poster] } : undefined,
   };
 }

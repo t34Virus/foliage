@@ -1,6 +1,6 @@
 # foliage
 
-Teresa Nededog's portfolio: https://t34virus.github.io/foliage/
+Teresa Nededog's portfolio: https://portfolio.alohateresa.com/
 
 Agency-style showcase of apps, platforms and interactive experiences. Next.js (static export), React and TypeScript.
 
@@ -8,7 +8,7 @@ Agency-style showcase of apps, platforms and interactive experiences. Next.js (s
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000/foliage/
+npm run dev      # http://localhost:3000/
 npm run build    # static site in out/
 ```
 
