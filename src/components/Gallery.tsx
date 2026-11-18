@@ -4,6 +4,8 @@
 // (Teresa, 2026-11-17: "If any image is selected, reveal a gallery.") with previous/next buttons, arrow
 // keys, swipe on touch screens, and Esc, the close button or a click outside the media to close.
 // The viewer is a native modal <dialog>, so focus stays inside it and returns to the tile on close.
+// Clip tiles play like GIFs: on hover or keyboard focus with a mouse, and on touch screens while
+// they're scrolled into view (Teresa, 2026-11-18), since a phone has no hover.
 
 import {
   faChevronLeft,
@@ -32,6 +34,7 @@ const stopPreview = (tile: HTMLElement) => tile.querySelector("video")?.pause();
 
 export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const grid = useRef<HTMLUListElement>(null);
   const touchX = useRef<number | null>(null);
   const [at, setAt] = useState<number | null>(null);
   const n = items.length;
@@ -46,6 +49,31 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
     return () => { root.style.overflow = ""; };
   }, [isOpen]);
 
+  // Touch screens: each clip plays while at least 60% of it is on screen and pauses when scrolled
+  // away (only then does it download). Not with reduced motion or the browser's data saver. While
+  // the viewer is open the tiles stay paused; closing it re-observes them, which restarts the
+  // ones in view.
+  useEffect(() => {
+    const videos = [...(grid.current?.querySelectorAll("video") ?? [])];
+    if (isOpen) {
+      videos.forEach((v) => v.pause());
+      return;
+    }
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (!window.matchMedia("(hover: none)").matches
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      || connection?.saveData) return;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const v = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) v.play().catch(() => {}); // e.g. iOS Low Power Mode blocks autoplay
+        else v.pause();
+      }
+    }, { threshold: 0.6 });
+    videos.forEach((v) => observer.observe(v));
+    return () => observer.disconnect();
+  }, [items, isOpen]);
+
   const open = (i: number) => {
     setAt(i);
     dialog.current?.showModal();
@@ -54,7 +82,7 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
 
   return (
     <>
-      <ul className={styles.grid}>
+      <ul ref={grid} className={styles.grid}>
         {items.map((it, i) => (
           <li key={it.src}>
             <button
