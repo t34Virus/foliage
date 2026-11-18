@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BrandText from "@/components/BrandText";
@@ -27,7 +28,8 @@ export async function generateMetadata(props: PageProps<"/work/[slug]">): Promis
 }
 
 function Hero({ project }: { project: NonNullable<ReturnType<typeof projectBySlug>> }) {
-  const { vimeo, youtube, videoTitle, video, preview, poster } = project.media;
+  const { vimeo, youtube, videoTitle, video, preview, poster, videoAspect, posterPortrait } = project.media;
+  const portrait = (videoAspect ?? 16 / 9) < 1;
   const name = `${project.client} ${project.title}`;
   // Teresa, 2026-11-17: the hero is an image, with the video one click away. The full video comes first
   // (Vimeo, then YouTube, then a self-hosted clip); a project with only the demo loop plays that.
@@ -42,12 +44,16 @@ function Hero({ project }: { project: NonNullable<ReturnType<typeof projectBySlu
           : null;
   if (poster) {
     return (
-      <div className={styles.frame}>
+      <div
+        className={`${styles.frame} ${portrait ? styles.portraitFrame : ""}`}
+        style={portrait ? ({ "--video-aspect": videoAspect } as CSSProperties) : undefined}
+      >
         {source ? (
           <HeroMedia
             source={source}
             poster={asset(poster)}
             title={source.kind === "loop" ? `${name} demo` : (videoTitle ?? `${name} video`)}
+            posterPortrait={posterPortrait ? asset(posterPortrait) : undefined}
           />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element

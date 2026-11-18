@@ -25,7 +25,8 @@ export default function HeroMedia({
   source,
   poster,
   title,
-}: Readonly<{ source: HeroSource; poster: string; title: string }>) {
+  posterPortrait,
+}: Readonly<{ source: HeroSource; poster: string; title: string; posterPortrait?: string }>) {
   const [playing, setPlaying] = useState(false);
 
   if (playing) {
@@ -61,8 +62,12 @@ export default function HeroMedia({
     <button type="button" className={`${styles.facade} spin-host`} onClick={() => setPlaying(true)} aria-label={`Play ${title}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className={styles.backdrop} src={poster} alt="" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={styles.poster} src={poster} alt="" />
+      <picture>
+        {/* Phones held upright show a portrait video's frame in its own shape (see the project page's
+            .portraitFrame); a portrait crop of the poster fills it. */}
+        {posterPortrait && <source media="(orientation: portrait) and (max-width: 860px)" srcSet={posterPortrait} />}
+        <img className={styles.poster} src={poster} alt="" />
+      </picture>
       <span className={`${styles.cta} spin-border`}>
         <svg viewBox={`0 0 ${playW} ${playH}`} aria-hidden="true" focusable="false">
           <path fill="currentColor" d={String(playPath)} />

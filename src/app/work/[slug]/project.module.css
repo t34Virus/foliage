@@ -2,6 +2,17 @@
 .frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--bg-raised); }
 .frame iframe, .frame video, .frame img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
 .frame video { object-fit: contain; background: #000; }
+/* Portrait videos are portrait on phones held upright (Teresa, 2026-11-18): the frame takes the
+   video's shape (--video-aspect, width / height, from the project's media), poster and player
+   alike, so there are no bars beside the video. It stays at most 60% of the screen tall, and
+   playing doesn't resize or scroll anything. Wider screens keep the 16:9 frame. */
+@media (orientation: portrait) and (max-width: 860px) {
+  .portraitFrame {
+    aspect-ratio: var(--video-aspect);
+    width: min(100%, calc(60svh * var(--video-aspect)));
+    margin-inline: auto;
+  }
+}
 .typeHero {
   aspect-ratio: 16 / 5;
   display: grid; place-items: center; font-family: var(--mono); font-size: clamp(1rem, 2.5vw, 1.6rem); letter-spacing: 0.06em;

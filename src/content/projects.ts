@@ -29,6 +29,10 @@ export type Project = {
     vimeo?: string; // full demo, embedded on the project page
     youtube?: string; // a public YouTube video, embedded the same way when there's no Vimeo
     videoTitle?: string; // the hero video's title, for screen readers
+    // Width / height of a portrait hero video (from Vimeo's oEmbed sizes). On phones held upright the
+    // hero frame takes this shape, poster and player alike, so the video isn't a thin strip with bars.
+    videoAspect?: number;
+    posterPortrait?: string; // a portrait crop of the poster for that portrait frame
     moreVideos?: { youtube: string; title: string }[]; // more public YouTube videos, embedded under the story
     video?: string; // self-hosted clip when there's no public Vimeo
     images?: (string | MediaClip)[]; // the gallery, in order: stills, or clips that play on hover
@@ -105,6 +109,8 @@ const allProjects: Project[] = [
     ],
     media: {
       poster: "/media/posters/olg-dream-generator.jpg",
+      videoAspect: 9 / 16, // the kiosk video is portrait (Vimeo 240 x 426)
+      posterPortrait: "/media/posters/olg-dream-generator-portrait.jpg", // 9:16 crop of IMG_8122, the same photo
       // Hover demo: the same edit as her highlight GIF (welcome sign, dream cards, generating,
       // result and QR, phone, print), rendered as video from IMG_8114. First names only on screen.
       preview: "/media/videos/olg-dream-generator.mp4",
@@ -666,6 +672,7 @@ const allProjects: Project[] = [
     aiUse: HANDWRITTEN,
     media: {
       poster: "/media/posters/baxter-patient-journey.jpg",
+      videoAspect: 3 / 4, // portrait (Vimeo 240 x 320)
       preview: "/media/videos/baxter-patient-journey.mp4",
       vimeo: "511260901",
       images: [
