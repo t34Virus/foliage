@@ -38,6 +38,7 @@ export const capabilities: Capability[] = [
   // Every line is checked against the code: OLG's Gemini models (pipeline doc and her own route), the
   // Snapchat booth's Hugging Face models (t34Virus/snap), and her daily Claude Code use at Tilted Windmill.
   // The K12 app has no AI features, so it isn't tagged here; its page shows how AI was used to build it.
+  // The Snapchat booth (shown again since 2026-11-18; it never went live) is the second tagged project.
   {
     slug: "generative-ai",
     title: "Generative AI",
@@ -54,6 +55,7 @@ export const capabilities: Capability[] = [
     proof: [
       "Built the OLG Dream Generator for Ontario Lottery and Gaming: 5 AI portraits per guest on Google Gemini, with a moderator approving every result",
       "Added a direct Gemini API fallback so image generation keeps working if the main pipeline fails",
+      "Built an AI photo booth for Snapchat: Stable Diffusion 1.5 with Hugging Face models through ComfyUI, plus Google Gemini, run from an iPad",
       "Use Claude Code daily across a production React Native app, Laravel API and CMS, with every AI-written change reviewed, tested and signed off",
       "More than a year of professional AI-assisted development",
     ],

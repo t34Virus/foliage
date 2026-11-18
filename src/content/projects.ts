@@ -825,54 +825,64 @@ const allProjects: Project[] = [
   // From her `snap` repo (11 commits, Feb to Mar 2024).
   {
     slug: "snapchat-ai-photo-booth",
-    hidden: true, // Teresa, 2026-11-17: hide for now, there is no supporting media yet
+    // Teresa, 2026-11-18: show it even without media, no confidential label, and speak to the tech. Details come
+    // from her repo (t34Virus/snap, her 11 commits, Feb 15 to Mar 10, 2024; made private the same day). She then
+    // finished it coding locally, on site, so the final version (with Gemini) isn't in that repo. It never went
+    // live: the image models of the time produced offensive results for people of color, a limit of the engines,
+    // not her code. Don't present it as launched.
     client: "Snapchat",
     title: "AI Photo Booth",
     madeAt: "Contract",
     madeAtLabel: "Engagement",
     summary:
-      "A multi-device AI photo booth for Snapchat: an iPad runs the shoot, a live display shows it, and Stable Diffusion turns each photo into a styled image.",
+      "A multi-device AI photo booth for Snapchat: an iPad runs the shoot, a live display takes the photo, and generative AI turns each guest into a themed portrait that still looks like them.",
     capabilities: ["generative-ai", "interactive-experiences"],
-    platform: ["iPad", "Live display", "Desktop kiosk (Electron)"],
+    platform: ["iPad controller", "Live display with webcam", "Windows kiosk (Electron)"],
     role: "Creative Technologist",
     // Teresa, 2026-11-18: "For the Snap project, I used Hugging face and Gemini"; Gemini "generated images based on prompts".
-    // The repo (t34Virus/snap) shows the Hugging Face models: Stable Diffusion 1.5 (Realistic Vision V6.0
-    // checkpoint), IP-Adapter Plus Face and ControlNet. The Gemini image generation isn't in the public repo.
+    // The repo shows the Hugging Face models: Stable Diffusion 1.5 (Realistic Vision V6.0 checkpoint), IP-Adapter Plus Face,
+    // a Canny ControlNet and an LCM LoRA. The Gemini image generation isn't in the public repo.
     tech: ["React", "Socket.IO", "Express", "Electron", "ComfyUI", "Stable Diffusion 1.5 (Realistic Vision)", "Hugging Face", "ControlNet", "IP-Adapter", "Gemini"],
+    challenge:
+      "Turn a guest's photo into a themed AI portrait that still looks like them, quickly enough for a live line, with the whole shoot run from an iPad.",
     built: [
-      "An iPad controller and a live display kept in sync over Socket.IO.",
-      "The capture flow: shoot, retake, processing and a gallery of results.",
-      "Stable Diffusion image generation through ComfyUI, packaged with the apps as an Electron kiosk.",
+      "An iPad controller and a live display kept in step over Socket.IO: tap to begin, pick a theme, him or her, a countdown, capture, then confirm or retake.",
+      "Themes from an editable content file (Carnival Parade, Mardi Gras, Ski Resort and Black and White in the repo), plus a field where guests can type their own idea.",
+      "AI generation on a local NVIDIA GPU: Stable Diffusion 1.5 with open Hugging Face models through ComfyUI, and Google Gemini generating images from prompts.",
+      "A gallery of results, a small content editor for labels and theme images, and a Windows installer built with Electron.",
     ],
     howItWorks: [
       {
         part: "Three screens, one server",
         detail:
-          "A React 18 app has routes for the iPad controller, the live display, a gallery and a small CMS. An Express and Socket.IO server relays the countdown, capture, confirm and retake between them, so every screen stays in step.",
+          "A React 18 app has routes for the iPad controller, the live display, a gallery and the content editor. An Express and Socket.IO server relays the countdown, capture, confirm and retake events between them, so every screen stays in step.",
       },
       {
         part: "Capture",
         detail:
-          "On the controller's countdown, the display's webcam takes the photo and uploads it to the server, which drops it straight into ComfyUI's input folder.",
+          "When the iPad's countdown ends, the display's webcam takes the photo and uploads it to the server, which writes it straight into ComfyUI's input folder.",
       },
       {
         part: "Generation",
         detail:
-          "ComfyUI runs a Stable Diffusion 1.5 workflow on a local NVIDIA GPU, with open models from Hugging Face (the Realistic Vision V6.0 checkpoint, ControlNet and IP-Adapter Plus Face), queued over ComfyUI's WebSocket API with the theme the guest picked, such as Action Heroes. ControlNet keeps the guest's pose, IP-Adapter carries the theme's style, a face swap keeps the guest recognizable, and a safety checker filters every result. Google Gemini also generated images from text prompts, alongside Stable Diffusion.",
+          "The app fills the guest's theme into a ComfyUI workflow and queues it over ComfyUI's WebSocket API, with its own client ID and an automatic reconnect if ComfyUI restarts. The workflow runs Stable Diffusion 1.5 (the Realistic Vision V6.0 checkpoint) with an LCM LoRA, so each portrait takes only 10 sampling steps. IP-Adapter Plus Face carries the guest's face into the image, a Canny ControlNet holds their outline and pose through the first third of the steps, a ReActor face swap with GFPGAN restoration keeps them recognizable, and a safety checker screens every result. Google Gemini also generated images from prompts.",
       },
       {
         part: "Results everywhere at once",
         detail:
-          "The server watches ComfyUI's output folder and pushes each finished image to every screen over Socket.IO, ready to keep or retake.",
+          "The server watches ComfyUI's output folder, sends each finished portrait to every screen over Socket.IO, and clears old results so the next guest starts fresh.",
       },
       {
         part: "Easy to run on site",
         detail:
-          "The CMS edits button labels and theme assets in JSON without a rebuild, and electron-builder packages the app and its server as a Windows installer.",
+          "Button labels and theme images live in a JSON file that the content editor saves through the server, so changes need no rebuild. A launcher script starts ComfyUI on the NVIDIA GPU, and electron-builder packages the app and its server as a Windows installer.",
       },
     ],
+    aiUse:
+      "AI in the product: Stable Diffusion 1.5 with open models from Hugging Face (Realistic Vision, IP-Adapter Plus Face, a Canny ControlNet) run through ComfyUI, and Google Gemini generating images from prompts.",
     media: {},
-    todo: "Add any photos or video you're allowed to show.",
+    // The repo's early ComfyUI workflow had a prompt "Enhancer" node set to OpenAI gpt-3.5-turbo; the on-site
+    // version she finished locally used Hugging Face models and Gemini, so OpenAI isn't named.
   },
 
   // ---------- Speaking ----------
