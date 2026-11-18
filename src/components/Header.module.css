@@ -5,15 +5,25 @@
   border-bottom: 1px solid var(--line);
 }
 .header::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--gradient); opacity: 0.6; }
-.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; }
-.wordmark { font-family: var(--mono); font-size: 1rem; text-decoration: none; letter-spacing: 0.02em; }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; flex-wrap: wrap; }
+.wordmark { display: inline-flex; align-items: baseline; gap: 0.4em; font-family: var(--mono); font-size: 1rem; text-decoration: none; letter-spacing: 0.02em; }
+/* The gradient sits behind the letters the whole time; hovering fades the letter color out to reveal it. */
+.name {
+  background: var(--gradient); -webkit-background-clip: text; background-clip: text;
+  color: var(--text); transition: color 0.25s ease;
+}
+.wordmark:hover .name, .wordmark:focus-visible .name { color: transparent; }
+.flower { line-height: 1; }
 .nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px); font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
 .nav a { text-decoration: none; color: var(--muted); }
 .nav a:hover { color: var(--text); }
 .resume { color: var(--text) !important; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); }
 .resume:hover { border-color: var(--blush); }
 
+@media (prefers-reduced-motion: reduce) { .name { transition: none; } }
+
 @media (max-width: 640px) {
-  .bar { padding-top: 10px; padding-bottom: 10px; }
+  /* Two classes so this beats the global .wrap padding, which otherwise pins the name to the top edge. */
+  .header .bar { padding-top: 16px; padding-bottom: 10px; }
   .nav { width: 100%; justify-content: space-between; gap: 10px; font-size: 0.72rem; }
 }

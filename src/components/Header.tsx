@@ -14,7 +14,8 @@ export default function Header() {
     <header className={styles.header}>
       <div className={`wrap ${styles.bar}`}>
         <Link href="/" className={styles.wordmark}>
-          {profile.wordmark}
+          <span className={styles.name}>{profile.wordmark}</span>
+          <span className={styles.flower} aria-hidden="true">🌺</span>
         </Link>
         <nav aria-label="Main" className={styles.nav}>
           {nav.map((item) => (

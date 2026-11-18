@@ -3,7 +3,7 @@
 
 export const profile = {
   name: "Teresa Nededog",
-  wordmark: "teresa.nededog",
+  wordmark: "teresa_nededog",
   roles: ["Senior Software Engineer", "Creative Technologist"],
   location: "Los Angeles, CA (remote or hybrid)",
   email: "hello@alohateresa.com",
