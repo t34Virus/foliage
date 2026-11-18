@@ -66,12 +66,12 @@ const allProjects: Project[] = [
     capabilities: ["interactive-experiences", "full-stack-platforms"],
     role: "Full-Stack Engineer",
     platform: ["Touchscreen kiosk (Windows)", "Web moderator dashboard", "Mobile share page"],
-    tech: ["NestJS", "Nuxt 3", "Vue 3", "TypeScript", "MongoDB", "WebSockets", "Keycloak", "Google Cloud Storage", "Gemini", "Jest"],
+    tech: ["NestJS", "Nuxt 3", "Vue 3", "TypeScript", "MongoDB", "WebSockets", "Keycloak", "Google Cloud Storage", "Gemini 2.5 Flash Image", "Gemini 2.5 Flash-Lite", "Gemini API", "Jest"],
     challenge:
       "Turn generative AI into an in-person experience anyone could walk up to: in English or French, accessible, quick enough to hold a guest's attention, and with a person able to review what the AI makes before it goes out.",
     built: [
       "The kiosk flow: language, sign-up, dream cards drawn from a configurable deck, camera capture, generation, review and share.",
-      "Prompts built from each guest's picks, generating 5 images per session (a batch of 4 plus an accessible variant), with a direct Gemini fallback for image generation.",
+      "Prompts built from each guest's picks, generating 5 images per session (a batch of 4 plus an accessible variant) with Google Gemini, plus a direct Gemini API fallback for image generation.",
       "A real-time moderator dashboard synced to the kiosk over WebSockets, with approval before results go out and a self-serve mode when no moderator is present.",
       "A public share page reached by QR code, consent and data-retention notices, and a Windows installer that runs the kiosk full screen on the on-site PC.",
     ],
@@ -89,7 +89,7 @@ const allProjects: Project[] = [
       {
         part: "Generating the dream",
         detail:
-          "A NestJS backend on Fastify takes the photo and starts two generations in parallel through the client's image pipeline: a batch of 4 for the moderator to choose from, plus an accessible variant. A direct Gemini fallback covers image generation if the pipeline fails, and a three-step text prompt writes the dream's caption.",
+          "A NestJS backend on Fastify takes the photo and starts two generations in parallel through the client's Google Gemini pipeline: Gemini 2.5 Flash-Lite turns the guest's picks into a detailed image prompt, and Gemini 2.5 Flash Image paints the guest into the dream, as a batch of 4 for the moderator to choose from plus an accessible variant. I added a direct call to the Gemini API (Gemini 2.5 Flash Image) that takes over if the pipeline fails, and Gemini 2.5 Flash-Lite writes the dream's caption through a three-step text prompt.",
       },
       {
         part: "A person in the loop",
@@ -127,6 +127,10 @@ const allProjects: Project[] = [
         { src: "/media/videos/olg-dream-generator-reveal.mp4", poster: "/media/posters/olg-dream-generator-reveal.jpg", label: "The reveal: scan the QR code to save it, or print a copy" },
       ],
     },
+    // Teresa, 2026-11-18: name the AI specifically. Models confirmed in the code: the client pipeline's
+    // generation-pipeline doc and her own route (server/routes/olg/generate.post.ts, gemini-2.5-flash-image).
+    aiUse:
+      "AI in the product: Google Gemini (2.5 Flash-Lite writes the prompts and captions, 2.5 Flash Image makes the portraits), with a person approving every result. Code written with Claude Code (Anthropic) as an AI pair programmer, every change reviewed and tested by me.",
     featured: 1, // her pick for #1 (2026-11-17), replacing Glossi
     todo: "Add any results (dates, venue, guests served, prints).",
   },
@@ -142,7 +146,7 @@ const allProjects: Project[] = [
     capabilities: ["cross-platform-apps", "full-stack-platforms", "cloud-devsecops"],
     role: "Cross-Platform Engineer: architecture and every layer from database to UI",
     platform: ["iOS", "Android", "Desktop and mobile web"],
-    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "Redis", "WebSockets", "AWS", "Docker", "SonarQube"],
+    tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "Redis", "WebSockets", "AWS", "Docker", "SonarQube", "Claude Code"],
     challenge:
       "Learning coaches needed one place to connect with each other: messaging, events, groups and shared resources, on whatever device they had, with UNA CMS as the community backend.",
     built: [
@@ -214,6 +218,9 @@ const allProjects: Project[] = [
       { label: "Google Play: Stride Learning for Parents", href: "https://play.google.com/store/apps/details?id=com.k12.parents" },
       { label: "About the Learning Coach Community", href: "https://www.k12.com/learning-coach-life/" },
     ],
+    // Teresa, 2026-11-18: name the AI specifically. The app has no AI features; AI was used to build it.
+    aiUse:
+      "Built with AI assistance: Claude Code (Anthropic), connected over MCP to Jira, Confluence and Figma. Every AI-written change passes SonarQube before commit, tests that fail without the fix and a runtime check, and gets my sign-off before any push.",
     featured: 2,
   },
   // ---------- Glossi ----------
@@ -828,7 +835,9 @@ const allProjects: Project[] = [
     capabilities: ["interactive-experiences"],
     platform: ["iPad", "Live display", "Desktop kiosk (Electron)"],
     role: "Creative Technologist",
-    tech: ["React", "Socket.IO", "Express", "Electron", "ComfyUI", "Stable Diffusion", "ControlNet", "IP-Adapter"],
+    // Teresa, 2026-11-18: "For the Snap project, I used Hugging face and Gemini." The repo (t34Virus/snap) shows the
+    // Hugging Face models: Stable Diffusion 1.5 (Realistic Vision V6.0 checkpoint), IP-Adapter Plus Face and ControlNet.
+    tech: ["React", "Socket.IO", "Express", "Electron", "ComfyUI", "Stable Diffusion 1.5 (Realistic Vision)", "Hugging Face", "ControlNet", "IP-Adapter", "Gemini"],
     built: [
       "An iPad controller and a live display kept in sync over Socket.IO.",
       "The capture flow: shoot, retake, processing and a gallery of results.",
@@ -848,7 +857,7 @@ const allProjects: Project[] = [
       {
         part: "Generation",
         detail:
-          "ComfyUI runs a Stable Diffusion workflow on a local NVIDIA GPU, queued over ComfyUI's WebSocket API with the theme the guest picked, such as Action Heroes. ControlNet keeps the guest's pose, IP-Adapter carries the theme's style, a face swap keeps the guest recognizable, and a safety checker filters every result.",
+          "ComfyUI runs a Stable Diffusion 1.5 workflow on a local NVIDIA GPU, with open models from Hugging Face (the Realistic Vision V6.0 checkpoint, ControlNet and IP-Adapter Plus Face), queued over ComfyUI's WebSocket API with the theme the guest picked, such as Action Heroes. ControlNet keeps the guest's pose, IP-Adapter carries the theme's style, a face swap keeps the guest recognizable, and a safety checker filters every result.",
       },
       {
         part: "Results everywhere at once",
