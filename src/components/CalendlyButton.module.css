@@ -5,16 +5,13 @@
   position: fixed; z-index: 40;
   right: max(clamp(12px, 2vw, 24px), env(safe-area-inset-right));
   bottom: max(clamp(12px, 2vw, 24px), env(safe-area-inset-bottom));
-  display: grid; justify-items: center; gap: 2px;
-  padding: 10px 22px; border-radius: 999px;
-  text-decoration: none; line-height: 1.2;
+  padding: 14px 24px; border-radius: 999px;
+  font-family: var(--mono); font-size: 0.9rem; letter-spacing: 0.02em; line-height: 1.2;
+  text-decoration: none;
   box-shadow: 0 6px 24px rgb(0 0 0 / 0.45);
 }
-.label { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-.brand { font-size: 0.68rem; opacity: 0.75; }
 
 @media (max-width: 640px) {
-  .badge { padding: 8px 18px; }
-  .label { font-size: 0.72rem; }
+  .badge { padding: 12px 20px; font-size: 0.82rem; }
 }
 @media print { .badge { display: none; } }

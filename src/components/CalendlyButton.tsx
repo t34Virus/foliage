@@ -8,7 +8,7 @@ import styles from "./CalendlyButton.module.css";
 // real link that opens the same popup through Calendly's popup API. Calendly's script and stylesheet
 // load the first time someone points at, focuses or taps the link, so pages make no Calendly requests
 // until then. Without JavaScript, the link simply opens the scheduler in a new tab.
-const SCHEDULER = "https://calendly.com/treindle/aloha";
+const SCHEDULER = "https://calendly.com/alohateresa/aloha";
 const ASSETS = "https://assets.calendly.com/assets/external/widget";
 
 type Calendly = { initPopupWidget: (options: { url: string }) => void };
@@ -59,8 +59,7 @@ export default function CalendlyButton() {
       onPointerEnter={preload}
       onFocus={preload}
     >
-      <span className={styles.label}>Schedule time with me</span>
-      <span className={styles.brand}>powered by Calendly</span>
+      Schedule time with me
     </a>
   );
 }
