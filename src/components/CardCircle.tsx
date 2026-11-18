@@ -127,7 +127,8 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
         height: area.height,
         "--vid-w": `${fitHeight ? area.height * aspect : area.width}px`,
         "--vid-h": `${fitHeight ? area.height : area.width / aspect}px`,
-        "--title-inset": `${exitLeft - left + (wide ? 48 + 16 : 44 + 10)}px`, // button width plus a gap
+        // The back button's width plus a gap. It's always rendered (just hidden), so it can be measured.
+        "--title-inset": `${exitLeft - left + (exitButton.current?.offsetWidth ?? 48) + (wide ? 16 : 10)}px`,
       } as CSSProperties,
       exit: { top: top + 12, left: exitLeft },
     };
@@ -175,13 +176,15 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
     setScaled(i);
   };
 
-  // Center the back button on the title band. The band's height depends on how the title wraps, so
-  // it's measured once the stage is laid out (at its final size; the flight only transforms it).
+  // Line the back button up with the top of the title: centered on its first line. Measured once the
+  // stage is laid out (at its final size; the flight only transforms it).
   useLayoutEffect(() => {
     const text = stageText.current;
+    const name = text?.firstElementChild as HTMLElement | null;
     const button = exitButton.current;
-    if (!geometry || !text || !button) return;
-    button.style.top = `${Number(geometry.stage.top) + text.offsetTop + (text.offsetHeight - button.offsetHeight) / 2}px`;
+    if (!geometry || !text || !name || !button) return;
+    const line = parseFloat(getComputedStyle(name).lineHeight);
+    button.style.top = `${Number(geometry.stage.top) + text.offsetTop + name.offsetTop + (line - button.offsetHeight) / 2}px`;
   }, [geometry]);
 
   // Fly out as soon as the stage mounts, before the first paint, so it starts on top of the card.
@@ -389,6 +392,7 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
         <svg viewBox={`0 0 ${chevronW} ${chevronH}`} aria-hidden="true" focusable="false">
           <path fill="currentColor" d={String(chevronPath)} />
         </svg>
+        <span className={styles.exitLabel}>Back</span>
       </button>
     </section>
   );
