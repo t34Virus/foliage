@@ -1,24 +1,25 @@
 /* Ported from the original card.component.scss and landing-page.component.scss (tag v1-angular).
    The original stage was 100vw x 80vh (about 2:1) with font-size 1vw. Here that stage is the
-   .canvas: 2:1, twice as wide as the hero's right column and centered on it, with cq units in
+   .canvas: 2:1, twice as wide as the hero's ring column and centered on it, with cq units in
    place of vw, so the ring keeps its exact proportions at any size. */
 
 .hero { position: relative; overflow-x: clip; }
 .grid {
-  display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(24px, 4vw, 64px);
+  display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; /* ring, then intro */ gap: clamp(24px, 4vw, 64px);
   min-height: min(calc(100svh - 64px), 760px); padding-top: 32px; padding-bottom: 32px;
 }
 .copy { display: grid; gap: 20px; }
 @media (max-width: 860px) {
-  .grid { grid-template-columns: 1fr; min-height: auto; padding-top: 40px; }
+  .grid { grid-template-columns: 1fr; min-height: auto; padding-top: 40px; row-gap: 56px; } /* the ring's note, then the intro */
 }
 
 /* The ring's column holds three rows that never touch: the prompt, the ring, the note. At the
    wave's peak the top card reaches 5% of the ring's width above the ring's box (cards stay inside
-   it at the bottom), so the ring keeps that much room above it, plus a gap. Percentage margins are
-   fractions of the column's width, so this holds at every size. */
-.ringColumn { display: grid; justify-items: center; text-align: center; font-family: monospace; /* the original site's font */ }
-.ring { position: relative; width: 100%; aspect-ratio: 1; margin: calc(5% + 12px) 0 12px; }
+   it at the bottom), so the ring keeps that much room above it, plus a gap. The room is in cqw
+   (the column is a size container), so it scales with the column. A percentage margin would scale
+   too, but browsers leave it out when sizing the column, and the note then spills past the end. */
+.ringColumn { container-type: inline-size; display: grid; justify-items: center; text-align: center; font-family: monospace; /* the original site's font */ }
+.ring { position: relative; width: 100%; aspect-ratio: 1; margin: calc(5cqw + 12px) 0 12px; }
 .note { margin: 0; max-width: 46ch; font-family: var(--mono); font-size: 0.68rem; line-height: 1.6; color: var(--muted); }
 
 .canvas {

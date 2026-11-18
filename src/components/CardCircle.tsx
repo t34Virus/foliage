@@ -14,7 +14,8 @@ import styles from "./CardCircle.module.css";
 // - hovering a card pauses the wave, plays its demo inside it and shows "Client | Title" in the center
 // - clicking flies the card out to fill the stage with its demo glowing; a second click opens the
 //   case study; the back button flies it home
-// The ring runs in the original 2:1 stage proportions (the canvas), scaled to the hero's right column.
+// The ring runs in the original 2:1 stage proportions (the canvas), scaled to the hero's ring column
+// (left on wide screens, above the intro on phones).
 //
 // The fly-out was reworked on 2026-11-16 because resizing the card felt slow and clunky. Now a
 // separate stage is laid out at its final size (the whole hero on wide screens, the ring column on
@@ -270,9 +271,9 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
   return (
     <section ref={hero} className={styles.hero}>
       <div className={`wrap ${styles.grid}`}>
-        <div className={styles.copy}>{children}</div>
-
-        {/* Three rows that never touch: the prompt, the ring, then the note. */}
+        {/* The ring leads the landing page (Teresa, 2026-11-18): first on the left, above the intro on
+            phones, and first in the page order too, so keyboards and screen readers meet it first.
+            Three rows that never touch: the prompt, the ring, then the note. */}
         <div className={styles.ringColumn}>
           {/* Hidden, not removed, once a card is picked, so the ring doesn't jump mid-flight. */}
           <p className={`${styles.cta} ${ctaHidden ? styles.ctaHidden : ""}`}>
@@ -321,6 +322,8 @@ export default function CardCircle({ projects, children, note }: Readonly<{ proj
           </div>
           {note && <p className={styles.note}>{note}</p>}
         </div>
+
+        <div className={styles.copy}>{children}</div>
       </div>
 
       {active && geometry && (
