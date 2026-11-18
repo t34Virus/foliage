@@ -45,7 +45,7 @@ export default function HeroMedia({
         return (
           <iframe
             ref={focusOnMount}
-            src={`https://www.youtube-nocookie.com/embed/${source.id}?rel=0&autoplay=1`}
+            src={`https://www.youtube-nocookie.com/embed/${source.id}?rel=0&autoplay=1&enablejsapi=1`} // enablejsapi: so it can be paused when scrolled away
             title={title}
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
             allowFullScreen

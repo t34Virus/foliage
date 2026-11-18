@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import BrandText from "@/components/BrandText";
 import Gallery from "@/components/Gallery";
 import HeroMedia, { type HeroSource } from "@/components/HeroMedia";
+import PauseWhenHidden from "@/components/PauseWhenHidden";
 import { capabilityBySlug } from "@/content/capabilities";
 import { projectBySlug, projects } from "@/content/projects";
 import { asset } from "@/lib/asset";
@@ -44,7 +45,8 @@ function Hero({ project }: { project: NonNullable<ReturnType<typeof projectBySlu
           : null;
   if (poster) {
     return (
-      <div
+      // Pauses the player once it's scrolled mostly out of view.
+      <PauseWhenHidden
         className={`${styles.frame} ${portrait ? styles.portraitFrame : ""}`}
         style={portrait ? ({ "--video-aspect": videoAspect } as CSSProperties) : undefined}
       >
@@ -59,7 +61,7 @@ function Hero({ project }: { project: NonNullable<ReturnType<typeof projectBySlu
           // eslint-disable-next-line @next/next/no-img-element
           <img src={asset(poster)} alt={name} />
         )}
-      </div>
+      </PauseWhenHidden>
     );
   }
   return (
@@ -188,15 +190,15 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
         <section className={`wrap ${styles.moreVideos}`} aria-label="More video">
           {project.media.moreVideos.map((v) => (
             <figure key={v.youtube}>
-              <div className={styles.frame}>
+              <PauseWhenHidden className={styles.frame}>
                 <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${v.youtube}?rel=0`}
+                  src={`https://www.youtube-nocookie.com/embed/${v.youtube}?rel=0&enablejsapi=1`} // enablejsapi lets PauseWhenHidden pause it
                   title={v.title}
                   allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                   allowFullScreen
                   loading="lazy"
                 />
-              </div>
+              </PauseWhenHidden>
               <figcaption>{v.title}</figcaption>
             </figure>
           ))}
