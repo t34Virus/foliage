@@ -321,8 +321,9 @@ const allProjects: Project[] = [
     client: "IBM Security",
     title: "Sounds of Security",
     madeAt: "Spinifex Group",
+    // Teresa, 2026-11-19: "the Sounds of Security was attached to hardware as well". She didn't name the hardware.
     summary:
-      "An interactive audio experience presenting cybersecurity strategy as a composition: expertise, services and technology in harmony.",
+      "An interactive audio installation, connected to physical hardware, presenting cybersecurity strategy as a composition: expertise, services and technology in harmony.",
     capabilities: ["interactive-experiences", "engineering-leadership"],
     role: "Software Development Lead",
     tech: ["Angular", "Kubernetes", "Python (Django)", "WebGL"],
@@ -512,7 +513,8 @@ const allProjects: Project[] = [
       "HARMAN's automotive showcase at CES 2020, built with George P. Johnson: a physical and digital experience for its in-car audio and digital cockpit technology, with a LinkedIn Live broadcast straight from the story space.",
     capabilities: ["interactive-experiences", "engineering-leadership"],
     role: "Software Development Lead",
-    tech: ["Unity", "JavaScript"], // Unity with a web layer on top (Teresa, 2026-11-17)
+    // Unity with a web layer on top (Teresa, 2026-11-17); MQTT ("I used MQTT for the Harman project", 2026-11-19)
+    tech: ["Unity", "JavaScript", "MQTT"],
     challenge:
       "Create a CES experience that grabbed attendees' attention and imagination in person, and use the event space as a studio to test reaching a virtual audience.",
     results: ["The LinkedIn Live session from the physical story space reached 14,563 unique viewers."],
