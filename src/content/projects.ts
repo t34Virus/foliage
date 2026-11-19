@@ -36,6 +36,9 @@ export type Project = {
     moreVideos?: { youtube: string; title: string }[]; // more public YouTube videos, embedded under the story
     video?: string; // self-hosted clip when there's no public Vimeo
     images?: (string | MediaClip)[]; // the gallery, in order: stills, or clips that play on hover
+    // Gallery columns on wider screens, e.g. "1.78fr 0.55fr" (each photo's width / height) so a landscape and a
+    // portrait photo share one row height. Without it, a lone portrait photo fills the page width and gets very tall.
+    galleryColumns?: string;
   };
   links?: { label: string; href: string }[];
   featured?: number; // order on the home page
@@ -910,7 +913,6 @@ const allProjects: Project[] = [
 
   // Teresa, 2026-11-17: her talk at EXCITE Camp on Oahu (MEDB's Women in Technology day camp for 7th and
   // 8th grade girls). Quote from the camp's post, with "tells" corrected to "tell" and light punctuation.
-  // The group photo was sharpened with Real-ESRGAN (75% upscaled, 25% original) at her request.
   {
     slug: "excite-camp-oahu-talk",
     client: "EXCITE Camp, Oahu",
@@ -935,12 +937,21 @@ const allProjects: Project[] = [
         href: "https://www.facebook.com/WITHawaii/posts/pfbid021g6VRrkpzYMgFHg2RA554W6bCkodwHeGzsFrV6AiMR3iaDR7Rk8JX9gw8FrGayP7l",
       },
     ],
+    // Teresa, 2026-11-18: no AI note for the camper photo's Gemini sharpening ("You don't need to add that").
     media: {
+      // Teresa, 2026-11-18: the group photo is the main image ("They're grown now, in college"). Facebook's 960x540
+      // copy, unedited, used as the poster and first in the gallery. No names show (the one badge in frame is cut off).
       poster: "/media/posters/excite-camp-oahu.jpg",
-      // Teresa, 2026-11-17: the group photo is out. The talk photo is the original, resized 2x (Lanczos) with a light
-      // unsharp mask. No AI upscaling: she could tell the Real-ESRGAN version was altered. The poster is a 16:9 crop
-      // with her whole head in frame, so the hero and the card are edge to edge.
-      images: ["/media/images/excite-camp-oahu-1.jpg"],
+      images: [
+        "/media/images/excite-camp-oahu-group.jpg",
+        // Her Gemini-sharpened version of image0.jpeg. Gemini invented badge text (a "Sports Comp" logo and a camper's
+        // full name); the real badge is blank, so that text was removed with classic inpainting (OpenCV Telea).
+        "/media/images/excite-camp-oahu-camper.jpg",
+        // No AI: she turned down both a Real-ESRGAN upscale and a Gemini edit of this one. Her original, white balanced
+        // to match her skin and shirt in a clear photo from that day, JPEG noise reduced, 2x Lanczos, edge-only sharpening.
+        "/media/images/excite-camp-oahu-1.jpg",
+      ],
+      galleryColumns: "1.778fr 0.747fr 0.55fr", // each photo's width / height, so all three share one row height
     },
   },
 

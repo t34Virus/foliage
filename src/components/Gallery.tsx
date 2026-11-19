@@ -13,7 +13,7 @@ import {
   faPlay,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import Icon from "./Icon";
 import styles from "./Gallery.module.css";
 
@@ -32,7 +32,9 @@ const startPreview = (tile: HTMLElement) => {
 };
 const stopPreview = (tile: HTMLElement) => tile.querySelector("video")?.pause();
 
-export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
+// columns: optional grid columns for wider screens (e.g. "1.78fr 0.55fr", each photo's width / height) so
+// photos of different shapes share one row height instead of a tall photo filling the page.
+export default function Gallery({ items, columns }: Readonly<{ items: GalleryItem[]; columns?: string }>) {
   const dialog = useRef<HTMLDialogElement>(null);
   const grid = useRef<HTMLUListElement>(null);
   const touchX = useRef<number | null>(null);
@@ -82,7 +84,11 @@ export default function Gallery({ items }: Readonly<{ items: GalleryItem[] }>) {
 
   return (
     <>
-      <ul ref={grid} className={styles.grid}>
+      <ul
+        ref={grid}
+        className={`${styles.grid} ${columns ? styles.custom : ""}`}
+        style={columns ? ({ "--cols": columns } as CSSProperties) : undefined}
+      >
         {items.map((it, i) => (
           <li key={it.src}>
             <button

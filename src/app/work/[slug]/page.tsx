@@ -207,7 +207,7 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
 
       {gallery.length > 0 && (
         <div className={`wrap ${styles.gallery}`}>
-          <Gallery items={gallery} />
+          <Gallery items={gallery} columns={project.media.galleryColumns} />
         </div>
       )}
 
