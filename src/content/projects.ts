@@ -143,7 +143,8 @@ const allProjects: Project[] = [
     madeAt: "Tilted Windmill Agency",
     summary:
       "Stride's Learning Coach Community for K12 families: native iOS and Android apps and a full website from one codebase, where learning coaches message, meet and share resources.",
-    capabilities: ["cross-platform-apps", "full-stack-platforms", "cloud-devsecops"],
+    // generative-ai added at her request, 2026-11-18: an AI case study for AI-native engineering (built with Claude Code).
+    capabilities: ["cross-platform-apps", "full-stack-platforms", "cloud-devsecops", "generative-ai"],
     role: "Cross-Platform Engineer: architecture and every layer from database to UI",
     platform: ["iOS", "Android", "Desktop and mobile web"],
     tech: ["React Native", "React Native for Web", "Expo", "TypeScript", "Laravel", "PHP", "UNA CMS", "MySQL", "PostgreSQL", "Redis", "WebSockets", "AWS", "Docker", "SonarQube", "Claude Code"],
